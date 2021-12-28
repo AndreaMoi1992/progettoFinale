@@ -11,6 +11,10 @@
   background-repeat: no-repeat;
 }
 
+td {
+  padding:5px;
+  text-align:center;
+}
 
 @media (max-width: 1200px){
   .film {
