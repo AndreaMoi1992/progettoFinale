@@ -35,9 +35,9 @@ export class MovieParseDatabaseComponent implements OnInit {
 
     // Se si cambia l'API si deve togliere il commento
 
-    this.addFilmDatabase();
+    //this.addFilmDatabase();
 
-    //this.generateFilms();
+    this.generateFilms();
 
   }
 

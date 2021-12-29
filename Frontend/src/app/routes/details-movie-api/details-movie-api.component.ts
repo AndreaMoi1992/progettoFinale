@@ -5,6 +5,9 @@ import { MovieData } from 'src/app/models/data.model';
 import { MovieApiInterface, ResultInterface } from 'src/app/models/apiMovie.model';
 import { ApiService } from 'src/app/services/api.service';
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
+import { NgForm } from '@angular/forms';
+import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
+import { commentDotnetData } from 'src/app/models/dotnetData.model';
 
 @Component({
   selector: 'app-details-movie-api',
@@ -14,11 +17,13 @@ import { MoviesApiService } from 'src/app/services/moviesapi.service';
 export class DetailsMovieApiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private router : Router) { }
+    private dotnetService: DotnetServiceService, private router : Router) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: ResultInterface;
   moviesdetails: ResultInterface;
+  dotnetData: commentDotnetData;
+
 
   filmPath : string = "https://image.tmdb.org/t/p/w500";
   filmPathHTML :string;
@@ -26,9 +31,22 @@ export class DetailsMovieApiComponent implements OnInit {
   idpath: number;
   ratedOption : string;
 
+  datiForm: any;
+  commento: string;
+
+  moviesDataLoader=false;
+
+
+  public visualizzaCommento: boolean =false;
+  public visualizzaCondizione: boolean =false;
+
+
   ngOnInit(): void {
     this.idpath = this.route.snapshot.params['id'];
     this.fetchEntry()
+    this.visualizzaCommento=false;
+    this.visualizzaCondizione=false;
+    this.moviesDataLoader=true;
 
   }
 
@@ -41,26 +59,10 @@ export class DetailsMovieApiComponent implements OnInit {
         if(this.idpath==this.dataMovieEntry[i].id){
           this.moviesdetails=this.dataMovieEntry[i];
           this.filmPathHTML=this.filmPath.concat(this.moviesdetails.backdrop_path);
-
-
         }
       }
 
-      console.log(this.dataApiEntry);
-      console.log(this.dataMovieEntry);
-      console.log(this.moviesdetails);
-      console.log(this.filmPathHTML);
-
     })
-
-
-
-
-
-
-
-
-
   }
 
   delete(){
@@ -72,7 +74,50 @@ export class DetailsMovieApiComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     });
   }
+
+  changeStatus(){
+
+    this.visualizzaCommento=!this.visualizzaCommento;
+
+  }
+
+  onSubmit(form : NgForm){
+
+    this.dotnetData ={id:1, userId:12, movieId:13,  body:""}
+
+    this.commento=form.form.value.commento;
+
+    if(this.commento.length<20){
+      this.visualizzaCondizione=true;
+    }
+    else{
+
+      this.visualizzaCondizione=false;
+
+      this.dotnetData.movieId=this.moviesdetails.id;
+
+      this.dotnetData.userId=666;
+      this.dotnetData.body=this.commento;
+
+
+      this.dotnetService.addDotnetEntry(this.dotnetData).subscribe(response => {
+        
+        window.location.reload();
+
+      },
+      (err) => {
+        //fai qualcosa
+      }
+      )
+
+
+    }
+
+
+  }
 }
+
+
 
 
 
