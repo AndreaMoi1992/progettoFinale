@@ -22,6 +22,9 @@ export class MoviesParseComponent implements OnInit {
   film1Path : string;
   film2Path : string;
 
+  titoloFilm1: string;
+  titoloFilm2: string;
+
 
 
 
@@ -60,7 +63,8 @@ export class MoviesParseComponent implements OnInit {
       for(let i=0;i<counter;i++){
         if(idFilm1 == i){
           this.film1 = this.resultsApi[i];
-          this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path)
+          this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+          this.titoloFilm1 = this.film1.title;
         }
       }
 
@@ -76,7 +80,8 @@ export class MoviesParseComponent implements OnInit {
       for(let i=0;i<counter;i++){
         if(idFilm2 == i){
           this.film2 = this.resultsApi[i];
-          this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path)
+          this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+          this.titoloFilm2 = this.film2.title;
         }
       }
     },

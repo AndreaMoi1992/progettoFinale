@@ -30,3 +30,37 @@
     height: 90px;
   }
 }
+
+#bottone_voto {
+  margin: 0px 0px 0px 0px;
+}
+
+
+#box_film {
+  text-align:center;
+
+}
+
+#box_principale {
+
+  background:#16151a;
+  text-align:center;
+
+}
+
+#immagini_film {
+  text-align:center;
+  margin: -2% -10% 0% -8%;
+
+}
+
+table#table1 {
+  width:80%;
+  margin-left:15%;
+  margin-right:15%;
+}
+
+#tabella {
+  text-align:center;
+
+}

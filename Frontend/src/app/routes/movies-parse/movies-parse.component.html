@@ -1,26 +1,51 @@
-<div class="container box-pages p-5" *ngIf="moviesDataLoader && (authService.isLoggedIn$ | async)">
+<div *ngIf="moviesDataLoader && (authService.isLoggedIn$ | async)">
+
+  <div class="container box-pages p-3">
+    <div class="text-center">
+      <h2 class="font-weight-bold">Vota il film</h2>
+
+    </div>
 
 
+  </div>
 
-  <table class="welcometable">
-    <tr >
-
-        <td>
-          <div class="film" style="background-image: url({{film1Path}})"></div>
-          <br>
-          <button class="btn btn-primary mr-5" [routerLink]="['/dashboard']">Back</button>
-        </td>
+  <div id="box_principale" class="container box-pages p-5" >
 
 
-        <td >
-          <div class="film" style="background-image: url({{film2Path}})"></div>
-          <button class="btn btn-primary mr-5" [routerLink]="['/dashboard']">Back</button>
-        </td>
+    <table class="welcometable" class="text-center">
 
 
-    </tr>
-  </table>
+      <tr>
+        <div id="immagini_film">
+          <td>
+            <div id="box_film" class="container box-pages p-5">
+              <div class="film" style="background-image: url({{film1Path}})"></div>
+              <div class="col text-center">
+                <button class="btn btn-primary mr-5" [routerLink]="['/dashboard']"><h4>{{titoloFilm1}}</h4></button>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <div id="box_film" class="container box-pages p-5">
+              <div class="film" style="background-image: url({{film2Path}})"></div>
+
+              <div class="col text-center">
+                <button class="btn btn-primary mr-5" [routerLink]="['/dashboard']"><h4>{{titoloFilm2}}</h4></button>
+              </div>
+            </div>
+
+          </td>
+
+
+        </div>
+
+      </tr>
+    </table>
+
+  </div>
+
+
 
 </div>
-
 <app-mustbelogged></app-mustbelogged>

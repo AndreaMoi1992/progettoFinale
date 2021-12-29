@@ -20,6 +20,7 @@ export class MovieParseDatabaseComponent implements OnInit {
   movies : MovieApiInterface;
   resultsApi : ResultInterface;
   movieDatabase : MovieDatabaseInterface;
+  verificaDatabase: Array<MovieDatabaseInterface>;
 
   displayMovies : MovieDatabaseInterface [];
 
@@ -29,13 +30,14 @@ export class MovieParseDatabaseComponent implements OnInit {
   film1Path : string;
   film2Path : string;
 
+  titoloFilm1: string;
+  titoloFilm2: string;
+
   constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService, private router : Router) { }
 
   ngOnInit(): void {
 
-    // Se si cambia l'API si deve togliere il commento
-
-    //this.addFilmDatabase();
+    this.inserimentoDatabase();
 
     this.generateFilms();
 
@@ -58,6 +60,7 @@ export class MovieParseDatabaseComponent implements OnInit {
         if(idFilm1 == i){
           this.film1 = this.displayMovies[i];
           this.film1Path =this.displayMovies[i].image_path;
+          this.titoloFilm1=this.film1.title;
         }
       }
 
@@ -75,7 +78,8 @@ export class MovieParseDatabaseComponent implements OnInit {
       for(let i=0;i<grandezza;i++){
         if(idFilm2 == i){
           this.film2 = this.displayMovies[i];
-          this.film2Path =this.displayMovies[i].image_path
+          this.film2Path =this.displayMovies[i].image_path;
+          this.titoloFilm2=this.film2.title;
         }
       }
     })
@@ -113,6 +117,21 @@ export class MovieParseDatabaseComponent implements OnInit {
         )
       }
     })
+  }
+
+  inserimentoDatabase(){
+    this.moviesDatabaseService.getMovieDatabaseData().subscribe( (response : any) => {
+      this.verificaDatabase = response;
+      console.log(this.verificaDatabase);
+      console.log(this.verificaDatabase.length);
+
+      if(this.verificaDatabase.length==0){
+        this.addFilmDatabase();
+        window.location.reload();
+      }
+
+    })
+
   }
 }
 
