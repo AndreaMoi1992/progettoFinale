@@ -78,6 +78,7 @@ export class DetailsMovieApiComponent implements OnInit {
   changeStatus(){
 
     this.visualizzaCommento=!this.visualizzaCommento;
+    this.visualizzaCondizione=false;
 
   }
 
@@ -101,7 +102,7 @@ export class DetailsMovieApiComponent implements OnInit {
 
 
       this.dotnetService.addDotnetEntry(this.dotnetData).subscribe(response => {
-        
+
         window.location.reload();
 
       },
