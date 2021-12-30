@@ -33,6 +33,10 @@ export class MovieParseDatabaseComponent implements OnInit {
   titoloFilm1: string;
   titoloFilm2: string;
 
+  counter: number = 0;
+  idFilm1: number;
+  idFilm2: number;
+
   constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService, private router : Router) { }
 
   ngOnInit(): void {
@@ -45,19 +49,18 @@ export class MovieParseDatabaseComponent implements OnInit {
 
   generateFilms(){
 
-    var counter = 0;
-    var idFilm1;
-    var idFilm2;
+
 
     this.moviesDatabaseService.getMovieDatabaseData().subscribe(response =>{
       this.moviesDataLoader=true;
       this.displayMovies=response;
 
       let grandezza= this.displayMovies.length;
-      idFilm1 = Math.floor(Math.random() * grandezza) + 0 ;
+
+      this.idFilm1 = Math.floor(Math.random() * grandezza) + 0 ;
 
       for(let i=0;i<grandezza;i++){
-        if(idFilm1 == i){
+        if(this.idFilm1 == i){
           this.film1 = this.displayMovies[i];
           this.film1Path =this.displayMovies[i].image_path;
           this.titoloFilm1=this.film1.title;
@@ -67,16 +70,16 @@ export class MovieParseDatabaseComponent implements OnInit {
       console.log(this.film1Path);
       console.log(this.film1);
 
-      idFilm2 = Math.floor(Math.random() * grandezza) + 0 ;
+      this.idFilm2 = Math.floor(Math.random() * grandezza) + 0 ;
 
-      if(idFilm1 == idFilm2 && idFilm1 != counter){
-        idFilm2++;
-      }else if(idFilm1 == grandezza){
-        idFilm2--;
+      if(this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter){
+        this.idFilm2++;
+      }else if(this.idFilm1 == grandezza){
+        this.idFilm2--;
       }
 
       for(let i=0;i<grandezza;i++){
-        if(idFilm2 == i){
+        if(this.idFilm2 == i){
           this.film2 = this.displayMovies[i];
           this.film2Path =this.displayMovies[i].image_path;
           this.titoloFilm2=this.film2.title;
@@ -131,7 +134,46 @@ export class MovieParseDatabaseComponent implements OnInit {
       }
 
     })
-
   }
+
+  onClickFilm1(){
+
+    let grandezza= this.displayMovies.length;
+    this.idFilm2 = Math.floor(Math.random() * grandezza) + 0 ;
+    if(this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza){
+      this.idFilm2++;
+    }else if(this.idFilm1 == grandezza){
+      this.idFilm2--;
+    }
+
+    for(let i=0;i<grandezza;i++){
+      if(this.idFilm2 == i){
+        this.film2 = this.displayMovies[i];
+        this.film2Path =this.displayMovies[i].image_path;
+        this.titoloFilm2=this.film2.title;
+      }
+    }
+    //Aggiungi votazione al db
+  }
+
+  onClickFilm2(){
+    let grandezza= this.displayMovies.length;
+    this.idFilm1 = Math.floor(Math.random() * grandezza) + 0 ;
+    if(this.idFilm2 == this.idFilm1 && this.idFilm2 != grandezza){
+      this.idFilm1++;
+    }else if(this.idFilm1 == grandezza){
+      this.idFilm1--;
+    }
+    for(let i=0;i<grandezza;i++){
+      if(this.idFilm1 == i){
+        this.film1 = this.displayMovies[i];
+        this.film1Path =this.displayMovies[i].image_path;
+        this.titoloFilm1=this.film1.title;
+      }
+    }
+
+    //Aggiungi votazione al db
+  }
+
 }
 

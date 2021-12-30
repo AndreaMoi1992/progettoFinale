@@ -94,7 +94,6 @@ export class MoviesParseComponent implements OnInit {
     }else if(this.idFilm1 == this.counter){
       this.idFilm2--;
     }
-    console.log(this.movies);
     for(let i=0;i<this.counter;i++){
       if(this.idFilm2 == i){
         this.film2 = this.resultsApi[i];
@@ -102,17 +101,18 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm2 = this.film2.title;
       }
     }
+
+    //Aggiungi votazione al db
   }
   onClickFilm2(){
 
     this.idFilm1 = Math.floor(Math.random() * this.counter) + 0 ;
 
-    if(this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter){
-      this.idFilm2++;
+    if(this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter){
+      this.idFilm1++;
     }else if(this.idFilm1 == this.counter){
-      this.idFilm2--;
+      this.idFilm1--;
     }
-    console.log(this.movies);
     for(let i=0;i<this.counter;i++){
       if(this.idFilm1 == i){
         this.film1 = this.resultsApi[i];
@@ -120,6 +120,8 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm1 = this.film1.title;
       }
     }
+
+    //Aggiungi votazione al db
   }
 
 
