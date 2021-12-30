@@ -25,11 +25,9 @@ export class MoviesParseComponent implements OnInit {
   titoloFilm1: string;
   titoloFilm2: string;
 
-
-
-
-
-
+  counter: number = 0;
+  idFilm1: number;
+  idFilm2: number;
 
   constructor(public authService: AuthService,private moviesApi: MoviesApiService, private router : Router) { }
 
@@ -41,10 +39,6 @@ export class MoviesParseComponent implements OnInit {
 
   generateFilms(){
 
-    var counter = 0;
-    var idFilm1;
-    var idFilm2;
-
 
     this.moviesApi.getMarvelList().subscribe(response => {
       this.moviesDataLoader=true;
@@ -55,30 +49,30 @@ export class MoviesParseComponent implements OnInit {
 
       //Conta dei film all'interno dell'array
       for(let i in this.resultsApi){
-        counter++;
+        this.counter++;
       }
 
-      idFilm1 = Math.floor(Math.random() * counter) + 0 ;
+      this.idFilm1 = Math.floor(Math.random() * this.counter) + 0 ;
 
-      for(let i=0;i<counter;i++){
-        if(idFilm1 == i){
+      for(let i=0;i<this.counter;i++){
+        if(this.idFilm1 == i){
           this.film1 = this.resultsApi[i];
           this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
           this.titoloFilm1 = this.film1.title;
         }
       }
 
-      idFilm2 = Math.floor(Math.random() * counter) + 0 ;
+      this.idFilm2 = Math.floor(Math.random() * this.counter) + 0 ;
 
-      if(idFilm1 == idFilm2 && idFilm1 != counter){
-        idFilm2++;
-      }else if(idFilm1 == counter){
-        idFilm2--;
+      if(this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter){
+        this.idFilm2++;
+      }else if(this.idFilm1 == this.counter){
+        this.idFilm2--;
       }
       console.log(this.movies);
 
-      for(let i=0;i<counter;i++){
-        if(idFilm2 == i){
+      for(let i=0;i<this.counter;i++){
+        if(this.idFilm2 == i){
           this.film2 = this.resultsApi[i];
           this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
           this.titoloFilm2 = this.film2.title;
@@ -89,6 +83,45 @@ export class MoviesParseComponent implements OnInit {
     )
 
 
+  }
+
+  onClickFilm1(){
+
+    this.idFilm2 = Math.floor(Math.random() * this.counter) + 0 ;
+
+    if(this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter){
+      this.idFilm2++;
+    }else if(this.idFilm1 == this.counter){
+      this.idFilm2--;
+    }
+    for(let i=0;i<this.counter;i++){
+      if(this.idFilm2 == i){
+        this.film2 = this.resultsApi[i];
+        this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+        this.titoloFilm2 = this.film2.title;
+      }
+    }
+
+    //Aggiungi votazione al db
+  }
+  onClickFilm2(){
+
+    this.idFilm1 = Math.floor(Math.random() * this.counter) + 0 ;
+
+    if(this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter){
+      this.idFilm1++;
+    }else if(this.idFilm1 == this.counter){
+      this.idFilm1--;
+    }
+    for(let i=0;i<this.counter;i++){
+      if(this.idFilm1 == i){
+        this.film1 = this.resultsApi[i];
+        this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+        this.titoloFilm1 = this.film1.title;
+      }
+    }
+
+    //Aggiungi votazione al db
   }
 
 
