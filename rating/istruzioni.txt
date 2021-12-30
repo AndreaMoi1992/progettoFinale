@@ -1,0 +1,12 @@
+Per avviare il programma:
+
+php artisan serve
+
+Per vedere la lista delle routes:
+
+php artisan route:list
+
+La porta è:
+
+localhost:8000
+
