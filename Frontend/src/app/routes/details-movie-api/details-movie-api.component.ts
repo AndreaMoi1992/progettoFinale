@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { MovieData } from 'src/app/models/data.model';
-import { MovieApiInterface, ResultInterface } from 'src/app/models/apiMovie.model';
+import { MovieApiInterface, MovieDatabaseInterface } from 'src/app/models/apiMovie.model';
 import { ApiService } from 'src/app/services/api.service';
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
@@ -20,8 +20,8 @@ export class DetailsMovieApiComponent implements OnInit {
     private dotnetService: DotnetServiceService, private router : Router) { }
 
   dataApiEntry: MovieApiInterface;
-  dataMovieEntry: ResultInterface;
-  moviesdetails: ResultInterface;
+  dataMovieEntry: MovieDatabaseInterface;
+  moviesdetails: MovieDatabaseInterface;
   dotnetData: commentDotnetData;
 
 

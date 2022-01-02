@@ -4,25 +4,10 @@ export interface MovieApiInterface{
     description: string,
     id: number,
     name: string,
-    results: ResultInterface,
+    results: MovieDatabaseInterface,
 }
-export interface ResultInterface{
-    adult: boolean,
-    backdrop_path: string,
-    id: number,
-    media_type: string,
-    original_language: string,
-    overview: string,
-    popularity: number,
-    release_date: string,
-    title: string,
-    video: boolean,
-
-}
-
 export interface MovieDatabaseInterface{
   id: number,
-  
   backdrop_path: string,
   idmovie: number,
   media_type: string,
