@@ -21,8 +21,8 @@ export interface ResultInterface{
 }
 
 export interface MovieDatabaseInterface{
+
   id: number,
-  
   backdrop_path: string,
   idmovie: number,
   media_type: string,
