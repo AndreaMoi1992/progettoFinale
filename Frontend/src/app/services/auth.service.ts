@@ -11,6 +11,8 @@ export class AuthService {
 
   public isLoggedIn$: BehaviorSubject<boolean>;
   public userLogged$: string;
+  public userLoggedId$: string;
+  public userId : number;
 
   usernameInput: string;
   passwordInput: string;
@@ -38,6 +40,8 @@ export class AuthService {
     this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
     const LoggedUser = localStorage.getItem('loggedUser');
     this.userLogged$ = LoggedUser;
+    const UserId = localStorage.getItem('customer_id');
+    this.userLoggedId$ = UserId;
 
   }
 
@@ -48,6 +52,17 @@ export class AuthService {
 
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('loggedUser', this.usernameInput);
+        if(this.usernameInput == "pippo"){
+          localStorage.setItem('customer_id', '2');
+        }else{
+          localStorage.setItem('customer_id', '1');
+        }
+
+
+
+        var userIdString = localStorage.getItem("customer_id"); ///Get value as string
+        this.userId = parseInt(userIdString)//Returns userId in number
+
         this.isLoggedIn$.next(true);
         this.router.navigate(['/dashboard']);
 
