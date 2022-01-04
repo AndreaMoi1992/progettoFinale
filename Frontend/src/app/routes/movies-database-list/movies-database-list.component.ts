@@ -1,9 +1,8 @@
 import { MovieDatabaseInterface } from './../../models/apiMovie.model';
-import { MoviesApiService } from './../../services/moviesapi.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
-import { MovieDatabaseServiceService } from 'src/app/services/movie-database-service.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-movies-database-list',
@@ -17,9 +16,8 @@ export class MoviesDatabaseListComponent implements OnInit {
   movies : MovieApiInterface;
   resultsApi : MovieDatabaseInterface;
 
-  movieDatabase: Array<MovieDatabaseInterface>;
 
-  constructor( private moviesDatabase: MovieDatabaseServiceService, private router : Router) { }
+  constructor( private moviesDatabase: ApiService, private router : Router) { }
 
   ngOnInit(): void {
 
@@ -29,9 +27,10 @@ export class MoviesDatabaseListComponent implements OnInit {
 
   getMovieListDatabase(){
 
-      this.moviesDatabase.getMovieDatabaseData().subscribe( (response : any) => {
+      this.moviesDatabase.getMovies().subscribe( (response : any) => {
         this.movies = response;
         this.moviesDataLoader=true;
+        this.resultsApi = this.movies.results;
 
       })
 

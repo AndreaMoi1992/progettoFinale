@@ -1,14 +1,10 @@
-
-
 <div class="container box-pages p-5" *ngIf="moviesDataLoader">
   <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Title</th>
-
         <th scope="col">Photos</th>
         <th scope="col">Release Date</th>
-
       </tr>
     </thead>
     <tbody>
@@ -16,8 +12,6 @@
         <th scope="row"> {{entry.title}}</th>
         <td><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
         <td><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></td>
-
-
       </tr>
     </tbody>
   </table>
