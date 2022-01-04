@@ -44,10 +44,13 @@ export class MovieParseDatabaseComponent implements OnInit {
   idFilm1: number;
   idFilm2: number;
 
-
-  constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService,private ratingService: RatingsService) {
+  constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService,private ratingService: RatingsService,private router : Router) {
 
   }
+
+  ricaricaPagina: boolean =false;
+
+
 
   ngOnInit(): void {
 
@@ -105,20 +108,24 @@ export class MovieParseDatabaseComponent implements OnInit {
       this.resultsApi = this.movies.results;
 
       var counter = 0;
-      for(let i in this.movies.results){
+      for(let i in this.resultsApi){
         counter++;
       }
+
 
 
       for(let i=0; i<counter; i++){
         this.imageURL=this.filmPath.concat(this.resultsApi[i].backdrop_path);
         this.movieDatabase=this.resultsApi[i];
+
+        this.movieDatabase.idmovie=this.resultsApi[i].id;
         this.movieDatabase.image_path=this.imageURL;
         this.moviesDatabaseService.addMovieDatabaseEntry(this.movieDatabase).subscribe(response => {
         },
         (err) => {
         })
       }
+      window.location.reload();
     })
   }
 
@@ -129,11 +136,11 @@ export class MovieParseDatabaseComponent implements OnInit {
 
       if(this.verificaDatabase.length==0){
         this.addFilmDatabase();
-        //Togliere la reload per inserire i film per la prima volta nel database
-        window.location.reload();
+        this.ricaricaPagina=true;
       }
-
     })
+
+
   }
 
   onClickFilm1(){

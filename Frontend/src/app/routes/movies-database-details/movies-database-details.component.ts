@@ -3,26 +3,29 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { MovieData } from 'src/app/models/data.model';
-import { MovieApiInterface, MovieDatabaseInterface } from 'src/app/models/apiMovie.model';
+import { MovieApiInterface, MovieDatabaseInterface, ResultInterface } from 'src/app/models/apiMovie.model';
 import { ApiService } from 'src/app/services/api.service';
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
-
+import { MovieDatabaseServiceService } from 'src/app/services/movie-database-service.service';
 
 @Component({
-  selector: 'app-details-movie-api',
-  templateUrl: './details-movie-api.component.html',
-  styleUrls: ['./details-movie-api.component.css']
+  selector: 'app-movies-database-details',
+  templateUrl: './movies-database-details.component.html',
+  styleUrls: ['./movies-database-details.component.css']
 })
-export class DetailsMovieApiComponent implements OnInit {
+export class MoviesDatabaseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private dotnetService: DotnetServiceService, private router : Router) { }
+    private moviesDatabaseService: MovieDatabaseServiceService,private dotnetService: DotnetServiceService, private router : Router) { }
 
   dataApiEntry: MovieApiInterface;
-  dataMovieEntry: MovieDatabaseInterface;
+  dataMovieEntry: ResultInterface;
   moviesdetails: MovieDatabaseInterface;
+
+  moviesDatabase: Array<MovieDatabaseInterface>;
+
   dotnetData: commentDotnetData;
   commentList: Array<commentDotnetData>;
   commentRappresentation: Array<commentDotnetData>;
@@ -58,14 +61,15 @@ export class DetailsMovieApiComponent implements OnInit {
   }
 
   fetchEntry(){
-    this.apiService.getMarvelList().subscribe( (res: any ) => {
-      this.dataApiEntry = res;
-      this.dataMovieEntry = this.dataApiEntry.results;
+    this.moviesDatabaseService.getMovieDatabaseData().subscribe( (res: any ) => {
+      this.moviesDatabase = res;
+      console.log(this.moviesDatabase)
 
-      for(let i in this.dataMovieEntry){
-        if(this.idpath==this.dataMovieEntry[i].id){
-          this.moviesdetails=this.dataMovieEntry[i];
-          this.filmPathHTML=this.filmPath.concat(this.moviesdetails.backdrop_path);
+
+      for(let i in this.moviesDatabase){
+        if(this.idpath==this.moviesDatabase[i].idmovie){
+          this.moviesdetails=this.moviesDatabase[i];
+          this.filmPathHTML=this.moviesdetails.image_path;
         }
       }
 
@@ -92,7 +96,7 @@ export class DetailsMovieApiComponent implements OnInit {
   findComment(){
       this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
         this.commentList = response;
-        
+
         var j=0;
 
         this.commentRappresentation=[];
@@ -128,7 +132,7 @@ export class DetailsMovieApiComponent implements OnInit {
 
       this.visualizzaCondizione=false;
 
-      this.dotnetData.movieId=this.moviesdetails.id;
+      this.dotnetData.movieId=this.moviesdetails.idmovie;
 
       this.dotnetData.userId=666;
       this.dotnetData.body=this.commento;
@@ -149,11 +153,9 @@ export class DetailsMovieApiComponent implements OnInit {
 
 
   }
+
+
 }
-
-
-
-
 
 
 
