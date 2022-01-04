@@ -216,24 +216,24 @@ export class MovieParseDatabaseComponent implements OnInit {
 
   onClickFilm2(){
     // Al click del pulsante del primo film genera un id per il secondo film
-    this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
+    this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
 
     // Se l'id del primo film è uguale all'id del secondo e l'id del primo film è diverso dall'ultimo indice dell'array dei film dell'api
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
+    if (this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter) {
       //Aggiungi 1 all'id del secondo film
-      this.idFilm2++;
+      this.idFilm1++;
       // Invece se l'id del primo film è uguale all'id del secondo e l'id del primo film è uguale all'ultimo indice dell'array dei film dell'api
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
+    } else if (this.idFilm1 == this.idFilm2 && this.idFilm2 == this.counter) {
       //Togli 1 all'id del secondo film
-      this.idFilm2--;
+      this.idFilm1--;
     }
     for (let i = 0; i < this.counter; i++) {
       // Se nell'array dell'api c'è un indice uguale all'id del film generato
-      if (this.idFilm2 == i) {
+      if (this.idFilm1 == i) {
         // film2 è uguale al film in quella posizione
         this.film2 = this.resultsApi[i];
-        this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-        this.titoloFilm2 = this.film2.title;
+        this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+        this.titoloFilm1 = this.film1.title;
       }
     }
 

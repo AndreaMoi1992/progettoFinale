@@ -1,4 +1,4 @@
-import { MovieDatabaseInterface, ResultInterface } from './../../models/apiMovie.model';
+import { MovieDatabaseInterface } from './../../models/apiMovie.model';
 import { MoviesApiService } from './../../services/moviesapi.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +15,7 @@ export class MoviesDatabaseListComponent implements OnInit {
   moviesDataLoader=false;
 
   movies : MovieApiInterface;
-  resultsApi : ResultInterface;
+  resultsApi : MovieDatabaseInterface;
 
   movieDatabase: Array<MovieDatabaseInterface>;
 
@@ -32,7 +32,7 @@ export class MoviesDatabaseListComponent implements OnInit {
       this.moviesDatabase.getMovieDatabaseData().subscribe( (response : any) => {
         this.movies = response;
         this.moviesDataLoader=true;
-        
+
       })
 
   }
