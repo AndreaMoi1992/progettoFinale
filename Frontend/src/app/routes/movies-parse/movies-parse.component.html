@@ -1,51 +1,35 @@
+<app-overlayChoice *ngIf="choice$ ==null && (authService.isLoggedIn$ | async)"></app-overlayChoice>
 <div *ngIf="moviesDataLoader && (authService.isLoggedIn$ | async)">
-
   <div class="container box-pages p-3">
     <div class="text-center">
       <h2 class="font-weight-bold">Vota il film</h2>
-
     </div>
-
-
   </div>
-
   <div id="box_principale" class="container box-pages p-5" >
-
-
     <table class="welcometable" class="text-center">
-
-
       <tr>
         <div id="immagini_film">
           <td>
             <div id="box_film" class="container box-pages p-5">
               <div class="film" style="background-image: url({{film1Path}})"></div>
               <div class="col text-center">
-                <button class="btn btn-primary mr-5" (click)="onClickFilm1()"><h4>{{titoloFilm1}}</h4></button>
+                <button *ngIf="choice$ == 'api'"class="btn btn-primary mr-5" (click)="onClickFilm1()"><h4>{{titoloFilm1}}</h4></button>
+                <button *ngIf="choice$ == 'database'"class="btn btn-primary mr-5" (click)="onClickFilm1Database()"><h4>{{titoloFilm1}}</h4></button>
               </div>
             </div>
           </td>
-
           <td>
             <div id="box_film" class="container box-pages p-5">
               <div class="film" style="background-image: url({{film2Path}})"></div>
-
               <div class="col text-center">
-                <button class="btn btn-primary mr-5" (click)="onClickFilm2()"><h4>{{titoloFilm2}}</h4></button>
+                <button *ngIf="choice$ == 'api'"class="btn btn-primary mr-5" (click)="onClickFilm1()"><h4>{{titoloFilm2}}</h4></button>
+                <button *ngIf="choice$ == 'database'"class="btn btn-primary mr-5" (click)="onClickFilm2Database()"><h4>{{titoloFilm2}}</h4></button>
               </div>
             </div>
-
           </td>
-
-
         </div>
-
       </tr>
     </table>
-
   </div>
-
-
-
 </div>
 <app-mustbelogged></app-mustbelogged>
