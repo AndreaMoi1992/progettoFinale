@@ -24,7 +24,6 @@ export class MoviesapiComponent implements OnInit {
     this.moviesApi.getMarvelList().subscribe(response => {
       this.moviesDataLoader=true;
       this.movies = response;
-      console.log(this.movies)
       this.resultsApi = this.movies.results;
     },
     error => console.log(error)
