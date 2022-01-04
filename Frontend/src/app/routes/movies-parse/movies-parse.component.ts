@@ -54,8 +54,6 @@ export class MoviesParseComponent implements OnInit {
 
     // Fai una get per ottenere la lista dei film dell'api
     this.moviesApi.getMarvelList().subscribe(response => {
-
-
       this.moviesDataLoader = true;
       this.movies = response;
 
@@ -151,7 +149,7 @@ export class MoviesParseComponent implements OnInit {
         "movie_id": this.film1.id,
         "rating": 1
       }
-      console.log(this.authService.userId)
+
       var Customer: Customers =
       {
         "id": null,
@@ -159,10 +157,7 @@ export class MoviesParseComponent implements OnInit {
         //Da aggiustare con springboot
         "customer_id": this.authService.userId
       }
-      this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-      }), err => {
-        console.log(err);
-      };
+
       for (let i in this.ratingData.data) {
         counter++
       }
@@ -171,6 +166,10 @@ export class MoviesParseComponent implements OnInit {
           alreadyCreated = true;
           this.ratingData.data[i].rating++
           this.ratingService.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+            this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
+            }), err => {
+              console.log(err);
+            };
           }), err => {
             console.log(err);
           };
@@ -178,6 +177,10 @@ export class MoviesParseComponent implements OnInit {
       }
       if (alreadyCreated == false) {
         this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+          this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
+          }), err => {
+            console.log(err);
+          };
         }), err => {
           console.log(err);
         };
@@ -226,10 +229,7 @@ export class MoviesParseComponent implements OnInit {
         "movie_id": this.film2.id,
 
       }
-      this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-      }), err => {
-        console.log(err);
-      };
+
       // Rating da aggiungere se ancora il film non è stato votato
       var RatingToAdd: Ratings =
       {
@@ -248,6 +248,10 @@ export class MoviesParseComponent implements OnInit {
           alreadyCreated = true;
           this.ratingData.data[i].rating++
           this.ratingService.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+            this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
+            }), err => {
+              console.log(err);
+            };
 
           }), err => {
             console.log(err);
@@ -256,6 +260,10 @@ export class MoviesParseComponent implements OnInit {
       }
       if (alreadyCreated == false) {
         this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+          this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
+          }), err => {
+            console.log(err);
+          };
         }), err => {
           console.log(err);
         };
