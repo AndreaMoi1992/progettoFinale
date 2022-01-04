@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
       this.moviesDataLoader=true;
     })
   }
+  
   goToDetails(id){
     this.router.navigateByUrl('/details/' + id);
   }

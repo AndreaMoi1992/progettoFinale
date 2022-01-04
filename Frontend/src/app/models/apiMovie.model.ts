@@ -7,6 +7,7 @@ export interface MovieApiInterface{
     results: MovieDatabaseInterface,
 }
 export interface MovieDatabaseInterface{
+
   id: number,
   backdrop_path: string,
   idmovie: number,

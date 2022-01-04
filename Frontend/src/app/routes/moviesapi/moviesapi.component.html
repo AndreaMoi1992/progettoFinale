@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of resultsApi; let i = index" (click)="goToMovieDatabaseDetails(entry.id)" >
+      <tr *ngFor="let entry of resultsApi; let i = index" (click)="goToMovieDetails(entry.id)" >
         <th scope="row"> {{entry.title}}</th>
         <td><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
         <td>{{entry.vote_average}}</td>

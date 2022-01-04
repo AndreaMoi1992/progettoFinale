@@ -1,0 +1,24 @@
+<div class="container box-pages p-5" *ngIf="moviesDataLoader">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+
+        <th scope="col" class="text-centre">Photos</th>
+        <th scope="col">Release Date</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="pointer" *ngFor="let entry of movies; ; let i = index" (click)="goToMovieDatabaseDetails(entry.idmovie)">
+
+        <th scope="row"><h4 class="font-weight-bold">{{entry.title}}</h4></th>
+        <th><img src="{{entry.image_path}}"></th>
+        <th><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></th>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+<app-loading-screen *ngIf="!moviesDataLoader"></app-loading-screen>
+
