@@ -52,7 +52,7 @@ export class MoviesParseComponent implements OnInit {
   idFilm2: number;
 
   constructor(private ratingService: RatingsService, public authService: AuthService,
-    private moviesApi: MoviesApiService,private api: ApiService,private moviesDatabaseService: MovieDatabaseServiceService,private ratingServiceDatabase: RatingsDatabaseService) {
+    private moviesApi: MoviesApiService,private api: MoviesApiService,private moviesDatabaseService: MovieDatabaseServiceService,private ratingServiceDatabase: RatingsDatabaseService) {
     const Choice = sessionStorage.getItem('choice');
     this.choice$ = Choice;
 
@@ -91,6 +91,7 @@ export class MoviesParseComponent implements OnInit {
     this.api.getMovies().subscribe(response => {
       this.moviesDataLoader = true;
       this.movies = response;
+      console.log(this.movies);
 
       this.resultsApi = this.movies.results;
 

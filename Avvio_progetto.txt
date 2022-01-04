@@ -26,3 +26,8 @@ dotnet ef database update
 PHPmyAdmin:
 Andare nel database thenetfish, andare su importa e importare il file presente nella
 cartella del progetto finale
+
+
+// api in database
+
+// comandi laravel

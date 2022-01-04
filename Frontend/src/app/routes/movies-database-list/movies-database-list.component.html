@@ -8,8 +8,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of resultsApi; let i = index" (click)="goToMovieDatabaseDetails(entry.idmovie)" >
-        <th scope="row"> {{entry.title}}</th>
+      <tr *ngFor="let entry of movies; let i = index" (click)="goToMovieDatabaseDetails(entry.idmovie)" >
+        <th scope="row"><h4 class="font-weight-bold">{{entry.title}}</h4> </th>
         <td><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
         <td><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></td>
       </tr>
@@ -17,3 +17,4 @@
   </table>
 </div>
 <app-loading-screen *ngIf="!moviesDataLoader"></app-loading-screen>
+

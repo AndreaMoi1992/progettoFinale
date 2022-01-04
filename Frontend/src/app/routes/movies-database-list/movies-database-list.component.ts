@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
 import { ApiService } from 'src/app/services/api.service';
+import { MovieDatabaseServiceService } from 'src/app/services/movie-database-service.service';
 
 @Component({
   selector: 'app-movies-database-list',
@@ -17,7 +18,7 @@ export class MoviesDatabaseListComponent implements OnInit {
   resultsApi : MovieDatabaseInterface;
 
 
-  constructor( private moviesDatabase: ApiService, private router : Router) { }
+  constructor( private moviesDatabase: MovieDatabaseServiceService, private router : Router) { }
 
   ngOnInit(): void {
 
@@ -27,10 +28,12 @@ export class MoviesDatabaseListComponent implements OnInit {
 
   getMovieListDatabase(){
 
-      this.moviesDatabase.getMovies().subscribe( (response : any) => {
+      this.moviesDatabase.getMovieDatabaseData().subscribe( (response : any) => {
         this.movies = response;
         this.moviesDataLoader=true;
         this.resultsApi = this.movies.results;
+        console.log(this.movies)
+        
 
       })
 
