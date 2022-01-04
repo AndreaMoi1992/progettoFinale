@@ -15,7 +15,7 @@ class CustomerFactory extends Factory
     {
         return [
             'customer_id' => $this->faker->numberBetween(1, 100000),
-            'movie_id' => $this->faker->numberBetween(1, 100000),
+            'movie_id' => $this->faker->numberBetween(1, 1000000),
 
         ];
     }

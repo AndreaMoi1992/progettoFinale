@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Resources\CustomerCollection;
-use App\Http\Resources\CustomerResource;
-use App\Models\Customer;
+
+use App\Http\Resources\CustomerDbCollection;
+use App\Http\Resources\CustomerDbResource;
+use App\Models\CustomerDb;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
-class CustomerController extends Controller
+class CustomerDbController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return response()->json(new CustomerCollection(Customer::all()), Response::HTTP_OK);
+        return response()->json(new CustomerDbCollection(CustomerDb::all()), Response::HTTP_OK);
     }
 
     /**
@@ -41,21 +42,21 @@ class CustomerController extends Controller
         };
 
 
-        $customer = Customer::create($request->only([
+        $customerDb = CustomerDb::create($request->only([
             'customer_id', 'movie_id'
         ]));
-        return response()->json(new CustomerResource($customer), Response::HTTP_CREATED);
+        return response()->json(new CustomerDbResource($customerDb), Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerDb  $customerDb
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show(CustomerDb $customerDb)
     {
-        return response()->json(new CustomerResource($customer), Response::HTTP_OK);
+        return response()->json(new CustomerDbResource($customerDb), Response::HTTP_OK);
 
     }
 
@@ -63,34 +64,34 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerDb  $customerDb
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, CustomerDb $customerDb)
     {
-        $customer->update($request->only([
+        $customerDb->update($request->only([
             'customer'
         ]));
-        return response()->json(new CustomerResource($customer), Response::HTTP_OK);
+        return response()->json(new CustomerDbResource($customerDb), Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\CustomerDb  $customerDb
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(CustomerDb $customerDb)
     {
-        $customer->delete();
+        $customerDb->delete();
 
         return response()->json(([
             'Message'=>'Campo eliminato correttamente', "Response Status" => Response::HTTP_NO_CONTENT
         ]));
     }
 
-    public function getRatingByCustomerId($customer_id){
+    public function getRatingDbByCustomerId($customer_id){
 
-        return response()->json(new CustomerCollection(Customer::where('customer_id', $customer_id)->get()), Response::HTTP_OK);
+        return response()->json(new CustomerDbCollection(CustomerDb::where('customer_id', $customer_id)->get()), Response::HTTP_OK);
     }
 }

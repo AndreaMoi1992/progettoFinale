@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RatingCollection;
-use App\Http\Resources\RatingResource;
-use App\Models\Rating;
+use App\Http\Resources\RatingDbCollection;
+use App\Http\Resources\RatingDbResource;
+use App\Models\RatingDb;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
-class RatingController extends Controller
+class RatingDbController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class RatingController extends Controller
      */
     public function index()
     {
-        return response()->json(new RatingCollection(Rating::all()), Response::HTTP_OK);
+        return response()->json(new RatingDbCollection(RatingDb::all()), Response::HTTP_OK);
     }
 
     /**
@@ -27,13 +27,9 @@ class RatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-     //nel caso in cui il film non abbia ancora ricevuto nessuna votazione viene richiamata questa funzione che crea un nuovo record
     public function store(Request $request)
     {
-
-
-         $validator=Validator::make($request->only([
+        $validator=Validator::make($request->only([
             'movie_id', 'rating'
         ]),[
             'movie_id' => 'required|integer|between:1,1000000',
@@ -46,57 +42,55 @@ class RatingController extends Controller
         };
 
 
-        $rating = Rating::create($request->only([
+        $ratingDb = RatingDb::create($request->only([
             'movie_id', 'rating'
         ]));
-        return response()->json(new RatingResource($rating), Response::HTTP_CREATED);
+        return response()->json(new RatingDbResource($ratingDb), Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rating  $rating
+     * @param  \App\Models\RatingDb  $ratingDb
      * @return \Illuminate\Http\Response
      */
-    public function show(Rating $rating)
+    public function show(RatingDb $ratingDb)
     {
-        return response()->json(new RatingResource($rating), Response::HTTP_OK);
+        return response()->json(new RatingDbResource($ratingDb), Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rating  $rating
+     * @param  \App\Models\RatingDb  $ratingDb
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rating $rating)
+    public function update(Request $request, RatingDb $ratingDb)
     {
-        $rating->update($request->only([
+        $ratingDb->update($request->only([
             'rating'
         ]));
-        return response()->json(new RatingResource($rating), Response::HTTP_OK);
+        return response()->json(new RatingDbResource($ratingDb), Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rating  $rating
+     * @param  \App\Models\RatingDb  $ratingDb
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rating $rating)
+    public function destroy(RatingDb $ratingDb)
     {
-        $rating->delete();
+        $ratingDb->delete();
 
         return response()->json(([
             'Message'=>'Campo eliminato correttamente', "Response Status" => Response::HTTP_NO_CONTENT
         ]));
     }
 
-    public function getRatingByMovieId($movie_id){
+    public function getRatingDbByMovieId($movie_id){
 
-        return response()->json(new RatingCollection(Rating::where('movie_id', $movie_id)->get()), Response::HTTP_OK);
+        return response()->json(new RatingDbCollection(RatingDb::where('movie_id', $movie_id)->get()), Response::HTTP_OK);
     }
-
-
 }
