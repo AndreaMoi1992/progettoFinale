@@ -1,3 +1,4 @@
+import { RatingsDatabaseService } from './../../services/ratingsDatabase.service';
 import { Customers } from './../../models/customer.model';
 import { RatingData, Ratings } from './../../models/rating.model';
 import { RatingsService } from './../../services/ratings.service';
@@ -44,7 +45,7 @@ export class MovieParseDatabaseComponent implements OnInit {
   idFilm1: number;
   idFilm2: number;
 
-  constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService,private ratingService: RatingsService,private router : Router) {
+  constructor(public authService: AuthService ,public moviesDatabaseService: MovieDatabaseServiceService,private moviesApi: MoviesApiService,private ratingServiceDatabase: RatingsDatabaseService) {
 
   }
 
@@ -164,7 +165,7 @@ export class MovieParseDatabaseComponent implements OnInit {
     var alreadyCreated: boolean = false;
 
     // Ricava la lista di ratings dal db
-    this.ratingService.getRatingDatabaseData().subscribe((response: any) => {
+    this.ratingServiceDatabase.getRatingDatabaseData().subscribe((response: any) => {
       // La risposta viene assegnata a ratingData
       this.ratingData = response;
 
@@ -184,10 +185,6 @@ export class MovieParseDatabaseComponent implements OnInit {
         //Da aggiustare con springboot
         "customer_id": this.authService.userId
       }
-      this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-      }), err => {
-        console.log(err);
-      };
       for (let i in this.ratingData.data) {
         counter++
       }
@@ -195,14 +192,22 @@ export class MovieParseDatabaseComponent implements OnInit {
         if (counter > 0 && this.film1.id == this.ratingData.data[i].movie_id) {
           alreadyCreated = true;
           this.ratingData.data[i].rating++
-          this.ratingService.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+          this.ratingServiceDatabase.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+            this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
+            }), err => {
+              console.log(err);
+            };
           }), err => {
             console.log(err);
           };
         }
       }
       if (alreadyCreated == false) {
-        this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+        this.ratingServiceDatabase.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+          this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
+          }), err => {
+            console.log(err);
+          };
         }), err => {
           console.log(err);
         };
@@ -228,14 +233,14 @@ export class MovieParseDatabaseComponent implements OnInit {
       if(this.idFilm1 == i){
         this.film1 = this.displayMovies[i];
         this.film1Path =this.displayMovies[i].image_path;
-        this.titoloFilm1=this.film2.title;
+        this.titoloFilm1=this.film1.title;
       }
     }
     //Aggiungi votazione al db, Funzioni da cambiare quando verranno aggiunte le due tabelle in più perche i movie_id sono diversi anche se i film sono uguali
     var alreadyCreated: boolean = false;
 
     // Ricava la lista di ratings dal db
-    this.ratingService.getRatingDatabaseData().subscribe((response: any) => {
+    this.ratingServiceDatabase.getRatingDatabaseData().subscribe((response: any) => {
       // La risposta viene assegnata a ratingData
       this.ratingData = response;
 
@@ -255,10 +260,7 @@ export class MovieParseDatabaseComponent implements OnInit {
         //Da aggiustare con springboot
         "customer_id": this.authService.userId
       }
-      this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-      }), err => {
-        console.log(err);
-      };
+
       for (let i in this.ratingData.data) {
         counter++
       }
@@ -266,14 +268,23 @@ export class MovieParseDatabaseComponent implements OnInit {
         if (counter > 0 && this.film2.id == this.ratingData.data[i].movie_id) {
           alreadyCreated = true;
           this.ratingData.data[i].rating++
-          this.ratingService.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+          this.ratingServiceDatabase.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
+            this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
+            }), err => {
+              console.log(err);
+            };
           }), err => {
             console.log(err);
           };
+
         }
       }
       if (alreadyCreated == false) {
-        this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+        this.ratingServiceDatabase.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
+          this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
+          }), err => {
+            console.log(err);
+          };
         }), err => {
           console.log(err);
         };
