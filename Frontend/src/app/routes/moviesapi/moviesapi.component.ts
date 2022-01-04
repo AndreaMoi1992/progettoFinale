@@ -21,7 +21,7 @@ export class MoviesapiComponent implements OnInit {
   constructor( private moviesApi: MoviesApiService, private router : Router) { }
 
   ngOnInit(): void {
-    this.moviesApi.getMarvelList().subscribe(response => {
+    this.moviesApi.getMovies().subscribe(response => {
       this.moviesDataLoader=true;
       this.movies = response;
       this.resultsApi = this.movies.results;
