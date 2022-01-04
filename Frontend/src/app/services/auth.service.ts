@@ -84,6 +84,7 @@ export class AuthService {
     sessionStorage.setItem('loggedIn', 'false');
     sessionStorage.setItem('loggedUser', '');
     this.isLoggedIn$.next(false);
+    sessionStorage.clear()
   }
 
   searchInsideArray(username: string, password: string): boolean {

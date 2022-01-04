@@ -10,7 +10,7 @@ import { DetailsComponent } from './routes/details/details.component';
 import { EditComponent } from './routes/edit/edit.component';
 import { WelcomepageComponent } from './routes/welcomepage/welcomepage.component';
 import { FilterbygenreComponent } from './routes/filterbygenre/filterbygenre.component';
-import { MovieParseDatabaseComponent } from './routes/movie-parse-database/movie-parse-database.component';
+
 import { DetailsMovieApiComponent } from './routes/details-movie-api/details-movie-api.component';
 import { MoviesDatabaseListComponent } from './routes/movies-database-list/movies-database-list.component';
 import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details/movies-database-details.component';
@@ -28,7 +28,6 @@ const routes: Routes = [
   { path: "filterByGenre", component: FilterbygenreComponent },
   { path: "moviesapi", component: MoviesapiComponent },
   { path: "movieparse", component: MoviesParseComponent },
-  { path: "movieDatabaseparse", component: MovieParseDatabaseComponent },
   { path: "movieApiDetails/:id", component: DetailsMovieApiComponent },
   { path: "moviesDatabaseList", component: MoviesDatabaseListComponent },
   { path: "moviesDatabaseDetails/:id", component: MoviesDatabaseDetailsComponent },

@@ -58,7 +58,7 @@ export class DetailsMovieApiComponent implements OnInit {
   }
 
   fetchEntry(){
-    this.apiService.getMarvelList().subscribe( (res: any ) => {
+    this.apiService.getMovies().subscribe( (res: any ) => {
       this.dataApiEntry = res;
       this.dataMovieEntry = this.dataApiEntry.results;
 
@@ -92,7 +92,7 @@ export class DetailsMovieApiComponent implements OnInit {
   findComment(){
       this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
         this.commentList = response;
-        
+
         var j=0;
 
         this.commentRappresentation=[];

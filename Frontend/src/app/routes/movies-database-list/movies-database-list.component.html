@@ -3,22 +3,17 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">Title</th>
-
-        <th scope="col" class="text-centre">Photos</th>
+        <th scope="col">Photos</th>
         <th scope="col">Release Date</th>
-
       </tr>
     </thead>
     <tbody>
-      <tr class="pointer" *ngFor="let entry of movies; ; let i = index" (click)="goToMovieDatabaseDetails(entry.idmovie)">
-
-        <th scope="row"><h4 class="font-weight-bold">{{entry.title}}</h4></th>
-        <th><img src="{{entry.image_path}}"></th>
-        <th><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></th>
+      <tr *ngFor="let entry of resultsApi; let i = index" (click)="goToMovieDatabaseDetails(entry.idmovie)" >
+        <th scope="row"> {{entry.title}}</th>
+        <td><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
+        <td><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></td>
       </tr>
     </tbody>
-
   </table>
 </div>
 <app-loading-screen *ngIf="!moviesDataLoader"></app-loading-screen>
-
