@@ -36,11 +36,11 @@ export class AuthService {
 
 
   constructor(private router: Router) {
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
     this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
-    const LoggedUser = localStorage.getItem('loggedUser');
+    const LoggedUser = sessionStorage.getItem('loggedUser');
     this.userLogged$ = LoggedUser;
-    const UserId = localStorage.getItem('customer_id');
+    const UserId = sessionStorage.getItem('customer_id');
     this.userLoggedId$ = UserId;
 
   }
@@ -50,17 +50,17 @@ export class AuthService {
 
       if (this.searchInsideArray(this.usernameInput, this.passwordInput)) {
 
-        localStorage.setItem('loggedIn', 'true');
-        localStorage.setItem('loggedUser', this.usernameInput);
+        sessionStorage.setItem('loggedIn', 'true');
+        sessionStorage.setItem('loggedUser', this.usernameInput);
         if(this.usernameInput == "pippo"){
-          localStorage.setItem('customer_id', '2');
+          sessionStorage.setItem('customer_id', '2');
         }else{
-          localStorage.setItem('customer_id', '1');
+          sessionStorage.setItem('customer_id', '1');
         }
 
 
 
-        var userIdString = localStorage.getItem("customer_id"); ///Get value as string
+        var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
         this.userId = parseInt(userIdString)//Returns userId in number
 
         this.isLoggedIn$.next(true);
@@ -81,8 +81,8 @@ export class AuthService {
 
   logout() {
     // logic
-    localStorage.setItem('loggedIn', 'false');
-    localStorage.setItem('loggedUser', '');
+    sessionStorage.setItem('loggedIn', 'false');
+    sessionStorage.setItem('loggedUser', '');
     this.isLoggedIn$.next(false);
   }
 
