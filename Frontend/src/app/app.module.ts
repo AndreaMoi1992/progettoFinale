@@ -1,3 +1,4 @@
+import { OverlayChoiceComponent } from './components/overlayChoice/overlayChoice.component';
 import { MustbeloggedComponent } from './components/mustbelogged/mustbelogged.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,7 @@ import { GenrepipePipe } from './pipes/genrepipe/genrepipe.pipe';
 import { FilterbygenreComponent } from './routes/filterbygenre/filterbygenre.component';
 import { MoviesapiComponent } from './routes/moviesapi/moviesapi.component';
 import { MoviesParseComponent } from './routes/movies-parse/movies-parse.component';
-import { MovieParseDatabaseComponent } from './routes/movie-parse-database/movie-parse-database.component';
+
 import { DetailsMovieApiComponent } from './routes/details-movie-api/details-movie-api.component';
 import { MoviesDatabaseListComponent } from './routes/movies-database-list/movies-database-list.component';
 import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details/movies-database-details.component';
@@ -46,10 +47,10 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
     MoviesapiComponent,
     MoviesParseComponent,
     MustbeloggedComponent,
-    MovieParseDatabaseComponent,
     DetailsMovieApiComponent,
     MoviesDatabaseListComponent,
-    MoviesDatabaseDetailsComponent
+    MoviesDatabaseDetailsComponent,
+    OverlayChoiceComponent
   ],
   imports: [
     BrowserModule,
