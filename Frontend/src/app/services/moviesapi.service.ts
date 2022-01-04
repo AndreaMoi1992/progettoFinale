@@ -12,8 +12,8 @@ export class MoviesApiService {
 
   constructor( private http : HttpClient) { }
 
-  getMarvelList(){
-      return this.http.get<MovieApiInterface>(this.baseURL+"list/1?api_key="+this.apiKey);
+  getMovies(){
+      return this.http.get<MovieApiInterface>(this.baseURL+"list/2?api_key="+this.apiKey);
   }
 
 
