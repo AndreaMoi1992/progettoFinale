@@ -1,4 +1,5 @@
-import { ResultInterface } from './../../models/apiMovie.model';
+import { MovieDatabaseInterface } from './../../models/apiMovie.model';
+
 import { MoviesApiService } from './../../services/moviesapi.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class MoviesapiComponent implements OnInit {
   moviesDataLoader=false;
 
   movies : MovieApiInterface;
-  resultsApi : ResultInterface;
+  resultsApi : MovieDatabaseInterface;
 
   constructor( private moviesApi: MoviesApiService, private router : Router) { }
 
