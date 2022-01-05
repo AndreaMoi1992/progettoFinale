@@ -15,6 +15,9 @@ export class MoviesApiService {
   getMovies(){
       return this.http.get<MovieApiInterface>(this.baseURL+"list/2?api_key="+this.apiKey);
   }
+  getMarvelList(){
+    return this.http.get<MovieApiInterface>(this.baseURL+"list/1?api_key="+this.apiKey);
+  }
 
 
 }

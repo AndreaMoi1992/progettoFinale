@@ -9,7 +9,7 @@ import { MoviesApiService } from './../../services/moviesapi.service';
 import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
 import { MovieDatabaseServiceService } from '../../services/movie-database-service.service';
-import { ApiService } from 'src/app/services/api.service';
+
 
 @Component({
   selector: 'app-movies-parse',
@@ -52,7 +52,7 @@ export class MoviesParseComponent implements OnInit {
   idFilm2: number;
 
   constructor(private ratingService: RatingsService, public authService: AuthService,
-    private moviesApi: MoviesApiService,private api: MoviesApiService,private moviesDatabaseService: MovieDatabaseServiceService,private ratingServiceDatabase: RatingsDatabaseService) {
+    private moviesApi: MoviesApiService,private moviesDatabaseService: MovieDatabaseServiceService,private ratingServiceDatabase: RatingsDatabaseService) {
     const Choice = sessionStorage.getItem('choice');
     this.choice$ = Choice;
 
@@ -88,7 +88,7 @@ export class MoviesParseComponent implements OnInit {
     console.log("API")
 
     // Fai una get per ottenere la lista dei film dell'api
-    this.api.getMovies().subscribe(response => {
+    this.moviesApi.getMovies().subscribe(response => {
       this.moviesDataLoader = true;
       this.movies = response;
       console.log(this.movies);
@@ -354,7 +354,7 @@ export class MoviesParseComponent implements OnInit {
   addFilmDatabase(){
 
 
-    this.moviesApi.getMovies().subscribe(response=> {
+    this.moviesApi.getMarvelList().subscribe(response=> {
       this.movies = response;
       this.resultsApi = this.movies.results;
 

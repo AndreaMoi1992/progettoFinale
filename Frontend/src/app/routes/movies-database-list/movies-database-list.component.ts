@@ -2,7 +2,7 @@ import { MovieDatabaseInterface } from './../../models/apiMovie.model';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
-import { ApiService } from 'src/app/services/api.service';
+
 import { MovieDatabaseServiceService } from 'src/app/services/movie-database-service.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class MoviesDatabaseListComponent implements OnInit {
         this.moviesDataLoader=true;
         this.resultsApi = this.movies.results;
         console.log(this.movies)
-        
+
 
       })
 

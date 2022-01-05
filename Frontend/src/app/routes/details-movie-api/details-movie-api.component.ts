@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { MovieData } from 'src/app/models/data.model';
 import { MovieApiInterface, MovieDatabaseInterface } from 'src/app/models/apiMovie.model';
-import { ApiService } from 'src/app/services/api.service';
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
