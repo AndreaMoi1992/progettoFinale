@@ -7,6 +7,8 @@ import { MovieApiInterface, MovieDatabaseInterface } from 'src/app/models/apiMov
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
+import { RatingData } from 'src/app/models/rating.model';
+import { RatingsService } from 'src/app/services/ratings.service';
 
 
 @Component({
@@ -17,14 +19,20 @@ import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
 export class DetailsMovieApiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private dotnetService: DotnetServiceService, private router : Router) { }
+    private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router : Router) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
+
+  // USA QUESTO NELL'HTML
   moviesdetails: MovieDatabaseInterface;
   dotnetData: commentDotnetData;
   commentList: Array<commentDotnetData>;
   commentRappresentation: Array<commentDotnetData>;
+
+  // Rating
+  ratingData: RatingData;
+  vote: any = 0;
 
 
   filmPath : string = "https://image.tmdb.org/t/p/w500";
@@ -47,12 +55,23 @@ export class DetailsMovieApiComponent implements OnInit {
   ngOnInit(): void {
 
     this.idpath = this.route.snapshot.params['id'];
+    this.findVote();
     this.fetchEntry()
     this.visualizzaCommento=false;
     this.visualizzaCondizione=false;
     this.moviesDataLoader=true;
     this.findComment();
 
+
+  }
+
+  findVote(){
+    this.ratingService.getRatingDatabaseEntryByMovieId(this.idpath).subscribe( (res: any ) => {
+      this.ratingData = res;
+      this.vote=this.ratingData.data[0].rating;
+      console.log(this.ratingData);
+      console.log(this.vote);
+    })
 
   }
 
@@ -103,7 +122,7 @@ export class DetailsMovieApiComponent implements OnInit {
             j++;
 
           }
-          console.log(j)
+
         }
 
         if(this.commentRappresentation.length>0){

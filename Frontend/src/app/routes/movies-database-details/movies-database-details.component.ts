@@ -4,11 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { MovieData } from 'src/app/models/data.model';
 import { MovieApiInterface, MovieDatabaseInterface} from 'src/app/models/apiMovie.model';
-import { ApiService } from 'src/app/services/api.service';
+
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
 import { MovieDatabaseServiceService } from 'src/app/services/movie-database-service.service';
+import { RatingsService } from 'src/app/services/ratings.service';
+import { RatingData, Ratings } from 'src/app/models/rating.model';
+import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service';
+
 
 @Component({
   selector: 'app-movies-database-details',
@@ -18,7 +22,7 @@ import { MovieDatabaseServiceService } from 'src/app/services/movie-database-ser
 export class MoviesDatabaseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private moviesDatabaseService: MovieDatabaseServiceService,private dotnetService: DotnetServiceService, private router : Router) { }
+    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -37,8 +41,15 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   idpath: number;
   ratedOption : string;
 
+  // Rating
+  ratingData: RatingData;
+  data: Ratings;
+  vote: any = 0;
+
   datiForm: any;
   commento: string;
+
+  counter: number=0;
 
   viewComments=false;
   moviesDataLoader=false;
@@ -51,7 +62,8 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.idpath = this.route.snapshot.params['id'];
-    this.fetchEntry()
+    this.findVote();
+    this.fetchEntry();
     this.visualizzaCommento=false;
     this.visualizzaCondizione=false;
     this.moviesDataLoader=true;
@@ -60,10 +72,41 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
 
   }
 
+  findVote(){
+    this.ratingService.getRatingDatabaseData().subscribe( (res: any ) => {
+      this.ratingData = res;
+
+      this.data=this.ratingData.data;
+      console.log(this.ratingData)
+      console.log(this.data)
+
+      for(let i in this.data){
+        this.counter++;
+
+      }
+      console.log(this.counter)
+      console.log(this.data[1].movie_id)
+
+      for(let i=0; i<this.counter; i++){
+        if(this.data[i].movie_id==this.idpath){
+          this.vote=this.data[i].rating;
+        }
+        else{
+          this.vote=0;
+        }
+      }
+
+
+
+
+    })
+
+  }
+
   fetchEntry(){
     this.moviesDatabaseService.getMovieDatabaseData().subscribe( (res: any ) => {
       this.moviesDatabase = res;
-      console.log(this.moviesDatabase)
+
 
 
       for(let i in this.moviesDatabase){
@@ -108,7 +151,7 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
             j++;
 
           }
-          console.log(j)
+
         }
 
         if(this.commentRappresentation.length>0){

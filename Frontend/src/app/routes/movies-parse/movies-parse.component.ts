@@ -70,6 +70,7 @@ export class MoviesParseComponent implements OnInit {
 
   ngOnInit(): void {
     this.databaseGeneration();
+
   }
 
   databaseGeneration() {
@@ -318,6 +319,7 @@ export class MoviesParseComponent implements OnInit {
     this.moviesDatabaseService.getMovieDatabaseData().subscribe(response =>{
       this.moviesDataLoader=true;
       this.displayMovies=response;
+      console.log(this.displayMovies)
 
       let grandezza= this.displayMovies.length;
 
@@ -349,6 +351,8 @@ export class MoviesParseComponent implements OnInit {
         }
       }
     })
+
+
   }
 
   addFilmDatabase(){
@@ -422,14 +426,14 @@ export class MoviesParseComponent implements OnInit {
       var RatingToAdd: Ratings =
       {
         "id": null,
-        "movie_id": this.film1.id,
+        "movie_id": this.film1.idmovie,
         "rating": 1
       }
 
       var Customer: Customers =
       {
         "id": null,
-        "movie_id": this.film1.id,
+        "movie_id": this.film1.idmovie,
         //Da aggiustare con springboot
         "customer_id": this.userId
       }
@@ -494,25 +498,27 @@ export class MoviesParseComponent implements OnInit {
 
       var counter = 0;
 
+      
       var RatingToAdd: Ratings =
       {
         "id": null,
-        "movie_id": this.film2.id,
+        "movie_id": this.film2.idmovie,
         "rating": 1
       }
       var Customer: Customers =
       {
         "id": null,
-        "movie_id": this.film2.id,
+        "movie_id": this.film2.idmovie,
         //Da aggiustare con springboot
         "customer_id": this.userId
       }
+
 
       for (let i in this.ratingData.data) {
         counter++
       }
       for (let i = 0; i < counter; i++) {
-        if (counter > 0 && this.film2.id == this.ratingData.data[i].movie_id) {
+        if (counter > 0 && this.film2.idmovie == this.ratingData.data[i].movie_id) {
           alreadyCreated = true;
           this.ratingData.data[i].rating++
           this.ratingServiceDatabase.editRatingDatabaseEntry(this.ratingData.data[i]).subscribe(response => {
