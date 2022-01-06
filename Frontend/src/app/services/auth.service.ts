@@ -30,8 +30,13 @@ export class AuthService {
     username: "pippo",
     password: "pippo2"
   }
+  davide: UserData = {
+    id: 3,
+    username: "gringo",
+    password: "gringo"
+  }
 
-  users: UserData[] = [this.admin, this.pippo];
+  users: UserData[] = [this.admin, this.pippo, this.davide];
 
 
 
@@ -54,8 +59,10 @@ export class AuthService {
         sessionStorage.setItem('loggedUser', this.usernameInput);
         if(this.usernameInput == "pippo"){
           sessionStorage.setItem('customer_id', '2');
-        }else{
+        }else if(this.usernameInput == "root"){
           sessionStorage.setItem('customer_id', '1');
+        }else{
+          sessionStorage.setItem('customer_id', '3');
         }
 
 
