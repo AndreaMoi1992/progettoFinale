@@ -555,6 +555,7 @@ export class MoviesParseComponent implements OnInit {
               }), err => {
                 console.log(err);
               };
+              console.log("Hai votato questo film : " + this.film1.title)
               break
             } if (found) {
               console.log("Hai già votato questo film")
@@ -666,6 +667,7 @@ export class MoviesParseComponent implements OnInit {
               }), err => {
                 console.log(err);
               };
+              console.log("Hai votato questo film : " + this.film2.title)
               break
             } if (found) {
               console.log("Hai già votato questo film")
