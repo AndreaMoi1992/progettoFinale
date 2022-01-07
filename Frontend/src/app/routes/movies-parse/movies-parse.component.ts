@@ -101,52 +101,10 @@ export class MoviesParseComponent implements OnInit {
       this.moviesDataLoader = true;
       this.movies = response;
       this.resultsApi = this.movies.results;
+      this.counter=this.count(this.resultsApi)
 
-
-      //Conta dei film all'interno dell'array
-      for (let i in this.resultsApi) {
-        this.counter++;
-      }
-
-      // Generazione casuale dell'id del primo film
-      this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
-
-
-      for (let i = 0; i < this.counter; i++) {
-        // Se nell'array dell'api c'è un indice uguale all'id del film generato
-        if (this.idFilm1 == i) {
-          // film1 è uguale al film in quella posizione
-          this.film1 = this.resultsApi[i];
-          this.film1.idmovie = this.resultsApi[i].id
-          this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-          this.titoloFilm1 = this.film1.title;
-        }
-      }
-
-      // Generazione casuale dell'id del secondo film
-      this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
-
-      // Se l'id del primo film è uguale all'id del secondo e l'id del primo film è diverso dall'ultimo indice dell'array dei film dell'api
-      if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
-        //Aggiungi 1 all'id del secondo film
-        this.idFilm2++;
-        // Invece se l'id del primo film è uguale all'id del secondo e l'id del primo film è uguale all'ultimo indice dell'array dei film dell'api
-      } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
-        //Togli 1 all'id del secondo film
-        this.idFilm2--;
-      }
-
-
-      for (let i = 0; i < this.counter; i++) {
-        // Se nell'array dell'api c'è un indice uguale all'id del film generato
-        if (this.idFilm2 == i) {
-          // film2 è uguale al film in quella posizione
-          this.film2 = this.resultsApi[i];
-          this.film2.idmovie = this.resultsApi[i].id
-          this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-          this.titoloFilm2 = this.film2.title;
-        }
-      }
+      this.generateFilm1();
+      this.generateFilm2();
     },
       error => console.log(error)
     )
@@ -156,32 +114,9 @@ export class MoviesParseComponent implements OnInit {
 
   onClickFilm1() {
 
-    // Al click del pulsante del primo film genera un id per il secondo film
-    this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
-
-    // Se l'id del primo film è uguale all'id del secondo e l'id del primo film è diverso dall'ultimo indice dell'array dei film dell'api
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
-      //Aggiungi 1 all'id del secondo film
-      this.idFilm2++;
-      // Invece se l'id del primo film è uguale all'id del secondo e l'id del primo film è uguale all'ultimo indice dell'array dei film dell'api
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
-      //Togli 1 all'id del secondo film
-      this.idFilm2--;
-    }
-    for (let i = 0; i < this.counter; i++) {
-      // Se nell'array dell'api c'è un indice uguale all'id del film generato
-      if (this.idFilm2 == i) {
-        // film2 è uguale al film in quella posizione
-        this.film2 = this.resultsApi[i];
-        this.film2.idmovie = this.resultsApi[i].id
-        this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-        this.titoloFilm2 = this.film2.title;
-      }
-    }
+    this.generateFilm2();
 
     //Aggiungi votazione al db customers
-
-
     // Ricava la lista di ratings dal db
     this.ratingService.getRatingDatabaseData().subscribe((response: RatingData) => {
       // La risposta viene assegnata a ratingData
@@ -190,81 +125,7 @@ export class MoviesParseComponent implements OnInit {
       this.ratingService.getCustomersDatabaseData().subscribe((res: CustomerData) => {
         this.customersData = res;
         var customers = this.customersData.data
-
-        var alreadyCreated: boolean = false;
-
-        var counterRatings = 0;
-        var counterCustomers = 0;
-
-        var RatingToAdd: Ratings =
-        {
-          "id": null,
-          "movie_id": this.film1.idmovie,
-          "rating": 1
-        }
-
-        var Customer: Customers =
-        {
-          "id": null,
-          "movie_id": this.film1.idmovie,
-          //Da aggiustare con springboot
-          "customer_id": this.userId
-        }
-
-        for (let i in ratings) {
-          counterRatings++
-        }
-        for (let i in customers) {
-          counterCustomers++
-        }
-
-        // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
-        // guarda chi ha votato quel film e controlla se l'user id ha già votato quel film
-
-
-        for (let i = 0; i < counterCustomers; i++) {
-          if (this.userId == customers[i].customer_id) {
-            this.customersVoting.push(customers[i]);
-
-          }
-        }
-
-
-
-        for (let i = 0; i < counterRatings; i++) {
-
-          if (this.film1.idmovie == ratings[i].movie_id) {
-            alreadyCreated = true;
-            var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
-            if (found == false) {
-              ratings[i].rating++
-              this.ratingService.editRatingDatabaseEntry(ratings[i]).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              console.log("Hai votato questo film : " + this.film1.title)
-              break
-            } if (found) {
-              console.log("Hai già votato questo film")
-              break
-            }
-          }
-          if (alreadyCreated) break;
-        }
-        if (alreadyCreated == false) {
-          this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
-            this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-            }), err => {
-              console.log(err);
-            };
-          }), err => {
-            console.log(err);
-          };
-        }
+        this.voteCheckFilm1(ratings,customers);
       }, (err) => {
         console.log(err);
       }
@@ -280,23 +141,7 @@ export class MoviesParseComponent implements OnInit {
   onClickFilm2() {
 
 
-    this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
-
-    if (this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter) {
-      this.idFilm1++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
-      this.idFilm1--;
-    }
-    for (let i = 0; i < this.counter; i++) {
-      if (this.idFilm1 == i) {
-        this.film1 = this.resultsApi[i];
-        this.film1.idmovie = this.resultsApi[i].id
-        this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-        this.titoloFilm1 = this.film1.title;
-      }
-    }
-
-
+    this.generateFilm1();
 
     //Aggiungi votazione al db
     // Ricava la lista di ratings dal db
@@ -308,80 +153,7 @@ export class MoviesParseComponent implements OnInit {
         this.customersData = res;
         var customers = this.customersData.data
 
-        var alreadyCreated: boolean = false;
-
-        var counterRatings = 0;
-        var counterCustomers = 0;
-
-        var RatingToAdd: Ratings =
-        {
-          "id": null,
-          "movie_id": this.film2.idmovie,
-          "rating": 1
-        }
-
-        var Customer: Customers =
-        {
-          "id": null,
-          "movie_id": this.film2.idmovie,
-          //Da aggiustare con springboot
-          "customer_id": this.userId
-        }
-
-        for (let i in ratings) {
-          counterRatings++
-        }
-        for (let i in customers) {
-          counterCustomers++
-        }
-
-        // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
-        // guarda chi ha votato quel film e controlla se l'user id ha già votato quel film
-
-
-        for (let i = 0; i < counterCustomers; i++) {
-          if (this.userId == customers[i].customer_id) {
-            this.customersVoting.push(customers[i]);
-
-          }
-        }
-
-        for (let i = 0; i < counterRatings; i++) {
-
-          if (this.film2.idmovie == ratings[i].movie_id) {
-            alreadyCreated = true;
-            var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
-
-            if (found == false) {
-              ratings[i].rating++
-              this.ratingService.editRatingDatabaseEntry(ratings[i]).subscribe(response => {
-
-              }), err => {
-                console.log(err);
-              };
-              this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              console.log("Hai votato questo film : " + this.film1.title)
-              break
-            } if (found) {
-              console.log("Hai già votato questo film")
-              break
-            }
-          }
-          if (alreadyCreated) break;
-        }
-        if (alreadyCreated == false) {
-          this.ratingService.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
-            this.ratingService.addCustomerDatabaseEntry(Customer).subscribe(response => {
-            }), err => {
-              console.log(err);
-            };
-          }), err => {
-            console.log(err);
-          };
-        }
+       this.voteCheckFilm2(ratings,customers);
       }, (err) => {
         console.log(err);
       }
@@ -393,44 +165,13 @@ export class MoviesParseComponent implements OnInit {
     )
   }
   generateFilmsDatabase() {
-
-
     console.log("DATABASE")
     this.moviesDatabaseService.getMovieDatabaseData().subscribe(response => {
       this.moviesDataLoader = true;
       this.displayMovies = response;
-      let grandezza = this.displayMovies.length;
-
-      this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
-
-      for (let i = 0; i < grandezza; i++) {
-        if (this.idFilm1 == i) {
-          this.film1 = this.displayMovies[i];
-          this.film1Path = this.displayMovies[i].image_path;
-          this.titoloFilm1 = this.film1.title;
-        }
-      }
-
-
-
-      this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
-
-      if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
-        this.idFilm2++;
-      } else if (this.idFilm1 == grandezza) {
-        this.idFilm2--;
-      }
-
-      for (let i = 0; i < grandezza; i++) {
-        if (this.idFilm2 == i) {
-          this.film2 = this.displayMovies[i];
-          this.film2Path = this.displayMovies[i].image_path;
-          this.titoloFilm2 = this.film2.title;
-        }
-      }
+      this.generateFilm1Database();
+      this.generateFilm2Database();
     })
-
-
   }
 
   addFilmDatabase() {
@@ -476,21 +217,7 @@ export class MoviesParseComponent implements OnInit {
 
   onClickFilm1Database() {
 
-    let grandezza = this.displayMovies.length;
-    this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
-      this.idFilm2++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
-      this.idFilm2--;
-    }
-
-    for (let i = 0; i < grandezza; i++) {
-      if (this.idFilm2 == i) {
-        this.film2 = this.displayMovies[i];
-        this.film2Path = this.displayMovies[i].image_path;
-        this.titoloFilm2 = this.film2.title;
-      }
-    }
+    this.generateFilm2Database()
     //Aggiungi votazione al db, Funzioni da cambiare quando verranno aggiunte le due tabelle in più perche i movie_id sono diversi anche se i film sono uguali
 
 
@@ -502,84 +229,7 @@ export class MoviesParseComponent implements OnInit {
       this.ratingServiceDatabase.getCustomersDatabaseData().subscribe((res: CustomerData) => {
         this.customersData = res;
         var customers = this.customersData.data
-
-        var alreadyCreated = false;
-
-
-        var counterRatings = 0;
-        var counterCustomers = 0;
-
-        var RatingToAdd: Ratings =
-        {
-          "id": null,
-          "movie_id": this.film1.idmovie,
-          "rating": 1
-        }
-
-        var Customer: Customers =
-        {
-          "id": null,
-          "movie_id": this.film1.idmovie,
-          //Da aggiustare con springboot
-          "customer_id": this.userId
-        }
-        for (let i in ratings) {
-          counterRatings++
-        }
-        for (let i in customers) {
-          counterCustomers++
-        }
-
-        // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
-        // guarda chi ha votato quel film e controlla se l'user id ha già votato quel film
-
-
-        for (let i = 0; i < counterCustomers; i++) {
-          if (this.userId == customers[i].customer_id) {
-            this.customersVoting.push(customers[i]);
-
-          }
-        }
-        for (let i = 0; i < counterRatings; i++) {
-          if (this.film1.idmovie == ratings[i].movie_id) {
-            alreadyCreated = true;
-            var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
-            if (found == false) {
-              ratings[i].rating++
-              this.ratingServiceDatabase.editRatingDatabaseEntry(ratings[i]).subscribe(response => {
-
-              }), err => {
-                console.log(err);
-              };
-              this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              console.log("Hai votato questo film : " + this.film1.title)
-              break
-            } if (found) {
-              console.log("Hai già votato questo film")
-              break
-            }
-          }
-          if (alreadyCreated) break;
-        }
-
-
-
-        if (alreadyCreated == false/*this.alreadyCreated$ == "no"*/) {
-
-          this.ratingServiceDatabase.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
-
-          }), err => {
-            console.log(err);
-          };
-          this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
-          }), err => {
-            console.log(err);
-          };
-        }
-
+        this.voteCheckFilm1Database(ratings,customers);
       }, (err) => {
         console.log(err);
       }
@@ -594,25 +244,8 @@ export class MoviesParseComponent implements OnInit {
   }
 
   onClickFilm2Database() {
-
-    let grandezza = this.displayMovies.length;
-    this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
-      this.idFilm1++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
-      this.idFilm1--;
-    }
-
-    for (let i = 0; i < grandezza; i++) {
-      if (this.idFilm1 == i) {
-        this.film1 = this.displayMovies[i];
-        this.film1Path = this.displayMovies[i].image_path;
-        this.titoloFilm1 = this.film1.title;
-      }
-    }
+    this.generateFilm1Database()
     //Aggiungi votazione al db, Funzioni da cambiare quando verranno aggiunte le due tabelle in più perche i movie_id sono diversi anche se i film sono uguali
-
-
     // Ricava la lista di ratings dal db
     this.ratingServiceDatabase.getRatingDatabaseData().subscribe((response: RatingData) => {
       // La risposta viene assegnata a ratingData
@@ -621,72 +254,7 @@ export class MoviesParseComponent implements OnInit {
       this.ratingServiceDatabase.getCustomersDatabaseData().subscribe((res: CustomerData) => {
         this.customersData = res;
         var customers = this.customersData.data
-
-        var alreadyCreated: boolean = false;
-        var counterRatings = 0;
-        var counterCustomers = 0;
-
-
-        var RatingToAdd: Ratings =
-        {
-          "id": null,
-          "movie_id": this.film2.idmovie,
-          "rating": 1
-        }
-        var Customer: Customers =
-        {
-          "id": null,
-          "movie_id": this.film2.idmovie,
-          //Da aggiustare con springboot
-          "customer_id": this.userId
-        }
-
-        for (let i in ratings) {
-          counterRatings++
-        }
-        for (let i in customers) {
-          counterCustomers++
-        }
-        for (let i = 0; i < counterCustomers; i++) {
-          if (this.userId == customers[i].customer_id) {
-            this.customersVoting.push(customers[i]);
-
-          }
-        }
-        for (let i = 0; i < counterRatings; i++) {
-          if (this.film2.idmovie == ratings[i].movie_id) {
-            alreadyCreated = true;
-            var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
-            if (found == false) {
-              ratings[i].rating++
-              this.ratingServiceDatabase.editRatingDatabaseEntry(ratings[i]).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
-              }), err => {
-                console.log(err);
-              };
-              console.log("Hai votato questo film : " + this.film2.title)
-              break
-            } if (found) {
-              console.log("Hai già votato questo film")
-              break
-            }
-          }
-          if (alreadyCreated) break;
-        }
-        if (alreadyCreated == false) {
-          this.ratingServiceDatabase.addRatingDatabaseEntry(RatingToAdd).subscribe(response => {
-
-          }), err => {
-            console.log(err);
-          };
-          this.ratingServiceDatabase.addCustomerDatabaseEntry(Customer).subscribe(response => {
-          }), err => {
-            console.log(err);
-          };
-        }
+        this.voteCheckFilm2Database(ratings,customers);
       }, (err) => {
         console.log(err);
       }
@@ -698,6 +266,7 @@ export class MoviesParseComponent implements OnInit {
     )
 
   }
+
   findDoubleMovieId(rating: Ratings, customers: Customers[]) {
     let elementFound = false;
     let count = 0;
@@ -712,5 +281,321 @@ export class MoviesParseComponent implements OnInit {
     }
     return elementFound;
   }
+  editRating(ratings: Ratings, customers: Customers) {
+    ratings.rating++
+    this.ratingService.editRatingDatabaseEntry(ratings).subscribe(response => {
 
+    }), err => {
+      console.log(err);
+    };
+    this.ratingService.addCustomerDatabaseEntry(customers).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+  }
+  addRating(rating: Ratings, customers: Customers) {
+    this.ratingService.addRatingDatabaseEntry(rating).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+    this.ratingService.addCustomerDatabaseEntry(customers).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+  }
+  editRatingDatabase(ratings: Ratings, customers: Customers) {
+    ratings.rating++
+    this.ratingServiceDatabase.editRatingDatabaseEntry(ratings).subscribe(response => {
+
+    }), err => {
+      console.log(err);
+    };
+    this.ratingServiceDatabase.addCustomerDatabaseEntry(customers).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+  }
+  addRatingDatabase(rating: Ratings, customers: Customers) {
+    this.ratingServiceDatabase.addRatingDatabaseEntry(rating).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+    this.ratingServiceDatabase.addCustomerDatabaseEntry(customers).subscribe(response => {
+    }), err => {
+      console.log(err);
+    };
+  }
+
+  count(itemToCount:any){
+    var count = 0;
+    for (let i in itemToCount) {
+      count++
+    }
+    return count;
+  }
+  generateFilm1() {
+    this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
+
+    if (this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter) {
+      this.idFilm1++;
+    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
+      this.idFilm1--;
+    }
+      for (let i = 0; i < this.counter; i++) {
+        // Se nell'array dell'api c'è un indice uguale all'id del film generato
+        if (this.idFilm1 == i) {
+          // film1 è uguale al film in quella posizione
+          this.film1 = this.resultsApi[i];
+          this.film1.idmovie = this.resultsApi[i].id
+          this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+          this.titoloFilm1 = this.film1.title;
+        }
+      }
+  }
+  generateFilm2() {
+    // Al click del pulsante del primo film genera un id per il secondo film
+    this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
+
+    // Se l'id del primo film è uguale all'id del secondo e l'id del primo film è diverso dall'ultimo indice dell'array dei film dell'api
+    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
+      //Aggiungi 1 all'id del secondo film
+      this.idFilm2++;
+      // Invece se l'id del primo film è uguale all'id del secondo e l'id del primo film è uguale all'ultimo indice dell'array dei film dell'api
+    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
+      //Togli 1 all'id del secondo film
+      this.idFilm2--;
+    }
+    for (let i = 0; i < this.counter; i++) {
+      // Se nell'array dell'api c'è un indice uguale all'id del film generato
+      if (this.idFilm2 == i) {
+        // film2 è uguale al film in quella posizione
+        this.film2 = this.resultsApi[i];
+        this.film2.idmovie = this.resultsApi[i].id
+        this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
+        this.titoloFilm2 = this.film2.title;
+      }
+    }
+  }
+  generateFilm1Database(){
+    let grandezza = this.displayMovies.length;
+    this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
+    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
+      this.idFilm1++;
+    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
+      this.idFilm1--;
+    }
+
+    for (let i = 0; i < grandezza; i++) {
+      if (this.idFilm1 == i) {
+        this.film1 = this.displayMovies[i];
+        this.film1.idmovie = this.displayMovies[i].id
+        this.film1Path = this.displayMovies[i].image_path;
+        this.titoloFilm1 = this.film1.title;
+      }
+    }
+
+  }
+  generateFilm2Database(){
+    let grandezza = this.displayMovies.length;
+    this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
+
+    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
+      this.idFilm2++;
+    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
+      this.idFilm2--;
+    }
+
+    for (let i = 0; i < grandezza; i++) {
+      if (this.idFilm2 == i) {
+        this.film2 = this.displayMovies[i];
+        this.film2.idmovie = this.displayMovies[i].id
+        this.film2Path = this.displayMovies[i].image_path;
+        this.titoloFilm2 = this.film2.title;
+      }
+    }
+  }
+  pushCustomerVotes(counterCustomers: number, customers : Customers){
+    for (let i = 0; i < counterCustomers; i++) {
+      if (this.userId == customers[i].customer_id) {
+        this.customersVoting.push(customers[i]);
+      }
+    }
+  }
+  voteCheckFilm1(ratings : Ratings,customers: Customers){
+    var alreadyCreated = false;
+    var counterRatings = this.count(ratings);
+    var counterCustomers = this.count(customers);
+
+
+    var RatingToAdd: Ratings =
+    {
+      "id": null,
+      "movie_id": this.film1.idmovie,
+      "rating": 1
+    }
+
+    var Customer: Customers =
+    {
+      "id": null,
+      "movie_id": this.film1.idmovie,
+      //Da aggiustare con springboot
+      "customer_id": this.userId
+    }
+
+    // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
+    // guarda chi ha votato quel film e controlla se l'user id ha già votato quel film
+
+
+    this.pushCustomerVotes(counterCustomers,customers);
+
+    for (let i = 0; i < counterRatings; i++) {
+      if (this.film1.idmovie == ratings[i].movie_id) {
+        alreadyCreated = true;
+        var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
+        if (found == false) {
+          this.editRating(ratings[i], Customer)
+          console.log("Hai votato questo film : " + this.film1.title)
+          break
+        } if (found) {
+          console.log("Hai già votato " + this.film1.title)
+          break
+        }
+      }
+      if (alreadyCreated) break;
+    }
+    if (alreadyCreated == false) {
+      this.addRating(RatingToAdd, Customer);
+      console.log("Hai votato questo film : " + this.film1.title)
+    }
+
+  }
+  voteCheckFilm2(ratings : Ratings,customers: Customers){
+    var alreadyCreated: boolean = false;
+    var counterRatings = this.count(ratings);
+    var counterCustomers = this.count(customers);
+    var RatingToAdd: Ratings =
+    {
+      "id": null,
+      "movie_id": this.film2.idmovie,
+      "rating": 1
+    }
+    var Customer: Customers =
+    {
+      "id": null,
+      "movie_id": this.film2.idmovie,
+      //Da aggiustare con springboot
+      "customer_id": this.userId
+    }
+
+    this.pushCustomerVotes(counterCustomers,customers);
+    for (let i = 0; i < counterRatings; i++) {
+      if (this.film2.idmovie == ratings[i].movie_id) {
+        alreadyCreated = true;
+        var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
+        if (found == false) {
+          this.editRating(ratings[i], Customer)
+          console.log("Hai votato questo film : " + this.film2.title)
+          break
+        } if (found) {
+          console.log("Hai già votato " + this.film2.title)
+          break
+        }
+      }
+      if (alreadyCreated) break;
+    }
+    if (alreadyCreated == false) {
+      this.addRating(RatingToAdd, Customer);
+      console.log("Hai votato questo film : " + this.film2.title)
+    }
+
+  }
+  voteCheckFilm1Database(ratings : Ratings,customers: Customers){
+    var alreadyCreated = false;
+    var counterRatings = this.count(ratings);
+    var counterCustomers = this.count(customers);
+
+
+    var RatingToAdd: Ratings =
+    {
+      "id": null,
+      "movie_id": this.film1.idmovie,
+      "rating": 1
+    }
+
+    var Customer: Customers =
+    {
+      "id": null,
+      "movie_id": this.film1.idmovie,
+      //Da aggiustare con springboot
+      "customer_id": this.userId
+    }
+
+    // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
+    // guarda chi ha votato quel film e controlla se l'user id ha già votato quel film
+
+
+    this.pushCustomerVotes(counterCustomers,customers);
+
+    for (let i = 0; i < counterRatings; i++) {
+      if (this.film1.idmovie == ratings[i].movie_id) {
+        alreadyCreated = true;
+        var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
+        if (found == false) {
+          this.editRatingDatabase(ratings[i], Customer)
+          console.log("Hai votato questo film : " + this.film1.title)
+          break
+        } if (found) {
+          console.log("Hai già votato " + this.film1.title)
+          break
+        }
+      }
+      if (alreadyCreated) break;
+    }
+    if (alreadyCreated == false) {
+      this.addRatingDatabase(RatingToAdd, Customer);
+      console.log("Hai votato questo film : " + this.film1.title)
+    }
+
+  }
+  voteCheckFilm2Database(ratings : Ratings,customers: Customers){
+    var alreadyCreated: boolean = false;
+    var counterRatings = this.count(ratings);
+    var counterCustomers = this.count(customers);
+    var RatingToAdd: Ratings =
+    {
+      "id": null,
+      "movie_id": this.film2.idmovie,
+      "rating": 1
+    }
+    var Customer: Customers =
+    {
+      "id": null,
+      "movie_id": this.film2.idmovie,
+      //Da aggiustare con springboot
+      "customer_id": this.userId
+    }
+
+    this.pushCustomerVotes(counterCustomers,customers);
+    for (let i = 0; i < counterRatings; i++) {
+      if (this.film2.idmovie == ratings[i].movie_id) {
+        alreadyCreated = true;
+        var found = this.findDoubleMovieId(ratings[i], this.customersVoting);
+        if (found == false) {
+          this.editRatingDatabase(ratings[i], Customer)
+          console.log("Hai votato questo film : " + this.film2.title)
+          break
+        } if (found) {
+          console.log("Hai già votato " + this.film2.title)
+          break
+        }
+      }
+      if (alreadyCreated) break;
+    }
+    if (alreadyCreated == false) {
+      this.addRatingDatabase(RatingToAdd, Customer);
+      console.log("Hai votato questo film : " + this.film2.title)
+
+    }
+
+  }
 }
