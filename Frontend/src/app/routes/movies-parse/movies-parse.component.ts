@@ -41,12 +41,9 @@ export class MoviesParseComponent implements OnInit {
   film1Path: string;
   film2Path: string;
 
-
   choice$: string;
   private userLoggedId$: string;
   private userId: number;
-
-
 
   titoloFilm1: string;
   titoloFilm2: string;
@@ -59,8 +56,6 @@ export class MoviesParseComponent implements OnInit {
     private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService, private ratingServiceDatabase: RatingsDatabaseService) {
     const Choice = sessionStorage.getItem('choice');
     this.choice$ = Choice;
-
-
 
     const UserId = sessionStorage.getItem('customer_id');
     this.userLoggedId$ = UserId;
@@ -75,12 +70,10 @@ export class MoviesParseComponent implements OnInit {
     this.userId = parseInt(userIdString)//Returns userId in number
 
   }
-
   ngOnInit(): void {
     this.databaseGeneration();
 
   }
-
   databaseGeneration() {
 
     if (this.choice$ == "api") {
@@ -91,8 +84,6 @@ export class MoviesParseComponent implements OnInit {
       this.generateFilmsDatabase();
     }
   }
-
-
   generateFilmsApi() {
     console.log("API")
 
@@ -111,11 +102,8 @@ export class MoviesParseComponent implements OnInit {
 
 
   }
-
   onClickFilm1() {
-
     this.generateFilm2();
-
     //Aggiungi votazione al db customers
     // Ricava la lista di ratings dal db
     this.ratingService.getRatingDatabaseData().subscribe((response: RatingData) => {
@@ -139,10 +127,7 @@ export class MoviesParseComponent implements OnInit {
 
   }
   onClickFilm2() {
-
-
     this.generateFilm1();
-
     //Aggiungi votazione al db
     // Ricava la lista di ratings dal db
     this.ratingService.getRatingDatabaseData().subscribe((response: RatingData) => {
@@ -173,20 +158,12 @@ export class MoviesParseComponent implements OnInit {
       this.generateFilm2Database();
     })
   }
-
   addFilmDatabase() {
-
-
     this.moviesApi.getMarvelList().subscribe(response => {
       this.movies = response;
       this.resultsApi = this.movies.results;
 
-      var counter = 0;
-      for (let i in this.resultsApi) {
-        counter++;
-      }
-
-
+      var counter = this.count(this.resultsApi);
 
       for (let i = 0; i < counter; i++) {
         this.imageURL = this.filmPath.concat(this.resultsApi[i].backdrop_path);
@@ -202,19 +179,15 @@ export class MoviesParseComponent implements OnInit {
       window.location.reload();
     })
   }
-
   inserimentoDatabase() {
     this.moviesDatabaseService.getMovieDatabaseData().subscribe((response: any) => {
       this.verificaDatabase = response;
-
-
       if (this.verificaDatabase.length == 0) {
         this.addFilmDatabase();
         this.ricaricaPagina = true;
       }
     })
   }
-
   onClickFilm1Database() {
 
     this.generateFilm2Database()
@@ -242,7 +215,6 @@ export class MoviesParseComponent implements OnInit {
     //sessionStorage.setItem('alreadyCreated', 'no');
 
   }
-
   onClickFilm2Database() {
     this.generateFilm1Database()
     //Aggiungi votazione al db, Funzioni da cambiare quando verranno aggiunte le due tabelle in più perche i movie_id sono diversi anche se i film sono uguali
@@ -266,7 +238,6 @@ export class MoviesParseComponent implements OnInit {
     )
 
   }
-
   findDoubleMovieId(rating: Ratings, customers: Customers[]) {
     let elementFound = false;
     let count = 0;
@@ -325,7 +296,6 @@ export class MoviesParseComponent implements OnInit {
       console.log(err);
     };
   }
-
   count(itemToCount:any){
     var count = 0;
     for (let i in itemToCount) {
