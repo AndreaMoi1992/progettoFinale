@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: "moviesDatabaseList", component: MoviesDatabaseListComponent },
   { path: "moviesDatabaseDetails/:id", component: MoviesDatabaseDetailsComponent },
   { path: "register", component: RegisterComponent },
+]
 
 
 @NgModule({
