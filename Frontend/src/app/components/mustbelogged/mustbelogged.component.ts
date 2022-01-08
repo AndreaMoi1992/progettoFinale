@@ -1,4 +1,5 @@
-import { AuthService } from './../../services/auth.service';
+import { LoginComponent } from './../login/login.component';
+import { TokenStorageService } from './../../jwt-auth/auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MustbeloggedComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  constructor( public tokenService : TokenStorageService ) { }
 
   ngOnInit() {
   }

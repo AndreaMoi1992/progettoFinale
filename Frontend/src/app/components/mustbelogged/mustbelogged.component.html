@@ -1,4 +1,4 @@
-<div class="container box-pages p-5 text-center" *ngIf="!(authService.isLoggedIn$ | async)">
+<div class="container box-pages p-5 text-center" *ngIf="!(tokenService.isLoggedIn$ | async)">
   <label >Devi effettuare il login prima di accedere a questa funzione</label>
 
 </div>
