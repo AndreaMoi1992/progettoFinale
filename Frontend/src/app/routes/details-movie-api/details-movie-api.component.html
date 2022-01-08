@@ -1,4 +1,5 @@
-<div *ngIf="moviesdetails != null ">
+<app-mustbelogged></app-mustbelogged>
+<div *ngIf="moviesdetails != null && (tokenStorage.isLoggedIn$ | async)">
 
   <div id="container_principale" class="container box-pages p-5">
 

@@ -1,4 +1,5 @@
-<div class="container box-pages p-5" *ngIf="moviesDataLoader">
+<app-mustbelogged></app-mustbelogged>
+<div class="container box-pages p-5" *ngIf="moviesDataLoader && (tokenStorage.isLoggedIn$ | async)">
   <table class="table">
     <thead class="thead-dark">
       <tr>
