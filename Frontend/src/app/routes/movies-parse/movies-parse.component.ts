@@ -1,15 +1,17 @@
+import { LoginComponent } from './../../components/login/login.component';
 import { BehaviorSubject } from 'rxjs';
 import { RatingsDatabaseService } from './../../services/ratingsDatabase.service';
 import { Customers, CustomerData } from './../../models/customer.model';
 import { MovieDatabaseInterface } from './../../models/apiMovie.model';
 import { RatingData, Ratings } from './../../models/rating.model';
 import { RatingsService } from './../../services/ratings.service';
-import { AuthService } from './../../services/auth.service';
+
 import { MoviesApiService } from './../../services/moviesapi.service';
 
 import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
 import { MovieDatabaseServiceService } from '../../services/movie-database-service.service';
+import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 
 
 
@@ -52,20 +54,12 @@ export class MoviesParseComponent implements OnInit {
   idFilm1: number;
   idFilm2: number;
 
-  constructor(private ratingService: RatingsService, public authService: AuthService,
+  constructor(private ratingService: RatingsService, public tokenService : TokenStorageService,
     private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService, private ratingServiceDatabase: RatingsDatabaseService) {
     const Choice = sessionStorage.getItem('choice');
     this.choice$ = Choice;
-
     const UserId = sessionStorage.getItem('customer_id');
     this.userLoggedId$ = UserId;
-    if (this.userLoggedId$ == "2") {
-      sessionStorage.setItem('customer_id', '2');
-    } else if (this.userLoggedId$ == "1") {
-      sessionStorage.setItem('customer_id', '1');
-    } else {
-      sessionStorage.setItem('customer_id', '3');
-    }
     var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
     this.userId = parseInt(userIdString)//Returns userId in number
 
