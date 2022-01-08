@@ -13,6 +13,7 @@ import { RatingsService } from 'src/app/services/ratings.service';
 import { RatingData, Ratings } from 'src/app/models/rating.model';
 import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service';
 import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
+import { AuthService } from '../../jwt-auth/auth/auth.service';
 
 
 
@@ -24,7 +25,7 @@ import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 export class MoviesDatabaseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router, public tokenStorage: TokenStorageService) { }
+    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router, public tokenStorage: TokenStorageService,private authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -35,7 +36,9 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   dotnetData: commentDotnetData;
   commentList: Array<commentDotnetData>;
   commentRappresentation: Array<commentDotnetData>;
-
+  username:string = "";
+  userList: Array<any>;
+  commentUsername: Array<string>;
 
   filmPath : string = "https://image.tmdb.org/t/p/w500";
   filmPathHTML :string;
@@ -150,37 +153,38 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
     this.visualizzaCondizione=false;
 
   }
-
   // Cerca i commenti all'interno della tabella gestita da dotnet
-  findComment(){
-
+  findComment() {
     // Get
-    this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
-      this.commentList = response;
-
-      // Contatore per l'inserimento dei commenti trovati nell'array
-      var j=0;
-
-      // Inizializzo un array per salvare i commenti
-      this.commentRappresentation=[];
-
-      // Cerca all'interno della tabella Commenti
-      for(let i=0; i<this.commentList.length; i++){
-
-        // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
-        if(this.commentList[i].movieId==this.idpath){
-          this.commentRappresentation[j]=this.commentList[i];
-          j++;
+    this.dotnetService.getDotnetDataAll().subscribe((resDot: any) => {
+      this.commentList = resDot;
+      this.authService.getAll().subscribe(resSpring => {
+        this.userList = resSpring;
+        // Contatore per l'inserimento dei commenti trovati nell'array
+        var j = 0;
+        // Inizializzo un array per salvare i commenti
+        this.commentRappresentation = [];
+        this.commentUsername = [];
+        // Cerca all'interno della tabella Commenti
+        for (let i = 0; i < this.commentList.length; i++) {
+          // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
+          if (this.commentList[i].movieId == this.idpath) {
+            for (let x = 0; x < this.userList.length; x++) {
+              if (this.commentList[i].userId == this.userList[x].id) {
+                this.commentUsername[j] = this.userList[x].username
+              }
+            }
+            this.commentRappresentation[j] = this.commentList[i];
+            j++;
+          }
         }
-      }
-
-      // Se sono presenti commenti allora visualizzali nella pagina HTML
-      if(this.commentRappresentation.length>0){
-        this.viewComments=true;
-      }
-
-      // Non mostrare più il caricamento della pagina
-      this.moviesDataLoader=true;
+        // Se sono presenti commenti allora visualizzali nella pagina HTML
+        if (this.commentRappresentation.length > 0) {
+          this.viewComments = true;
+        }
+        // Non mostrare più il caricamento della pagina
+        this.moviesDataLoader = true;
+      })
     })
   }
 
