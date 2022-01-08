@@ -62,30 +62,48 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Id movie preso dal path
     this.idpath = this.route.snapshot.params['id'];
+
+    // Calcola il voto corrispondente al film scelto prendendo i dati dal database
     this.findVote();
+
+    // Cerca i dati corrispondenti al film nel database
     this.fetchEntry();
+
+    // Specchietto per inserimento commento
     this.visualizzaCommento=false;
+
+    // Se la stringa inserita è minore di 20 caratteri viene modificata in true
     this.visualizzaCondizione=false;
+
+    // Schermata di caricamento
     this.moviesDataLoader=true;
+
+    // Cerca nel database se ci sono commenti corrispondenti al movie id considerato
     this.findComment();
-
-
   }
 
   findVote(){
+    // Richiama i dati dal database
     this.ratingService.getRatingDatabaseData().subscribe( (res: any ) => {
       this.ratingData = res;
 
+      // Prende le votazioni presenti nel database
       this.data=this.ratingData.data;
 
+      // Conta gli elementi presenti nella tabella del database
       for(let i in this.data){
         this.counter++;
-
       }
+
+      // Per tutti gli elementi presenti nel database
       for(let i=0; i<this.counter; i++){
 
+        // Se gli elementi presenti nel database sonoo corrispondenti al path
         if(this.data[i].movie_id==this.idpath){
+
+          // aggiorna la votazione
           this.vote= this.vote+this.data[i].rating;
         }
       }
@@ -94,16 +112,23 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   }
 
   fetchEntry(){
+    // Preleva i dati dal database
     this.moviesDatabaseService.getMovieDatabaseData().subscribe( (res: any ) => {
       this.moviesDatabase = res;
 
+       // Cerca il film scelto nella pagina precedente tramite l'idpath e ne ricava i dettagli
       for(let i in this.moviesDatabase){
+
+        // Se l'idpath e l'id movie presente nel database coincidono allora:
         if(this.idpath==this.moviesDatabase[i].idmovie){
+
+          // Dettagli del film
           this.moviesdetails=this.moviesDatabase[i];
+
+          // Path dell'immagine corrispondente
           this.filmPathHTML=this.moviesdetails.image_path;
         }
       }
-
     })
   }
 
@@ -117,6 +142,7 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
     });
   }
 
+  // Controlla del tasto per l'inserimento del commento
   changeStatus(){
 
     this.visualizzaCommento=!this.visualizzaCommento;
@@ -124,48 +150,67 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
 
   }
 
+  // Cerca i commenti all'interno della tabella gestita da dotnet
   findComment(){
-      this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
-        this.commentList = response;
 
-        var j=0;
+    // Get
+    this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
+      this.commentList = response;
 
-        this.commentRappresentation=[];
+      // Contatore per l'inserimento dei commenti trovati nell'array
+      var j=0;
 
-        for(let i=0; i<this.commentList.length; i++){
+      // Inizializzo un array per salvare i commenti
+      this.commentRappresentation=[];
 
-          if(this.commentList[i].movieId==this.idpath){
-            this.commentRappresentation[j]=this.commentList[i];
-            j++;
+      // Cerca all'interno della tabella Commenti
+      for(let i=0; i<this.commentList.length; i++){
 
-          }
-
+        // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
+        if(this.commentList[i].movieId==this.idpath){
+          this.commentRappresentation[j]=this.commentList[i];
+          j++;
         }
+      }
 
-        if(this.commentRappresentation.length>0){
-          this.viewComments=true;
-        }
-        this.moviesDataLoader=true;
-      })
+      // Se sono presenti commenti allora visualizzali nella pagina HTML
+      if(this.commentRappresentation.length>0){
+        this.viewComments=true;
+      }
 
+      // Non mostrare più il caricamento della pagina
+      this.moviesDataLoader=true;
+    })
   }
 
+  // Carica il commento inserito nel database
   onSubmit(form : NgForm){
 
+    // Inizializza un array di "prova"
     this.dotnetData ={id:1, userId:12, movieId:13,  body:""}
 
+    // Salva la stringa inserita nel form
     this.commento=form.form.value.commento;
 
+    // Se il commento inserito ha una lunghezza minore di 20 caratteri
+    // mostra la condizione minima di inserimento
     if(this.commento.length<20){
       this.visualizzaCondizione=true;
     }
+
+    // Se il commento inserito è della dimensione corretta
     else{
 
+      // Nascondi l'avviso di dimensione minima
       this.visualizzaCondizione=false;
 
+      // Salva in movie Id
       this.dotnetData.movieId=this.moviesdetails.idmovie;
 
+      // Salva l'user id
       this.dotnetData.userId=666;
+
+      // Inserisce il commento
       this.dotnetData.body=this.commento;
 
 
@@ -178,14 +223,8 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
         //fai qualcosa
       }
       )
-
-
     }
-
-
   }
-
-
 }
 
 

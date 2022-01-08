@@ -61,7 +61,7 @@ export class MoviesDatabaseListComponent implements OnInit {
           for(let i in this.ratingData.data){
             this.counterRatingDatabase++;
           }
-          
+
           // Inizializzo un array "ListDatabase"
           this.elementiLista[0]={
             title:"",
@@ -86,11 +86,19 @@ export class MoviesDatabaseListComponent implements OnInit {
           // Vengono confrontati i film con la tabella delle votazioni, ogni volta che è presente una votazione
           // viene sommato il voto e poi inserito nel movie id corrispondente e salvato
           for(let i=0;i<this.counterMovies;i++){
+
+            // Contatore per i voti
             let ratingFilm=0;
+
+            // Per ogni film si scorre lungo tutto il database per le corrispondenze
             for(let j=0; j<this.counterRatingDatabase;j++){
+
+              // Se c'è corrispondenza aggiorna la votazione
               if(this.elementiLista[i].movieId==this.ratingData.data[j].movie_id){
                 ratingFilm=ratingFilm+this.ratingData.data[j].rating;
               }
+
+              // Salva il voto
               this.elementiLista[i].voto=ratingFilm;
             }
           }
@@ -102,9 +110,7 @@ export class MoviesDatabaseListComponent implements OnInit {
       })
   }
 
-
-
-
+  // Si viene rimandati alla pagina dei dettagli
   goToMovieDatabaseDetails(id){
     this.router.navigateByUrl('/moviesDatabaseDetails/'+ id);
   }
