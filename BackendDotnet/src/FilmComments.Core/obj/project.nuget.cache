@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UxsPn40TU0C/XMh15JiC6Wkm1BEzLqpCHFWtr+45ixko0zu0pdYYdKpYebR0ddtoMbosUxWd9d4bU6Px0ItOFA==",
+  "dgSpecHash": "x5Qe6dyH086Po3LRCACYdPsTLJUIrJw4axZuVTdhGQRFnaFms6KYPBgnr1zN2dKdeTJDONT24AD1OSv9OLTQiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\visualStudioProject\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
+  "projectFilePath": "D:\\TNV5\\Angular\\BrrakeFinalProject\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
