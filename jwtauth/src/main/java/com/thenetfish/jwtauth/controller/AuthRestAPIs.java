@@ -20,6 +20,7 @@ import com.thenetfish.jwtauth.model.User;
 import com.thenetfish.jwtauth.repository.UserRepository;
 import com.thenetfish.jwtauth.security.jwt.JwtProvider;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -79,5 +80,9 @@ public class AuthRestAPIs {
     @GetMapping("/username/{username}")
     public Optional<User> getUser(@PathVariable("username") String username) {
         return userRepository.findByUsername(username);
+    }
+        @GetMapping("/users")
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 }
