@@ -17,22 +17,22 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //PasswordEncoder encoder = new BCryptPasswordEncoder();
+    PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.jdbcAuthentication().dataSource(dataSource)
         // DA ESEGUIRE SOLO AL PRIMO AVVIO (commentare o cancellare dopo la creazione)
-               // .withUser("user")
-               // .password(encoder.encode("password"))
-               // .roles("USER")
-               // .and()
-               // .withUser("admin")
-               // .password(encoder.encode("admin"))
-               // .roles("ADMIN");
+                .withUser("user")
+                .password(encoder.encode("password"))
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password(encoder.encode("admin"))
+                .roles("ADMIN");
     }
 
     @Override

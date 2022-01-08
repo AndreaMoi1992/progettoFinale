@@ -66,6 +66,29 @@ export class MoviesParseComponent implements OnInit {
   }
   ngOnInit(): void {
     this.databaseGeneration();
+    console.log(this.choice$)
+
+
+
+
+  }
+
+
+  onClickChoiceDatabase(){
+
+    sessionStorage.setItem('choice', 'database');
+
+    this.moviesDataLoader = false;
+    window.location.reload()
+
+  }
+
+  onClickChoiceApi(){
+
+    sessionStorage.setItem('choice', 'api');
+
+    this.moviesDataLoader = false;
+    window.location.reload()
 
   }
   databaseGeneration() {
@@ -148,6 +171,7 @@ export class MoviesParseComponent implements OnInit {
     this.moviesDatabaseService.getMovieDatabaseData().subscribe(response => {
       this.moviesDataLoader = true;
       this.displayMovies = response;
+      console.log(this.displayMovies)
       this.generateFilm1Database();
       this.generateFilm2Database();
     })
@@ -352,11 +376,12 @@ export class MoviesParseComponent implements OnInit {
     for (let i = 0; i < grandezza; i++) {
       if (this.idFilm1 == i) {
         this.film1 = this.displayMovies[i];
-        this.film1.idmovie = this.displayMovies[i].id
+        this.film1.idmovie = this.displayMovies[i].idmovie
         this.film1Path = this.displayMovies[i].image_path;
         this.titoloFilm1 = this.film1.title;
       }
     }
+    
 
   }
   generateFilm2Database(){
@@ -372,7 +397,7 @@ export class MoviesParseComponent implements OnInit {
     for (let i = 0; i < grandezza; i++) {
       if (this.idFilm2 == i) {
         this.film2 = this.displayMovies[i];
-        this.film2.idmovie = this.displayMovies[i].id
+        this.film2.idmovie = this.displayMovies[i].idmovie
         this.film2Path = this.displayMovies[i].image_path;
         this.titoloFilm2 = this.film2.title;
       }
