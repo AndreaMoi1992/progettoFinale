@@ -1,4 +1,6 @@
-import { AuthService } from './../../services/auth.service';
+import { TokenStorageService } from './../../jwt-auth/auth/token-storage.service';
+import { LoginComponent } from './../../components/login/login.component';
+
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
@@ -12,7 +14,7 @@ import { MovieData } from './../../models/data.model'
 })
 export class AddComponent implements OnInit {
 
-  constructor(public authService: AuthService,private dataService: DataService, private router: Router) { }
+  constructor(private dataService: DataService, private router: Router, public tokenService : TokenStorageService) { }
 
   ngOnInit(): void {
 
