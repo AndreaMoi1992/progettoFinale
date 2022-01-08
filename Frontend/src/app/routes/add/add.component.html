@@ -1,4 +1,4 @@
-<div class="container box-pages p-5" *ngIf="authService.isLoggedIn$ | async">
+<div class="container box-pages p-5" *ngIf="tokenService.isLoggedIn$ | async">
     <div class="row">
         <button class="btn btn-primary mr-5" [routerLink]="['/dashboard']">Back</button>
         <h3 class="text-center">New Movie</h3>

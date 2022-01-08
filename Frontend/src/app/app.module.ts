@@ -1,3 +1,4 @@
+import { RegisterComponent } from './components/register/register.component';
 import { OverlayChoiceComponent } from './components/overlayChoice/overlayChoice.component';
 import { MustbeloggedComponent } from './components/mustbelogged/mustbelogged.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,7 +11,7 @@ import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AddComponent } from './routes/add/add.component';
 import { DetailsComponent } from './routes/details/details.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './routes/edit/edit.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -52,6 +53,7 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
     MoviesDatabaseListComponent,
     MoviesDatabaseDetailsComponent,
     OverlayChoiceComponent,
+    RegisterComponent
 
   ],
   imports: [
@@ -59,8 +61,8 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

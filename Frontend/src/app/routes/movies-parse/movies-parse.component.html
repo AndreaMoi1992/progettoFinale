@@ -1,14 +1,13 @@
 
-  <app-overlayChoice *ngIf="choice$ == null && (authService.isLoggedIn$ | async)">
 
+  <app-overlayChoice *ngIf="choice$ ==null && (tokenService.isLoggedIn$ | async)">
     <!-- <div id="box_scelta"class="container box-pages p-5"></div> -->
 
   </app-overlayChoice>
 
 
+<div *ngIf="moviesDataLoader && (tokenService.isLoggedIn$ | async)">
 
- <!--<div *ngIf="moviesDataLoader && (authService.isLoggedIn$ | async)"> -->
- <div *ngIf="moviesDataLoader && (authService.isLoggedIn$ | async)">
 
   <div class="container box-pages p-3">
     <div class="text-center">

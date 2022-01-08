@@ -1,42 +1,63 @@
-<div class="wrapper">
-  <div class="form" *ngIf='!(authService.isLoggedIn$ | async)'>
+<div class="wrapper" *ngIf="!(isLoggedIn)">
+  <div class="form">
     <div class="title">
       Login To The Net Fish
     </div>
 
-    <div class="input_wrap">
-      <label for="input_text">Email or Username</label>
-      <div class="input_field">
-        <input type="text" class="input" id="input_text" required [(ngModel)]="authService.usernameInput">
-      </div>
-    </div>
-    <div class="input_wrap">
-      <label for="input_password">Password</label>
-      <div class="input_field">
-        <input type="password" class="input" id="input_password" required [(ngModel)]="authService.passwordInput">
-      </div>
-    </div>
-    <div class="input_wrap">
-      <span class="error_msg">Incorrect username or password. Please try again</span>
-      <button type="submit" class="btn btn-outline-dark btn-lg px-5" value="Login"
-        (click)='authService.login()'>Login</button>
-    </div>
-
-  </div>
-  <div class=" py-5 h-100 justify-content-center align-items-center "*ngIf='authService.isLoggedIn$ | async'>
-    <div class="card  text-black" style="border-radius: 1rem;">
-      <div class="p-5 text-center">
-        <div >
-          <div class=" text-center">
-            <label class="form-label">Ciao {{authService.userLogged$}}! Vuoi gia' uscire?</label>
-          </div>
-          <div class=" text-center">
-            <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='authService.logout()'>Log
-              Out</button>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="input_wrap">
+        <label for="username">Username</label>
+        <div class="input_field">
+          <input type="text" class="input" id="input_username" name="username" [(ngModel)]="form.username"
+            #username="ngModel" required />
+          <div *ngIf="f.submitted && username.invalid">
+            <div *ngIf="username.errors.required">Username is required</div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="input_wrap">
+        <label for="password">Password</label>
+        <input type="password" class="input" id="input_password" name="password" [(ngModel)]="form.password"
+          #password="ngModel" required minlength="6" />
+        <div *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <table >
+        <tr class="input_wrap">
+          <td>
+          <button class="btn btn-outline-dark btn-lg px-5">Login</button>
+          <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
+            Login failed: {{errorMessage}}
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
+        </td>
+        </tr>
+      </table>
+
+    </form>
 
   </div>
+</div>
+
+
+<div class=" py-5 h-100 justify-content-center align-items-center " *ngIf="isLoggedIn">
+  <div class="card  text-black" style="border-radius: 1rem;">
+    <div class="p-5 text-center">
+      <div>
+        <div class=" text-center">
+          <label class="form-label">Ciao {{username$}}! Vuoi gia' uscire?</label>
+        </div>
+        <div class=" text-center">
+          <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log
+            Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
