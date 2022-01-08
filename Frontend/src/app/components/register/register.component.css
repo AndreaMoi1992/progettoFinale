@@ -1,0 +1,120 @@
+.row{
+  margin-left: 40%;
+
+}
+.form {
+
+  font-size: 20px;
+
+}
+
+
+.card {
+  position: static;
+  width: fit-content;
+  margin-left: 40%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.col-12, .col-md-8, .col-lg-6, .col-xl-5{
+  position: static;
+}
+@media (min-width: 768px){
+  .mb-md-5{
+  margin-bottom: 0rem!important;
+}
+}
+.px-5{
+  margin-right: 5px;
+
+}
+
+body{
+  background: linear-gradient(to right, #f4b661, #f16160);
+}
+
+.wrapper{
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form{
+  width: 425px;
+  height: auto;
+  background: #fff;
+  padding: 35px 50px;
+  border-radius: 2px;
+
+}
+
+.form .title{
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.form .input_wrap{
+  margin-bottom: 20px;
+  width: 325px;
+  position: relative;
+}
+
+.form .input_wrap:last-child{
+  margin-bottom: 0;
+}
+
+.form .input_wrap label{
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form .input_wrap input{
+  padding: 15px;
+  width: 100%;
+  border: 1px solid transparent;
+  font-size: 16px;
+  border-radius: 3px;
+}
+
+.form .input_wrap .input{
+  background: lightgray;
+  padding-right: 35px;
+}
+
+
+.form .input_wrap .input:focus{
+  border-color: #1dbf73;
+}
+
+.form .input_wrap .input_field{
+  position: relative;
+}
+
+.form .input_wrap .btn{
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-right: 70px;
+
+}
+
+.form .input_wrap .btn.disabled{
+  background: #727272;
+}
+
+.form .input_wrap .btn.enabled{
+  background: #1dbf73;
+  cursor: pointer;
+}
+
+.form .input_wrap .error_msg{
+  font-size: 15px;
+  margin-bottom: 5px;
+  color: #f74040;
+  display: none;
+}
+.flex{
+  flex-direction:column;
+}

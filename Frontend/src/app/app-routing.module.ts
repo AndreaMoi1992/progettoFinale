@@ -1,3 +1,4 @@
+import { RegisterComponent } from './components/register/register.component';
 import { MoviesParseComponent } from './routes/movies-parse/movies-parse.component';
 import { MoviesapiComponent } from './routes/moviesapi/moviesapi.component';
 import { GenrepipePipe } from './pipes/genrepipe/genrepipe.pipe';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: "movieApiDetails/:id", component: DetailsMovieApiComponent },
   { path: "moviesDatabaseList", component: MoviesDatabaseListComponent },
   { path: "moviesDatabaseDetails/:id", component: MoviesDatabaseDetailsComponent },
+  { path: "register", component: RegisterComponent },
 ];
 
 @NgModule({
