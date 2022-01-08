@@ -19,5 +19,5 @@
     </tbody>
   </table>
 </div>
-<app-loading-screen *ngIf="!moviesDataLoader"></app-loading-screen>
+<app-loading-screen *ngIf="!moviesDataLoader  && (tokenStorage.isLoggedIn$ | async)"></app-loading-screen>
 
