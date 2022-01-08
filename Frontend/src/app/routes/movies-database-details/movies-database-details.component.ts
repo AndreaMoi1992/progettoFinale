@@ -12,6 +12,7 @@ import { MovieDatabaseServiceService } from 'src/app/services/movie-database-ser
 import { RatingsService } from 'src/app/services/ratings.service';
 import { RatingData, Ratings } from 'src/app/models/rating.model';
 import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service';
+import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 
 
 
@@ -23,7 +24,7 @@ import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service
 export class MoviesDatabaseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router) { }
+    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router, public tokenStorage: TokenStorageService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -187,7 +188,7 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   onSubmit(form : NgForm){
 
     // Inizializza un array di "prova"
-    this.dotnetData ={id:1, userId:12, movieId:13,  body:""}
+    this.dotnetData ={id:1,userId:12, movieId:13,  body:""}
 
     // Salva la stringa inserita nel form
     this.commento=form.form.value.commento;
@@ -208,7 +209,7 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
       this.dotnetData.movieId=this.moviesdetails.idmovie;
 
       // Salva l'user id
-      this.dotnetData.userId=666;
+      this.dotnetData.userId = this.tokenStorage.userId;
 
       // Inserisce il commento
       this.dotnetData.body=this.commento;
