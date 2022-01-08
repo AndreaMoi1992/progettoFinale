@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MovieData } from '../models/data.model';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class DataService {
   constructor( private http : HttpClient) { }
 
   getData () {
+    
     return this.http.get<Array<MovieData>>(this.baseURL)
   }
 

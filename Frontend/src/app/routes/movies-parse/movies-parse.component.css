@@ -68,3 +68,12 @@ table#table1 {
 #box_scelta{
   background:#16151a;
 }
+
+#bottone{
+  text-align:center;
+  margin: 0% 0% 0% 5%;
+}
+
+#box_bottone_scelta{
+  text-align:center;
+}

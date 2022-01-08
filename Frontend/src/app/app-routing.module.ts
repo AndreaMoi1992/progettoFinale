@@ -17,6 +17,7 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
 
 
 
+
 const routes: Routes = [
   { path: "", redirectTo : '/welcome', pathMatch: 'full' },
   { path: "welcome", component : WelcomepageComponent },
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: "movieApiDetails/:id", component: DetailsMovieApiComponent },
   { path: "moviesDatabaseList", component: MoviesDatabaseListComponent },
   { path: "moviesDatabaseDetails/:id", component: MoviesDatabaseDetailsComponent },
+
+
 ];
 
 @NgModule({

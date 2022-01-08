@@ -14,6 +14,7 @@ import { RatingData, Ratings } from 'src/app/models/rating.model';
 import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service';
 
 
+
 @Component({
   selector: 'app-movies-database-details',
   templateUrl: './movies-database-details.component.html',
@@ -77,28 +78,17 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
       this.ratingData = res;
 
       this.data=this.ratingData.data;
-      console.log(this.ratingData)
-      console.log(this.data)
 
       for(let i in this.data){
         this.counter++;
 
       }
-      console.log(this.counter)
-      console.log(this.data[1].movie_id)
-
       for(let i=0; i<this.counter; i++){
+
         if(this.data[i].movie_id==this.idpath){
-          this.vote=this.data[i].rating;
-        }
-        else{
-          this.vote=0;
+          this.vote= this.vote+this.data[i].rating;
         }
       }
-
-
-
-
     })
 
   }
@@ -106,8 +96,6 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
   fetchEntry(){
     this.moviesDatabaseService.getMovieDatabaseData().subscribe( (res: any ) => {
       this.moviesDatabase = res;
-
-
 
       for(let i in this.moviesDatabase){
         if(this.idpath==this.moviesDatabase[i].idmovie){

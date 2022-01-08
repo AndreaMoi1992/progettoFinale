@@ -29,6 +29,7 @@ import { MoviesDatabaseListComponent } from './routes/movies-database-list/movie
 import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details/movies-database-details.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
     DetailsMovieApiComponent,
     MoviesDatabaseListComponent,
     MoviesDatabaseDetailsComponent,
-    OverlayChoiceComponent
+    OverlayChoiceComponent,
+
   ],
   imports: [
     BrowserModule,

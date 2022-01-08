@@ -2,19 +2,18 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Title</th>
-
-        <th scope="col">Photos</th>
-        <th scope="col">Release Date</th>
-
+        <th class="text-center" scope="col">Title</th>
+        <th class="text-center" scope="col">Photos</th>
+        <th class="text-center" scope="col">Votazione</th>
+        <th class="text-center" scope="col">Release Date</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of resultsApi; let i = index" (click)="goToMovieDetails(entry.id)" >
-        <th scope="row"> <h4 class="font-weight-bold">{{entry.title}}</h4></th>
-        <td><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
-        <td><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></td>
-
+      <tr *ngFor="let entry of orderedRatingElementLista; let i = index" (click)="goToMovieDetails(entry.movieId)" >
+        <th class="text-center" scope="row"> <h4 class="font-weight-bold">{{entry.title}}</h4></th>
+        <td class="text-center"><img src="https://image.tmdb.org/t/p/w200{{entry.backdrop_path}}"></td>
+        <th class="text-center" scope="row"> <h4 class="font-weight-bold">{{entry.voto}}</h4></th>
+        <td class="text-center"><h4 class="font-weight-bold">{{entry.release_date | date}}</h4></td>
       </tr>
     </tbody>
   </table>

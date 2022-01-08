@@ -51,6 +51,8 @@ export class DetailsMovieApiComponent implements OnInit {
   public visualizzaCommento: boolean =false;
   public visualizzaCondizione: boolean =false;
 
+  counterRatingDatabase:number=0;
+
 
   ngOnInit(): void {
 
@@ -66,11 +68,22 @@ export class DetailsMovieApiComponent implements OnInit {
   }
 
   findVote(){
-    this.ratingService.getRatingDatabaseEntryByMovieId(this.idpath).subscribe( (res: any ) => {
+    this.ratingService.getRatingDatabaseData().subscribe( (res: any ) => {
       this.ratingData = res;
-      this.vote=this.ratingData.data[0].rating;
-      console.log(this.ratingData);
-      console.log(this.vote);
+
+      // Conta gli elementi presenti nella tabella del database
+      for(let i in this.ratingData.data){
+        this.counterRatingDatabase++;
+      }
+      console.log(this.counterRatingDatabase);
+
+      let ratingFilm=0;
+      for(let i=0;i<this.counterRatingDatabase;i++){
+        if(this.idpath==this.ratingData.data[i].movie_id){
+          ratingFilm=ratingFilm+this.ratingData.data[i].rating
+        }
+      }
+      this.vote=ratingFilm;
     })
 
   }
