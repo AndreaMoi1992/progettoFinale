@@ -20,6 +20,7 @@ import com.thenetfish.jwtauth.model.User;
 import com.thenetfish.jwtauth.repository.UserRepository;
 import com.thenetfish.jwtauth.security.jwt.JwtProvider;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -38,7 +39,7 @@ public class AuthRestAPIs {
     @Autowired
     JwtProvider jwtProvider;
 
-    UserPrinciple userPrinciple;
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -59,12 +60,12 @@ public class AuthRestAPIs {
     @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity<String>("Fail -> Username is already taken!",
+            return new ResponseEntity<>("Fail -> Username is already taken!",
                     HttpStatus.BAD_REQUEST);
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<String>("Fail -> Email is already in use!",
+            return new ResponseEntity<>("Fail -> Email is already in use!",
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -79,5 +80,9 @@ public class AuthRestAPIs {
     @GetMapping("/username/{username}")
     public Optional<User> getUser(@PathVariable("username") String username) {
         return userRepository.findByUsername(username);
+    }
+        @GetMapping("/users")
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 }

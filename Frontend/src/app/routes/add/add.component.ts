@@ -14,7 +14,7 @@ import { MovieData } from './../../models/data.model'
 })
 export class AddComponent implements OnInit {
 
-  constructor(private dataService: DataService, private router: Router, public tokenService : TokenStorageService) { }
+  constructor(private dataService: DataService, private router: Router, public tokenStorage : TokenStorageService) { }
 
   ngOnInit(): void {
 

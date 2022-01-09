@@ -10,3 +10,15 @@ C:\Users\andre\Documents\TVN\Dotnet\film-comments-service\src\FilmComments.Core\
 C:\Users\andre\Documents\TVN\Dotnet\film-comments-service\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.dll
 C:\Users\andre\Documents\TVN\Dotnet\film-comments-service\src\FilmComments.Core\obj\Debug\net5.0\ref\FilmComments.Core.dll
 C:\Users\andre\Documents\TVN\Dotnet\film-comments-service\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.pdb
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.deps.json
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.dll
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\ref\FilmComments.Core.dll
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.pdb
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.csproj.AssemblyReference.cache
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.AssemblyInfoInputs.cache
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.AssemblyInfo.cs
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.csproj.CoreCompileInputs.cache
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.dll
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\ref\FilmComments.Core.dll
+D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.pdb

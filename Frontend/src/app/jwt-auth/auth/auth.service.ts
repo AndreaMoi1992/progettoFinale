@@ -18,6 +18,7 @@ export class AuthService {
   private loginUrl = 'http://localhost:8080/api/auth/signin';
   private signupUrl = 'http://localhost:8080/api/auth/signup';
   private getIdUrl = 'http://localhost:8080/api/auth/username';
+  private getUserUrl = 'http://localhost:8080/api/auth/users';
 
   constructor(private http: HttpClient) {
   }
@@ -30,5 +31,8 @@ export class AuthService {
   }
   getUserIdByUsername(username: String) {
     return this.http.get<any>(this.getIdUrl + "/" + username)
+  }
+  getAll() {
+    return this.http.get<any>(this.getUserUrl)
   }
 }

@@ -1,4 +1,5 @@
-<div class="container box-pages p-5 " *ngIf="moviesDataLoader">
+<app-mustbelogged></app-mustbelogged>
+<div class="container box-pages p-5 " *ngIf="moviesDataLoader  && (tokenStorage.isLoggedIn$ | async)">
   <div class="row p-3 shadow">
 
     <h3 class="text-center genre">Genre</h3>
@@ -32,4 +33,4 @@
   </table>
 
 </div>
-<app-loading-screen *ngIf="!moviesDataLoader"></app-loading-screen>
+<app-loading-screen *ngIf="!moviesDataLoader && (tokenStorage.isLoggedIn$ | async)"></app-loading-screen>

@@ -7,6 +7,7 @@ import { MovieDatabaseServiceService } from 'src/app/services/movie-database-ser
 import { ListDatabase } from 'src/app/models/listDatabase.model';
 import { RatingData, Ratings } from 'src/app/models/rating.model';
 import { RatingsDatabaseService } from 'src/app/services/ratingsDatabase.service';
+import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 
 @Component({
   selector: 'app-movies-database-list',
@@ -32,7 +33,7 @@ export class MoviesDatabaseListComponent implements OnInit {
   counterMovies:number=0;
   counterRatingDatabase:number=0;
 
-  constructor(private ratingService: RatingsDatabaseService, private moviesDatabase: MovieDatabaseServiceService, private router : Router) { }
+  constructor(private ratingService: RatingsDatabaseService, private moviesDatabase: MovieDatabaseServiceService, private router : Router, public tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
 

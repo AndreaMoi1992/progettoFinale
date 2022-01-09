@@ -7,6 +7,7 @@ import { MovieApiInterface } from '../../models/apiMovie.model';
 import { RatingsService } from 'src/app/services/ratings.service';
 import { RatingData, Ratings } from 'src/app/models/rating.model';
 import { ListDatabase } from 'src/app/models/listDatabase.model';
+import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class MoviesapiComponent implements OnInit {
   counterApiMovies:number=0;
   counterApiRatings:number=0;
 
-  constructor(private ratingService: RatingsService, private moviesApi: MoviesApiService, private router : Router) { }
+  constructor(private ratingService: RatingsService, private moviesApi: MoviesApiService, private router : Router, public tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -99,9 +100,6 @@ export class MoviesapiComponent implements OnInit {
 
         // Votazioni ordinate in maniera decrescente
         this.orderedRatingElementLista=this.elementiLista.sort((a,b)=> (-a['voto']+b['voto']));
-
-        console.log(this.orderedRatingElementLista)
-
       })
     })
 

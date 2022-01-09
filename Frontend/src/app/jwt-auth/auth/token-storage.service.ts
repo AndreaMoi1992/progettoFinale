@@ -25,7 +25,6 @@ export class TokenStorageService {
     this.userLoggedId$ = UserId;
     var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
     this.userId = parseInt(userIdString)//Returns userId in number
-
   }
 
   signOut() {

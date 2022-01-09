@@ -1,3 +1,5 @@
+import { SignUpInfo } from './../../jwt-auth/auth/signup-info';
+import { TokenStorageService } from './../../jwt-auth/auth/token-storage.service';
 import { commentDotnetData } from './../../models/dotnetData.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +11,7 @@ import { NgForm } from '@angular/forms';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
 import { RatingData } from 'src/app/models/rating.model';
 import { RatingsService } from 'src/app/services/ratings.service';
-
+import { AuthService } from '../../jwt-auth/auth/auth.service';
 
 @Component({
   selector: 'app-details-movie-api',
@@ -19,7 +21,7 @@ import { RatingsService } from 'src/app/services/ratings.service';
 export class DetailsMovieApiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
-    private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router : Router) { }
+    private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router: Router, public tokenStorage: TokenStorageService, public authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -28,30 +30,32 @@ export class DetailsMovieApiComponent implements OnInit {
   moviesdetails: MovieDatabaseInterface;
   dotnetData: commentDotnetData;
   commentList: Array<commentDotnetData>;
+  userList: Array<any>;
   commentRappresentation: Array<commentDotnetData>;
+  commentUsername: Array<string>;
 
   // Rating
   ratingData: RatingData;
   vote: any = 0;
 
 
-  filmPath : string = "https://image.tmdb.org/t/p/w500";
-  filmPathHTML :string;
+  filmPath: string = "https://image.tmdb.org/t/p/w500";
+  filmPathHTML: string;
 
   idpath: number;
-  ratedOption : string;
+  ratedOption: string;
 
   datiForm: any;
   commento: string;
 
-  viewComments=false;
-  moviesDataLoader=false;
+  viewComments = false;
+  moviesDataLoader = false;
 
 
-  public visualizzaCommento: boolean =false;
-  public visualizzaCondizione: boolean =false;
+  public visualizzaCommento: boolean = false;
+  public visualizzaCondizione: boolean = false;
 
-  counterRatingDatabase:number=0;
+  counterRatingDatabase: number = 0;
 
 
   ngOnInit(): void {
@@ -66,13 +70,13 @@ export class DetailsMovieApiComponent implements OnInit {
     this.fetchEntry()
 
     // Specchietto per inserimento commento
-    this.visualizzaCommento=false;
+    this.visualizzaCommento = false;
 
     // Se la stringa inserita è minore di 20 caratteri viene modificata in true
-    this.visualizzaCondizione=false;
+    this.visualizzaCondizione = false;
 
     // Schermata di caricamento
-    this.moviesDataLoader=true;
+    this.moviesDataLoader = true;
 
     // Cerca nel database se ci sono commenti corrispondenti al movie id considerato
     this.findComment();
@@ -80,138 +84,145 @@ export class DetailsMovieApiComponent implements OnInit {
 
   }
 
-  findVote(){
+  findVote() {
     // Richiama i dati dal database
-    this.ratingService.getRatingDatabaseData().subscribe( (res: any ) => {
+    this.ratingService.getRatingDatabaseData().subscribe((res: any) => {
       this.ratingData = res;
-
       // Conta gli elementi presenti nella tabella del database
-      for(let i in this.ratingData.data){
+      for (let i in this.ratingData.data) {
         this.counterRatingDatabase++;
       }
-
       // Inizializzo un contatore per la votazione del film
-      let ratingFilm=0;
-
+      let ratingFilm = 0;
       // Confronta il movie id preso nella pagina con quelli corrispondenti alle votazioni nel database
-      for(let i=0;i<this.counterRatingDatabase;i++){
-
+      for (let i = 0; i < this.counterRatingDatabase; i++) {
         // Se i movie id del film scelto nel path e quello presente nel database sono uguali
         // allora aggiungo la votazione salvata nella tabella
-        if(this.idpath==this.ratingData.data[i].movie_id){
-          ratingFilm=ratingFilm+this.ratingData.data[i].rating
+        if (this.idpath == this.ratingData.data[i].movie_id) {
+          ratingFilm = ratingFilm + this.ratingData.data[i].rating
         }
       }
       // Salvo il voto corrispondente nella variabile corrispondente della pagina html
-      this.vote=ratingFilm;
+      this.vote = ratingFilm;
     })
 
   }
 
-  fetchEntry(){
+  fetchEntry() {
 
     // Preleva i dati dal database
-    this.apiService.getMovies().subscribe( (res: any ) => {
+    this.apiService.getMovies().subscribe((res: any) => {
       this.dataApiEntry = res;
       this.dataMovieEntry = this.dataApiEntry.results;
 
       // Cerca il film scelto nella pagina precedente tramite l'idpath e ne ricava i dettagli
-      for(let i in this.dataMovieEntry){
+      for (let i in this.dataMovieEntry) {
 
         // Se l'idpath e l'id movie presente nel database coincidono allora:
-        if(this.idpath==this.dataMovieEntry[i].id){
+        if (this.idpath == this.dataMovieEntry[i].id) {
 
           // Dettagli del film
-          this.moviesdetails=this.dataMovieEntry[i];
+          this.moviesdetails = this.dataMovieEntry[i];
 
           // Path dell'immagine corrispondente
-          this.filmPathHTML=this.filmPath.concat(this.moviesdetails.backdrop_path);
+          this.filmPathHTML = this.filmPath.concat(this.moviesdetails.backdrop_path);
         }
       }
 
     })
   }
 
-  delete(){
+  delete() {
     this.dataService.deleteEntry(this.idpath)
-    .subscribe(data => {
-      this.router.navigate(['/dashboard']);
-    }, (err) => {
-      console.log(err);
-      this.router.navigate(['/dashboard']);
-    });
+      .subscribe(data => {
+        this.router.navigate(['/dashboard']);
+      }, (err) => {
+        console.log(err);
+        this.router.navigate(['/dashboard']);
+      });
   }
 
   // Controlla del tasto per l'inserimento del commento
-  changeStatus(){
+  changeStatus() {
 
-    this.visualizzaCommento=!this.visualizzaCommento;
-    this.visualizzaCondizione=false;
+    this.visualizzaCommento = !this.visualizzaCommento;
+    this.visualizzaCondizione = false;
 
   }
 
   // Cerca i commenti all'interno della tabella gestita da dotnet
-  findComment(){
+  findComment() {
 
     // Get
-    this.dotnetService.getDotnetDataAll().subscribe( (response : any) => {
-      this.commentList = response;
+    this.dotnetService.getDotnetDataAll().subscribe((resDot: any) => {
+      this.commentList = resDot;
+      this.authService.getAll().subscribe(resSpring => {
+        this.userList = resSpring;
 
-      // Contatore per l'inserimento dei commenti trovati nell'array
-      var j=0;
+        // Contatore per l'inserimento dei commenti trovati nell'array
+        var j = 0;
 
-      // Inizializzo un array per salvare i commenti
-      this.commentRappresentation=[];
+        // Inizializzo un array per salvare i commenti
+        this.commentRappresentation = [];
+        this.commentUsername = [];
 
-      // Cerca all'interno della tabella Commenti
-      for(let i=0; i<this.commentList.length; i++){
 
-        // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
-        if(this.commentList[i].movieId==this.idpath){
-          this.commentRappresentation[j]=this.commentList[i];
-          j++;
+        // Cerca all'interno della tabella Commenti
+        for (let i = 0; i < this.commentList.length; i++) {
+
+          // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
+          if (this.commentList[i].movieId == this.idpath) {
+            for (let x = 0; x < this.userList.length; x++) {
+              if (this.commentList[i].userId == this.userList[x].id) {
+                this.commentUsername[j] = this.userList[x].username
+              }
+            }
+            this.commentRappresentation[j] = this.commentList[i];
+            j++;
+          }
         }
-      }
 
-      // Se sono presenti commenti allora visualizzali nella pagina HTML
-      if(this.commentRappresentation.length>0){
-        this.viewComments=true;
-      }
 
-      // Non mostrare più il caricamento della pagina
-      this.moviesDataLoader=true;
+        // Se sono presenti commenti allora visualizzali nella pagina HTML
+        if (this.commentRappresentation.length > 0) {
+          this.viewComments = true;
+        }
+
+        // Non mostrare più il caricamento della pagina
+        this.moviesDataLoader = true;
+      })
     })
   }
 
   // Carica il commento inserito nel database
-  onSubmit(form : NgForm){
+  onSubmit(form: NgForm) {
 
     // Inizializza un array di "prova"
-    this.dotnetData ={id:1, userId:12, movieId:13,  body:""}
+    this.dotnetData = { id: 1, userId: 2, movieId: 13, body: "" }
 
     // Salva la stringa inserita nel form
-    this.commento=form.form.value.commento;
+    this.commento = form.form.value.commento;
 
     // Se il commento inserito ha una lunghezza minore di 20 caratteri
     // mostra la condizione minima di inserimento
-    if(this.commento.length<20){
-      this.visualizzaCondizione=true;
+    if (this.commento.length < 20) {
+      this.visualizzaCondizione = true;
     }
 
     // Se il commento inserito è della dimensione corretta
-    else{
+    else {
 
       // Nascondi l'avviso di dimensione minima
-      this.visualizzaCondizione=false;
+      this.visualizzaCondizione = false;
 
       // Salva in movie Id
-      this.dotnetData.movieId=this.moviesdetails.id;
+      this.dotnetData.movieId = this.moviesdetails.id;
 
       // Salva l'user id
-      this.dotnetData.userId=666;
+      this.dotnetData.userId = this.tokenStorage.userId;
 
       // Inserisce il commento
-      this.dotnetData.body=this.commento;
+      this.dotnetData.body = this.commento;
 
       // Salvataggio nel database
       this.dotnetService.addDotnetEntry(this.dotnetData).subscribe(response => {
@@ -219,9 +230,9 @@ export class DetailsMovieApiComponent implements OnInit {
         window.location.reload();
 
       },
-      (err) => {
-        //fai qualcosa
-      }
+        (err) => {
+          //fai qualcosa
+        }
       )
     }
 

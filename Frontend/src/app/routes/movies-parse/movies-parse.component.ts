@@ -66,11 +66,6 @@ export class MoviesParseComponent implements OnInit {
   }
   ngOnInit(): void {
     this.databaseGeneration();
-    console.log(this.choice$)
-
-
-
-
   }
 
 
@@ -381,7 +376,7 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm1 = this.film1.title;
       }
     }
-    
+
 
   }
   generateFilm2Database(){
