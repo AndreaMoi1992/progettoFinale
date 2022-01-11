@@ -15,16 +15,12 @@ export class RegisterComponent implements OnInit {
   form: any = {};
   signupInfo: SignUpInfo;
   isSignedUp = false;
-  isSignUpFailed$ : BehaviorSubject<boolean>;
+  isSignUpFailed = false;
   userLogged: string;
 
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router : Router) {
-    const isSignUpFailed = sessionStorage.getItem('signupfail') === 'true';
-    this.isSignUpFailed$ = new BehaviorSubject(isSignUpFailed);
-
-  }
+  constructor(private authService: AuthService, private router : Router) {  }
 
   ngOnInit() {
   }
@@ -45,14 +41,13 @@ export class RegisterComponent implements OnInit {
         console.log(error)
         if(error.status === 200){
           this.isSignedUp = true;
-          window.sessionStorage.setItem('signupfail', 'false');
+          this.isSignUpFailed = false;
           this.router.navigate(['/login']);
         }else if(error.status === 400){
           this.errorMessage = "Email o Username gia' utilizzati";
-          window.sessionStorage.setItem('signupfail', 'true');
+          this.isSignUpFailed = true;
         }else{
-          this.errorMessage = error.error.text
-          window.sessionStorage.setItem('signupfail', 'true');
+          this.isSignUpFailed = true;
         }
       }
     );

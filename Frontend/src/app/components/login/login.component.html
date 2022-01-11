@@ -25,7 +25,7 @@
           <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
         </div>
       </div>
-      <div *ngIf="f.submitted && isLoginFailed$" class="alert alert-danger">
+      <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
         Login failed: {{errorMessage}}
       </div>
       <table >

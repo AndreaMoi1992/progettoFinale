@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 export class LoginComponent implements OnInit {
   form: any = {};
   isLoggedIn = false;
-  isLoginFailed$ : BehaviorSubject<boolean>;
+  isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private authService: AuthService, public tokenStorage: TokenStorageService) {
-    const isLoginFailed = sessionStorage.getItem('loginfail') === 'true';
-    this.isLoginFailed$ = new BehaviorSubject(isLoginFailed);
     const username = sessionStorage.getItem('usernameLogged');
     this.username$ = username;
     const UserId = sessionStorage.getItem('customer_id');
@@ -35,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.sessionStorage.setItem('loginfail', 'false');
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.authService.getUserIdByUsername(this.username$).subscribe(response => {
@@ -58,19 +55,19 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
         window.sessionStorage.setItem('usernameLogged', this.form.username)
-        window.sessionStorage.setItem('loginfail', 'false');
+
+        this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.reloadPage();
+
       },
       error => {
         if(error.status == "401"){
-          this.errorMessage = "Utente non trovato"
-          window.sessionStorage.setItem('loginfail', 'true');
+          this.errorMessage = "Dati non validi"
+          this.isLoginFailed = true;
         }
-
       }
     );
-
   }
 
   reloadPage() {
