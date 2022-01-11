@@ -1,21 +1,24 @@
-Sto usando il mio progetto con xamp.
-se si usa mamp bisogna andare:
+Stiamo usando il progetto con xamp.
 
-ANGULAR:
-Backend => config => config.json => development: "password" :"root" (o quella che avete impostata)
+In phpMyAdmin creare un database "thenetfish"
+
+Importere dentro il database il file "CreazioneTabelle.sql" presente nel file del progetto
 
 DOTNET:
-aprire la solution, entrare nel progetto FilmComments.DB, andare nel file
+Aprire la solution presentre nella cartella " BackendDotnet".
+
+Una volta aperto il progetto se presente eliminare la cartella Migrations
+nel progetto FilmComments.DB
+
+Utilizzando la shell o terminale entrare nel progetto FilmComments.DB,
 DbContextManager e copiare la stringa nel connectionString
 
 "Server=localhost;Port=3306;Database=thenetfish;Uid=root;"
 
 Io in PHPMyAdmin ho creato una cartella thenetfish con tutto
 
-DOTNET: cancellare la cartella Migrations nel progettoDB,
-	aprire il terminale, andare nella cartella del progetto DB e lanciare:
-
- 
+Dal terminale lanciare i comandi:
+  
 dotnet ef migrations list
 
 dotnet ef migrations add Creazione_Tabella
@@ -23,10 +26,20 @@ dotnet ef migrations add Creazione_Tabella
 dotnet ef database update
 
 
-PHPmyAdmin:
-Andare nel database thenetfish, andare su importa e importare il file presente nella
-cartella del progetto finale
+LARAVEL
 
+il progetto laravel si trova all'interno della cartella "rating" che dovrà essere inserita
+nella cartella htdocs di xampp
+
+una volta aperto laravel con visual studio lanciare da terminale:
+
+npm install
+php artisan migrate
+php artisan serve
+
+SPRING BOOT
+
+Aprire la cartella jwtauth e avviare il progetto 
 
 // api in database
 
