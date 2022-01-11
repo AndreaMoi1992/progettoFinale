@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   userLoggedId$: String;
   userId: number;
 
+  
 
   constructor(private authService: AuthService, public tokenStorage: TokenStorageService) {
     const username = sessionStorage.getItem('usernameLogged');
