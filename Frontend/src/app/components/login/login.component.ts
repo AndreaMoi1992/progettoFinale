@@ -55,10 +55,8 @@ export class LoginComponent implements OnInit {
         window.sessionStorage.setItem('usernameLogged', this.form.username)
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-
       },
       error => {
-
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
