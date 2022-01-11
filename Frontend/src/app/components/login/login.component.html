@@ -25,13 +25,13 @@
           <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
         </div>
       </div>
+      <div *ngIf="f.submitted && isLoginFailed$" class="alert alert-danger">
+        Login failed: {{errorMessage}}
+      </div>
       <table >
         <tr class="input_wrap">
           <td>
           <button class="btn btn-outline-dark btn-lg px-5">Login</button>
-          <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
-            Login failed: {{errorMessage}}
-          </div>
         </td>
         <td>
           <button class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
