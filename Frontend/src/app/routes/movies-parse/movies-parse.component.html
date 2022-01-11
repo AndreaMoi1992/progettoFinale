@@ -21,7 +21,7 @@
         <div id="immagini_film">
           <td>
             <div id="box_film" class="container box-pages p-5">
-              <div class="film" style="background-image: url({{film1Path}})"></div>
+              <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
               <div class="col text-center">
                 <button class="btn btn-primary mr-5" (click)="onClickFilm1()"><h4>{{titoloFilm1}}</h4></button>
               </div>
@@ -29,7 +29,7 @@
           </td>
           <td>
             <div id="box_film" class="container box-pages p-5">
-              <div class="film" style="background-image: url({{film2Path}})"></div>
+              <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
               <div class="col text-center">
                 <button class="btn btn-primary mr-5" (click)="onClickFilm2()"><h4>{{titoloFilm2}}</h4></button>
               </div>
