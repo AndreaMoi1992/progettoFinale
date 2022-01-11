@@ -51,7 +51,7 @@
       </div>
       <div class="text-center">
         <button class="btn btn-outline-dark btn-lg px-5">Register</button>
-        <div *ngIf="f.submitted && isSignUpFailed$" class="alert alert-warning">
+        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
           Signup failed!<br />{{errorMessage}}
         </div>
       </div>
