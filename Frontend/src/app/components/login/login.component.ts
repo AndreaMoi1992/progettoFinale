@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         window.sessionStorage.setItem('usernameLogged', this.form.username)
         window.sessionStorage.setItem('loginfail', 'false');
-
         this.isLoggedIn = true;
         this.reloadPage();
       },
