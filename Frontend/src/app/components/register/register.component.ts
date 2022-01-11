@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../jwt-auth/auth/auth.service';
 import { SignUpInfo } from '../../jwt-auth/auth/signup-info';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +15,14 @@ export class RegisterComponent implements OnInit {
   form: any = {};
   signupInfo: SignUpInfo;
   isSignedUp = false;
+  isSignUpFailed$ : BehaviorSubject<boolean>;
   userLogged: string;
-  isSignUpFailed = false;
+
   errorMessage = '';
 
   constructor(private authService: AuthService, private router : Router) {
+    const isSignUpFailed = sessionStorage.getItem('signupfail') === 'true';
+    this.isSignUpFailed$ = new BehaviorSubject(isSignUpFailed);
 
   }
 
@@ -41,11 +45,14 @@ export class RegisterComponent implements OnInit {
         console.log(error)
         if(error.status === 200){
           this.isSignedUp = true;
-          this.isSignUpFailed = false;
+          window.sessionStorage.setItem('signupfail', 'false');
           this.router.navigate(['/login']);
+        }else if(error.status === 400){
+          this.errorMessage = "Email o Username gia' utilizzati";
+          window.sessionStorage.setItem('signupfail', 'true');
         }else{
-          this.errorMessage = error.error.message;
-          this.isSignUpFailed = true;
+          this.errorMessage = error.error.text
+          window.sessionStorage.setItem('signupfail', 'true');
         }
       }
     );
