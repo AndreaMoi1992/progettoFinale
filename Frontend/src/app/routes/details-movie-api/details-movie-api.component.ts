@@ -3,8 +3,6 @@ import { TokenStorageService } from './../../jwt-auth/auth/token-storage.service
 import { commentDotnetData } from './../../models/dotnetData.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
-import { MovieData } from 'src/app/models/data.model';
 import { MovieApiInterface, MovieDatabaseInterface } from 'src/app/models/apiMovie.model';
 import { MoviesApiService } from 'src/app/services/moviesapi.service';
 import { NgForm } from '@angular/forms';
@@ -20,7 +18,7 @@ import { AuthService } from '../../jwt-auth/auth/auth.service';
 })
 export class DetailsMovieApiComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private apiService: MoviesApiService,
+  constructor(private route: ActivatedRoute, private apiService: MoviesApiService,
     private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router: Router, public tokenStorage: TokenStorageService, public authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
@@ -130,16 +128,6 @@ export class DetailsMovieApiComponent implements OnInit {
       }
 
     })
-  }
-
-  delete() {
-    this.dataService.deleteEntry(this.idpath)
-      .subscribe(data => {
-        this.router.navigate(['/dashboard']);
-      }, (err) => {
-        console.log(err);
-        this.router.navigate(['/dashboard']);
-      });
   }
 
   // Controlla del tasto per l'inserimento del commento

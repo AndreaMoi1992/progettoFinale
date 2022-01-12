@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MovieData } from '../models/data.model';
 import { MovieDatabaseInterface } from '../models/apiMovie.model';
 
 @Injectable({
@@ -44,7 +43,6 @@ export class MovieDatabaseServiceService {
 
   editMovieDatabaseEntry = (dataMovieDatabase: MovieDatabaseInterface) => {
     return this.http.put(this.baseMovieDatabaseURL + '/' + dataMovieDatabase.id, {
-      
       "backdrop_path": dataMovieDatabase.backdrop_path,
       "idmovie": dataMovieDatabase.idmovie,
       "media_type": dataMovieDatabase.media_type,
