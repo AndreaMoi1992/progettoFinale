@@ -1,46 +1,61 @@
-Stiamo usando il progetto con xamp.
+Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad incompatibilità.
 
-In phpMyAdmin creare un database "thenetfish"
+1). Aprire XAMPP ed avviare Apache e Mysql
 
-Importere dentro il database il file "CreazioneTabelle.sql" presente nel file del progetto
+2). In phpMyAdmin importare il database "thenetfish" situato nella cartella principale del progetto
 
-DOTNET:
-Aprire la solution presentre nella cartella " BackendDotnet".
+3). ANGULAR:
+		- Aprire il progetto Angular dalla cartella "Frontend" e da terminale inviare il comando:
+			npm install
+		- Avvia il servizio con:
+			npm start
 
-Una volta aperto il progetto se presente eliminare la cartella Migrations
-nel progetto FilmComments.DB
+4). NODE.JS:
+		- Aprire il progetto Node.js dalla cartella "Backend" e da terminale inviare il comando:
+			npm install
+		- Spostarsi all'interno della cartella ./config/config.json. Modificare i dati di accesso al database se diversi da quelli già esistenti.
+		- Avvia il servizio con:
+			npm start
 
-Utilizzando la shell o terminale entrare nel progetto FilmComments.DB,
-DbContextManager e copiare la stringa nel connectionString
+5). DOTNET:
+		- Aprire la solution presente nella cartella "BackendDotnet".
 
-"Server=localhost;Port=3306;Database=thenetfish;Uid=root;"
+		- Una volta aperto il progetto se presente eliminare la cartella Migrations nel progetto FilmComments.DB
 
-Io in PHPMyAdmin ho creato una cartella thenetfish con tutto
+		- Utilizzando la shell o il terminale spostarsi nel path ./FilmComments.DB/DbContextManager.cs e copiare la seguente stringa nel connectionString se non presente. All'occorrenza è neccessario modificare i dati della stringa per il corretto funzionamento del progetto.
 
-Dal terminale lanciare i comandi:
+			"Server=localhost;Port=3306;Database=thenetfish;Uid=root;Psw=password;"
+
+		- Dal terminale lanciare i seguenti comandi:
   
-dotnet ef migrations list
+			dotnet ef migrations list
 
-dotnet ef migrations add Creazione_Tabella
+			dotnet ef migrations add Creazione_Tabella
 
-dotnet ef database update
+			dotnet ef database update
 
+6). LARAVEL:
 
-LARAVEL
+		- Aprire il progetto Laravel dalla cartella "rating" che dovrà essere inserita nella cartella htdocs di XAMPP
 
-il progetto laravel si trova all'interno della cartella "rating" che dovrà essere inserita
-nella cartella htdocs di xampp
+		- Una volta aperto Laravel con Visual Studio Code o Intellij rinominare il file ".env.example" in ".env"
 
-una volta aperto laravel con visual studio lanciare da terminale:
+		- Aprire il file e all'occorenza modificarlo con i propri dati di accesso al db per assicurare il corretto funzionamento del progetto.
 
-npm install
-php artisan migrate
-php artisan serve
+		- Da terminale posizionarsi nella cartella "rating" e lancaire i seguenti comandi:
 
-SPRING BOOT
+			composer install
 
-Aprire la cartella jwtauth e avviare il progetto 
+			npm install
 
-// api in database
+			php artisan migrate
 
-// comandi laravel
+			php artisan serve
+
+7). SPRING BOOT:
+
+		- Aprire il progetto SpringBoot dalla cartella "jwtauth" con Intellij
+
+		- Posizionarsi nel path ./src/resources/application.properties e all'occorenza modificare il file con i propri dati di accesso al db per assicurare il corretto funzionamento del progetto.
+
+		- Avviare il servizio

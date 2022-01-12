@@ -109,17 +109,19 @@ export class MoviesParseComponent implements OnInit {
   }
   onClickFilm1() {
     var ratingService;
-    if (this.choice$ == "api") {
-      this.generateFilm2();
-      ratingService = this.ratingService
-    } else if (this.choice$ == "database") {
-      this.generateFilm2Database()
-      ratingService = this.ratingServiceDatabase
-    }
+    document.getElementById("film1").setAttribute("disabled","disabled");
+    setTimeout(function(){document.getElementById("film1").removeAttribute("disabled")},1000);
+    this.choices();
     this.addVote(ratingService,this.film1);
-
   }
   onClickFilm2() {
+    var ratingService;
+    document.getElementById("film2").setAttribute("disabled","disabled");
+    setTimeout(function(){document.getElementById("film2").removeAttribute("disabled")},1000);
+    this.choices();
+    this.addVote(ratingService,this.film2);
+  }
+  choices() {
     var ratingService;
     if (this.choice$ == "api") {
       this.generateFilm1();
@@ -128,8 +130,6 @@ export class MoviesParseComponent implements OnInit {
       this.generateFilm1Database()
       ratingService = this.ratingServiceDatabase
     }
-    this.addVote(ratingService,this.film2);
-
   }
   addVote(ratingService: any, film : MovieDatabaseInterface) {
     // Ricava la lista di ratings dal db

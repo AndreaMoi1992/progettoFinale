@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   userLoggedId$: String;
   userId: number;
 
-  
+
 
   constructor(private authService: AuthService, public tokenStorage: TokenStorageService) {
     const username = sessionStorage.getItem('usernameLogged');
@@ -49,6 +49,8 @@ export class LoginComponent implements OnInit {
       this.loginInfo = new AuthLoginInfo(
       this.form.username,
       this.form.password);
+      document.getElementById("login").setAttribute("disabled","disabled");
+      setTimeout(function(){document.getElementById("login").removeAttribute("disabled")},1000);
 
 
     this.authService.attemptAuth(this.loginInfo).subscribe(

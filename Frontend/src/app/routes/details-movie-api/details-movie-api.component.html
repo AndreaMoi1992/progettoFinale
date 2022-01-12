@@ -3,7 +3,7 @@
 
   <div id="container_principale" class="container box-pages p-5">
 
-    <button class="btn btn-primary mr-5" [routerLink]="['/moviesapi']">
+    <button class="btn btn-outline-dark btn-lg" [routerLink]="['/moviesapi']">
       <h4>Movie api list</h4>
     </button>
 
@@ -93,8 +93,8 @@
           <td>
             <div class="row">
               <!--<button class="btn btn-danger ml-5" (click)='delete()'>Delete</button>-->
-              <button class="btn btn-primary ml-3" (click)="changeStatus()">
-                <h4>Inserisci_commento</h4>
+              <button class="btn btn-outline-dark btn-lg" (click)="changeStatus()">
+                <h4>Inserisci commento</h4>
               </button>
             </div>
 
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary ml-3">
+                      <button type="submit" class="btn btn-outline-dark btn-lg">
                         <h4>Salva</h4>
                       </button>
                     </div>
@@ -143,4 +143,4 @@
   </div>
 </div>
 
-<app-loading-screen *ngIf="!moviesDataLoader && (tokenStorage.isLoggedIn$ | async)"></app-loading-screen>
+<app-loading-screen *ngIf="!moviesDataLoader && tokenStorage.isLoggedIn$ | async"></app-loading-screen>
