@@ -33,6 +33,8 @@ export class RegisterComponent implements OnInit {
       this.form.email,
       this.form.password
     );
+    document.getElementById("register").setAttribute("disabled","disabled");
+    setTimeout(function(){document.getElementById("register").removeAttribute("disabled")},1000);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
