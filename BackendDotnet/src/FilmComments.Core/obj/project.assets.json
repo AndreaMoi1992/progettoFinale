@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\david\\.nuget\\packages\\": {}
+    "C:\\Users\\andre\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TNV5\\Angular\\BrrakeFinalProject\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
+      "projectUniqueName": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
       "projectName": "FilmComments.Core",
-      "projectPath": "D:\\TNV5\\Angular\\BrrakeFinalProject\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
-      "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "D:\\TNV5\\Angular\\BrrakeFinalProject\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\obj\\",
+      "projectPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
+      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
