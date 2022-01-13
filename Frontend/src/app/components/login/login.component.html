@@ -50,7 +50,7 @@
     <div class="p-5 text-center">
       <div>
         <div class=" text-center">
-          <label class="form-label">Ciao {{username$}}! Vuoi gia' uscire?</label>
+          <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
         </div>
         <div class=" text-center">
           <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log

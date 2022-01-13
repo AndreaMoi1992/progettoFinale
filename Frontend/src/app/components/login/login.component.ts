@@ -4,7 +4,9 @@ import { AuthService } from '../../jwt-auth/auth/auth.service';
 import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 import { AuthLoginInfo } from '../../jwt-auth/auth/login-info';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
+const CUSTOMER_KEY = 'customer_id';
 
 @Component({
   selector: 'app-login',
@@ -18,25 +20,22 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
-  username$: String;
   userLoggedId$: String;
   userId: number;
 
 
 
-  constructor(private authService: AuthService, public tokenStorage: TokenStorageService) {
-    const username = sessionStorage.getItem('usernameLogged');
-    this.username$ = username;
-    const UserId = sessionStorage.getItem('customer_id');
+  constructor(private authService: AuthService, public tokenStorage: TokenStorageService, private router : Router) {
+    const UserId = sessionStorage.getItem(CUSTOMER_KEY);
     this.userLoggedId$ = UserId;
-    var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
+    var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
     this.userId = parseInt(userIdString)//Returns userId in number
   }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.authService.getUserIdByUsername(this.username$).subscribe(response => {
+      this.authService.getUserIdByUsername(this.tokenStorage.getUsername()).subscribe(response => {
         this.tokenStorage.saveUserId(response.id)
       }
       )
@@ -49,19 +48,16 @@ export class LoginComponent implements OnInit {
       this.loginInfo = new AuthLoginInfo(
       this.form.username,
       this.form.password);
-      document.getElementById("login").setAttribute("disabled","disabled");
-      setTimeout(function(){document.getElementById("login").removeAttribute("disabled")},1000);
-
 
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
-        window.sessionStorage.setItem('usernameLogged', this.form.username)
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.reloadPage();
+
+        this.router.navigate(['/dashboard']);
+        this.reloadPage()
 
       },
       error => {
