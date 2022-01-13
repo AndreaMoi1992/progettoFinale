@@ -20,10 +20,10 @@
       <tr>
         <div id="immagini_film">
           <td>
-            <div id="box_film" class="container box-pages p-5">
+            <div class="col text-center" class="container box-pages p-5">
               <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
               <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film1"(click)="onClickFilm1()"><h4>{{titoloFilm1}}</h4></button>
+                <button class="btn btn-outline-dark btn-lg" id="film1"(click)="onClickFilm1()"><h4 class="font-weight-bold">{{titoloFilm1}}</h4></button>
               </div>
             </div>
           </td>
@@ -31,7 +31,7 @@
             <div id="box_film" class="container box-pages p-5">
               <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
               <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film2"(click)="onClickFilm2()"><h4>{{titoloFilm2}}</h4></button>
+                <button class="btn btn-outline-dark btn-lg" id="film2"(click)="onClickFilm2()"><h4 class="font-weight-bold">{{titoloFilm2}}</h4></button>
               </div>
             </div>
           </td>
@@ -40,12 +40,12 @@
     </table>
   </div>
 
-  <div id="box_bottone_scelta" class="container box-pages p-3">
-    <div class="text-center">
-      <button id="bottone" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceDatabase()"><h4>Choose database source</h4></button>
-      <button id="bottone" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceApi()"><h4>Choose Api source</h4></button>
-      <button id="bottone" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsApi()"><h4>Genera</h4></button>
-      <button id="bottone" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsDatabase()"><h4>Genera</h4></button>
+  <div id="box_bottone_scelta" class="col text-center" class="container box-pages p-3">
+    <div >
+      <button id="bottone" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceDatabase()"><h4 class="font-weight-bold">Choose database source</h4></button>
+      <button id="bottone" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceApi()"><h4 class="font-weight-bold">Choose Api source</h4></button>
+      <button id="bottone_genera" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsApi()"><h4 class="font-weight-bold">Genera</h4></button>
+      <button id="bottone_genera" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsDatabase()"><h4 class="font-weight-bold">Genera</h4></button>
   </div>
 </div>
 
