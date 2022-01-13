@@ -10,7 +10,6 @@ const USERNAME_KEY = 'AuthUsername';
 })
 export class TokenStorageService {
   public isLoggedIn$: BehaviorSubject<boolean>;
-  public username$: String;
   public userLoggedId$: String;
   public userId: number;
 
@@ -19,8 +18,6 @@ export class TokenStorageService {
   constructor() {
     const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
     this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
-    const username = sessionStorage.getItem('usernameLogged');
-    this.username$ = username;
     const UserId = sessionStorage.getItem('customer_id');
     this.userLoggedId$ = UserId;
     var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string

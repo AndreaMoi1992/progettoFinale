@@ -18,15 +18,12 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
-  username$: String;
   userLoggedId$: String;
   userId: number;
 
 
 
   constructor(private authService: AuthService, public tokenStorage: TokenStorageService) {
-    const username = sessionStorage.getItem('usernameLogged');
-    this.username$ = username;
     const UserId = sessionStorage.getItem('customer_id');
     this.userLoggedId$ = UserId;
     var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
@@ -36,7 +33,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.authService.getUserIdByUsername(this.username$).subscribe(response => {
+      this.authService.getUserIdByUsername(this.tokenStorage.getUsername()).subscribe(response => {
         this.tokenStorage.saveUserId(response.id)
       }
       )
@@ -57,8 +54,6 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
-        window.sessionStorage.setItem('usernameLogged', this.form.username)
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.reloadPage();
