@@ -22,3 +22,15 @@ D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments
 D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.dll
 D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\ref\FilmComments.Core.dll
 D:\TNV5\Angular\BrrakeFinalProject\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.pdb
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.deps.json
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.dll
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\ref\FilmComments.Core.dll
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\bin\Debug\net5.0\FilmComments.Core.pdb
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.csproj.AssemblyReference.cache
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.AssemblyInfoInputs.cache
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.AssemblyInfo.cs
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.csproj.CoreCompileInputs.cache
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.dll
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\ref\FilmComments.Core.dll
+C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.Core\obj\Debug\net5.0\FilmComments.Core.pdb
