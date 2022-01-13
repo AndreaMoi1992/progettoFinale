@@ -7,8 +7,17 @@ import { AuthLoginInfo } from './login-info';
 import { SignUpInfo } from './signup-info';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+  }),responseType: 'text' as 'json'
 };
+const httpOptionsLogin = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
+};
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +33,7 @@ export class AuthService {
   }
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
+    return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptionsLogin);
   }
   signUp(info: SignUpInfo): Observable<string> {
     return this.http.post<string>(this.signupUrl, info, httpOptions);

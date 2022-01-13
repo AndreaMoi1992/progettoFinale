@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService, private router : Router) {  }
 
   ngOnInit() {
+
   }
 
   onSubmit() {
@@ -33,19 +34,15 @@ export class RegisterComponent implements OnInit {
       this.form.email,
       this.form.password
     );
-    document.getElementById("register").setAttribute("disabled","disabled");
-    setTimeout(function(){document.getElementById("register").removeAttribute("disabled")},1000);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
+        this.isSignedUp = true;
+        this.isSignUpFailed = false;
+        this.router.navigate(['/login']);
       },
       error => {
-        console.log(error)
-        if(error.status === 200){
-          this.isSignedUp = true;
-          this.isSignUpFailed = false;
-          this.router.navigate(['/login']);
-        }else if(error.status === 400){
+        if(error.status === 400){
           this.errorMessage = "Email o Username gia' utilizzati";
           this.isSignUpFailed = true;
         }else{
