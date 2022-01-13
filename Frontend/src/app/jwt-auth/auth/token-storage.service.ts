@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
+const CUSTOMER_KEY = 'customer_id';
+const LOGGEDIN_KEY = 'loggedIn';
 
 
 @Injectable({
@@ -16,11 +18,11 @@ export class TokenStorageService {
 
 
   constructor() {
-    const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+    const isLoggedIn = sessionStorage.getItem(LOGGEDIN_KEY) === 'true';
     this.isLoggedIn$ = new BehaviorSubject(isLoggedIn);
-    const UserId = sessionStorage.getItem('customer_id');
+    const UserId = sessionStorage.getItem(CUSTOMER_KEY);
     this.userLoggedId$ = UserId;
-    var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
+    var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
     this.userId = parseInt(userIdString)//Returns userId in number
   }
 
@@ -29,7 +31,7 @@ export class TokenStorageService {
   }
 
   public saveToken(token: string) {
-    window.sessionStorage.setItem('loggedIn', 'true');
+    window.sessionStorage.setItem(LOGGEDIN_KEY, 'true');
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
@@ -47,6 +49,6 @@ export class TokenStorageService {
     return sessionStorage.getItem(USERNAME_KEY);
   }
   public saveUserId(userId: string) {
-    window.sessionStorage.setItem('customer_id', userId);
+    window.sessionStorage.setItem(CUSTOMER_KEY, userId);
   }
 }

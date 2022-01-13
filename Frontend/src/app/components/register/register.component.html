@@ -9,15 +9,6 @@
         Register To The Net Fish
       </div>
       <div class="input_wrap">
-        <label for="name">Your name</label>
-        <div class="input_field">
-          <input type="text" class="input" name="name" [(ngModel)]="form.name" #name="ngModel" required />
-          <div *ngIf="f.submitted && name.invalid">
-            <div *ngIf="name.errors.required">Name is required</div>
-          </div>
-        </div>
-      </div>
-      <div class="input_wrap">
         <label for="username">Username</label>
         <div class="input_field">
           <input type="text" class="input" name="username" [(ngModel)]="form.username" #username="ngModel"
@@ -25,6 +16,15 @@
         </div>
         <div *ngIf="f.submitted && username.invalid">
           <div *ngIf="username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="input_wrap">
+        <label for="name">Your name</label>
+        <div class="input_field">
+          <input type="text" class="input" name="name" [(ngModel)]="form.name" #name="ngModel" required />
+          <div *ngIf="f.submitted && name.invalid">
+            <div *ngIf="name.errors.required">Name is required</div>
+          </div>
         </div>
       </div>
       <div class="input_wrap">

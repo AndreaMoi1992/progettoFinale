@@ -14,6 +14,12 @@ import { MovieDatabaseServiceService } from '../../services/movie-database-servi
 import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 
 
+const CUSTOMER_KEY = 'customer_id';
+const API = 'api';
+const DATABASE = 'database';
+const CHOICE = 'choice';
+const FILM1 = 'film1';
+const FILM2 = 'film2';
 
 @Component({
   selector: 'app-movies-parse',
@@ -56,11 +62,11 @@ export class MoviesParseComponent implements OnInit {
 
   constructor(private ratingService: RatingsService, public tokenService: TokenStorageService,
     private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService, private ratingServiceDatabase: RatingsDatabaseService) {
-    const Choice = sessionStorage.getItem('choice');
+    const Choice = sessionStorage.getItem(CHOICE);
     this.choice$ = Choice;
-    const UserId = sessionStorage.getItem('customer_id');
+    const UserId = sessionStorage.getItem(CUSTOMER_KEY);
     this.userLoggedId$ = UserId;
-    var userIdString = sessionStorage.getItem("customer_id"); ///Get value as string
+    var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
     this.userId = parseInt(userIdString)//Returns userId in number
 
   }
@@ -70,27 +76,27 @@ export class MoviesParseComponent implements OnInit {
 
 
   onClickChoiceDatabase() {
-    sessionStorage.setItem('choice', 'database');
+    sessionStorage.setItem(CHOICE, DATABASE);
     this.moviesDataLoader = false;
     window.location.reload()
   }
   onClickChoiceApi() {
-    sessionStorage.setItem('choice', 'api');
+    sessionStorage.setItem(CHOICE, API);
     this.moviesDataLoader = false;
     window.location.reload()
   }
   databaseGeneration() {
 
-    if (this.choice$ == "api") {
+    if (this.choice$ == API) {
       this.generateFilmsApi();
     }
-    if (this.choice$ == "database") {
+    if (this.choice$ == DATABASE) {
       this.inserimentoDatabase();
       this.generateFilmsDatabase();
     }
   }
   generateFilmsApi() {
-    console.log("API")
+    console.log(API.toUpperCase())
 
     // Fai una get per ottenere la lista dei film dell'api
     this.moviesApi.getMovies().subscribe(response => {
@@ -108,28 +114,41 @@ export class MoviesParseComponent implements OnInit {
 
   }
   onClickFilm1() {
-    var ratingService;
-    document.getElementById("film1").setAttribute("disabled","disabled");
-    setTimeout(function(){document.getElementById("film1").removeAttribute("disabled")},1000);
-    this.choices();
+    document.getElementById(FILM1).setAttribute("disabled","disabled");
+    setTimeout(function(){document.getElementById(FILM1).removeAttribute("disabled")},1000);
+    var ratingService = this.choices(FILM1);
     this.addVote(ratingService,this.film1);
   }
   onClickFilm2() {
-    var ratingService;
-    document.getElementById("film2").setAttribute("disabled","disabled");
-    setTimeout(function(){document.getElementById("film2").removeAttribute("disabled")},1000);
-    this.choices();
+
+    document.getElementById(FILM2).setAttribute("disabled","disabled");
+    setTimeout(function(){document.getElementById(FILM2).removeAttribute("disabled")},1000);
+    var ratingService = this.choices(FILM2);
     this.addVote(ratingService,this.film2);
   }
-  choices() {
+  choices(film : String) {
     var ratingService;
-    if (this.choice$ == "api") {
-      this.generateFilm1();
+    if (this.choice$ == API) {
+      if(film == FILM1){
+        this.generateFilm2();
+      }else if(film == FILM2){
+        this.generateFilm1();
+      }
+
       ratingService = this.ratingService
-    } else if (this.choice$ == "database") {
-      this.generateFilm1Database()
+
+    } else if (this.choice$ == DATABASE) {
+      if(film == FILM1){
+        this.generateFilm2Database()
+      }else if(film == FILM2){
+        this.generateFilm1Database()
+      }
+
       ratingService = this.ratingServiceDatabase
     }
+
+
+    return ratingService;
   }
   addVote(ratingService: any, film : MovieDatabaseInterface) {
     // Ricava la lista di ratings dal db
@@ -152,7 +171,7 @@ export class MoviesParseComponent implements OnInit {
     )
   }
   generateFilmsDatabase() {
-    console.log("DATABASE")
+    console.log(DATABASE.toUpperCase())
     this.moviesDatabaseService.getMovieDatabaseData().subscribe(response => {
       this.moviesDataLoader = true;
       this.displayMovies = response;
