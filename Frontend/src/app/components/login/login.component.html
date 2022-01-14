@@ -15,11 +15,16 @@
           </div>
         </div>
       </div>
-
       <div class="input_wrap">
         <label for="password">Password</label>
-        <input type="password" class="input" id="input_password" name="password" [(ngModel)]="form.password"
-          #password="ngModel" required minlength="6" />
+        <input class="input" id="input_password" name="password" [(ngModel)]="form.password" #password="ngModel"
+          required minlength="6" [type]="showPasswordOnPress ? 'text' : 'password'">
+
+        <div (mousedown)="showPasswordOnPress = !showPasswordOnPress"
+          (mouseup)="showPasswordOnPress = !showPasswordOnPress" class="pointer">
+          <i alt="show" class="fas fa-eye eye-show" [class.hide]="showPasswordOnPress"></i>
+          <i alt="hide" class="fas fa-eye-slash eye-hide" [class.hide]="!showPasswordOnPress"></i>
+        </div>
         <div *ngIf="f.submitted && password.invalid">
           <div *ngIf="password.errors.required">Password is required</div>
           <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
@@ -28,14 +33,14 @@
       <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
         Login failed: {{errorMessage}}
       </div>
-      <table >
+      <table>
         <tr class="input_wrap">
           <td>
-          <button class="btn btn-outline-dark btn-lg px-5" id="login">Login</button>
-        </td>
-        <td>
-          <button class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
-        </td>
+            <button class="btn btn-outline-dark btn-lg px-5" id="login">Login</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
+          </td>
         </tr>
       </table>
 
@@ -43,8 +48,6 @@
 
   </div>
 </div>
-
-
 <div class=" py-5 h-100 justify-content-center align-items-center " *ngIf="isLoggedIn">
   <div class="card  text-black" style="border-radius: 1rem;">
     <div class="p-5 text-center">
@@ -52,12 +55,11 @@
         <div class=" text-center">
           <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
         </div>
-        <div class=" text-center">
+        <div class=" text-center logout">
           <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log
             Out</button>
         </div>
       </div>
     </div>
   </div>
-
 </div>

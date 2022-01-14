@@ -4,7 +4,7 @@
 .hd {
   width:100%;
 }
-@media (max-width: 770px){
+@media (max-width: 990px){
   .hd {
     display: none;
   }
@@ -20,15 +20,25 @@
   .welcome {
     padding-right: 207%
   }
+  #login{
+    margin-left: 0px!important;
+  }
 }
 @media (max-width: 990px){
   .welcome {
     margin-left: 20%
   }
+  #login{
+    margin-left: 45px!important;
+  }
+
 }
 @media (max-width: 770px){
   .welcome {
     margin-left: 0%
+  }
+  #login{
+    margin-left: -10px!important;
   }
 }
 .welcometable{
