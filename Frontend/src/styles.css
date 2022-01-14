@@ -9,6 +9,9 @@ body{
   display:flex;
   flex-direction:column;
 }
+input{
+  letter-spacing: 1.5px;
+}
 
 /*url('httpsi.ibb.co19mzB1Rdark-abstract-black-minimal-1596927735.jpg');*/
 
