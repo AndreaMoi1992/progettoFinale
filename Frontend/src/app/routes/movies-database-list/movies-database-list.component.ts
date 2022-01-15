@@ -113,7 +113,7 @@ export class MoviesDatabaseListComponent implements OnInit {
 
   // Si viene rimandati alla pagina dei dettagli
   goToMovieDatabaseDetails(id){
-    this.router.navigateByUrl('/moviesDatabaseDetails/'+ id);
+    this.router.navigateByUrl('/movies/Database/Details/'+ id);
   }
 
 }

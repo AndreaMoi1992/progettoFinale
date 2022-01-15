@@ -106,7 +106,7 @@ export class MoviesapiComponent implements OnInit {
   }
 
   goToMovieDetails(id){
-    this.router.navigateByUrl('/movieApiDetails/'+ id);
+    this.router.navigateByUrl('/movie/Api/Details/'+ id);
   }
 
 
