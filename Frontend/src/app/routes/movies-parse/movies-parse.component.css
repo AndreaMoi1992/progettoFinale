@@ -72,7 +72,7 @@ table#table1 {
 #bottone{
   text-align:center;
   margin: 0% 0% 0% 1%;
-  width: 15%;
+  width: 20%;
 }
 
 #box_bottone_scelta{
@@ -83,5 +83,5 @@ table#table1 {
 #bottone_genera{
   text-align:center;
   margin: 0% 0% 0% 5%;
-  width: 15%;
+  width: 20%;
 }

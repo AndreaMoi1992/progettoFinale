@@ -12,7 +12,7 @@ import { RatingsService } from 'src/app/services/ratings.service';
 import { AuthService } from '../../jwt-auth/auth/auth.service';
 
 
-const FILMID = 'filmid';
+
 
 @Component({
   selector: 'app-details-movie-api',
@@ -64,12 +64,6 @@ export class DetailsMovieApiComponent implements OnInit {
 
     // Id movie preso dal path
     this.idpath = this.route.snapshot.params['id'];
-
-    sessionStorage.setItem(FILMID, String(this.idpath))
-
-
-
-    console.log(this.idpath)
 
 
     // Calcola il voto corrispondente al film scelto prendendo i dati dal database

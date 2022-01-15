@@ -13,11 +13,11 @@ const FILMID = 'filmid';
 })
 export class CommentComponentComponent implements OnInit {
 
-  idString:string;
+  idString: string;
 
   constructor(private route: ActivatedRoute, private dotnetService: DotnetServiceService, public authService: AuthService) {
 
-   }
+  }
 
   commentList: Array<commentDotnetData>;
   userList: Array<any>;
@@ -43,49 +43,49 @@ export class CommentComponentComponent implements OnInit {
 
   }
 
-    // Cerca i commenti all'interno della tabella gestita da dotnet
-    findComment() {
+  // Cerca i commenti all'interno della tabella gestita da dotnet
+  findComment() {
 
-      // Get
-      this.dotnetService.getDotnetDataAll().subscribe((resDot: any) => {
-        this.commentList = resDot;
-        this.authService.getAll().subscribe(resSpring => {
-          this.userList = resSpring;
+    // Get
+    this.dotnetService.getDotnetDataAll().subscribe((resDot: any) => {
+      this.commentList = resDot;
+      this.authService.getAll().subscribe(resSpring => {
+        this.userList = resSpring;
 
-          // Contatore per l'inserimento dei commenti trovati nell'array
-          var j = 0;
+        // Contatore per l'inserimento dei commenti trovati nell'array
+        var j = 0;
 
-          // Inizializzo un array per salvare i commenti
-          this.commentRappresentation = [];
-          this.commentUsername = [];
+        // Inizializzo un array per salvare i commenti
+        this.commentRappresentation = [];
+        this.commentUsername = [];
 
 
-          // Cerca all'interno della tabella Commenti
-          for (let i = 0; i < this.commentList.length; i++) {
+        // Cerca all'interno della tabella Commenti
+        for (let i = 0; i < this.commentList.length; i++) {
 
-            // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
-            if (this.commentList[i].movieId == this.idpathComponent) {
-              for (let x = 0; x < this.userList.length; x++) {
-                if (this.commentList[i].userId == this.userList[x].id) {
-                  this.commentUsername[j] = this.userList[x].username
-                }
+          // Se l'idmovie dei film coincidono allora aggiungi il commento corrispondente
+          if (this.commentList[i].movieId == this.idpathComponent) {
+            for (let x = 0; x < this.userList.length; x++) {
+              if (this.commentList[i].userId == this.userList[x].id) {
+                this.commentUsername[j] = this.userList[x].username
               }
-              this.commentRappresentation[j] = this.commentList[i];
-              j++;
             }
+            this.commentRappresentation[j] = this.commentList[i];
+            j++;
           }
+        }
 
 
-          // Se sono presenti commenti allora visualizzali nella pagina HTML
-          if (this.commentRappresentation.length > 0) {
-            this.viewComments = true;
-          }
+        // Se sono presenti commenti allora visualizzali nella pagina HTML
+        if (this.commentRappresentation.length > 0) {
+          this.viewComments = true;
+        }
 
-          // Non mostrare più il caricamento della pagina
-          this.moviesDataLoader = true;
+        // Non mostrare più il caricamento della pagina
+        this.moviesDataLoader = true;
 
-        })
       })
-    }
+    })
+  }
 
 }
