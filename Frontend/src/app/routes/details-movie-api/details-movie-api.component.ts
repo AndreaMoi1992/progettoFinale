@@ -11,6 +11,9 @@ import { RatingData } from 'src/app/models/rating.model';
 import { RatingsService } from 'src/app/services/ratings.service';
 import { AuthService } from '../../jwt-auth/auth/auth.service';
 
+
+const FILMID = 'filmid';
+
 @Component({
   selector: 'app-details-movie-api',
   templateUrl: './details-movie-api.component.html',
@@ -19,7 +22,8 @@ import { AuthService } from '../../jwt-auth/auth/auth.service';
 export class DetailsMovieApiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private apiService: MoviesApiService,
-    private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router: Router, public tokenStorage: TokenStorageService, public authService: AuthService) { }
+    private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router: Router,
+     public tokenStorage: TokenStorageService, public authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -61,6 +65,13 @@ export class DetailsMovieApiComponent implements OnInit {
     // Id movie preso dal path
     this.idpath = this.route.snapshot.params['id'];
 
+    sessionStorage.setItem(FILMID, String(this.idpath))
+
+
+
+    console.log(this.idpath)
+
+
     // Calcola il voto corrispondente al film scelto prendendo i dati dal database
     this.findVote();
 
@@ -86,6 +97,8 @@ export class DetailsMovieApiComponent implements OnInit {
     // Richiama i dati dal database
     this.ratingService.getRatingDatabaseData().subscribe((res: any) => {
       this.ratingData = res;
+
+
       // Conta gli elementi presenti nella tabella del database
       for (let i in this.ratingData.data) {
         this.counterRatingDatabase++;

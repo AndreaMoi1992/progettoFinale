@@ -1,0 +1,24 @@
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+
+        <th scope="col">Username</th>
+        <th scope="col">Comment</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let entry of commentRappresentation;let i=index">
+
+        <tr class="pointer">
+
+          <td>{{commentUsername[i]}}</td>
+          <td>{{entry.body}}</td>
+
+        </tr>
+      </ng-container>
+
+    </tbody>
+  </table>
+

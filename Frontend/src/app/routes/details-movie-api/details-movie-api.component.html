@@ -8,7 +8,7 @@
     </button>
 
 
-    <div class="text-center">
+    <div class="text-center center">
       <table id="table1">
 
         <tr>
@@ -61,30 +61,13 @@
         <tr>
           <td>
             <div class="container box-pages p-4" *ngIf="viewComments">
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
+              
+              <app-comment-component></app-comment-component>
 
-                    <th scope="col">Username</th>
-                    <th scope="col">Comment</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let entry of commentRappresentation;let i=index">
-
-                    <tr class="pointer">
-
-                      <td>{{commentUsername[i]}}</td>
-                      <td>{{entry.body}}</td>
-
-                    </tr>
-                  </ng-container>
-
-                </tbody>
-              </table>
             </div>
+
           </td>
+
 
         </tr>
         <br>

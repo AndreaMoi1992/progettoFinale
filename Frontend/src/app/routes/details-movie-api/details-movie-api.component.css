@@ -1,6 +1,7 @@
 .container{
   padding-bottom: 50px;
   padding-top:10px;
+  display: block;
 }
 .list-group-item{
   position: static;
@@ -10,8 +11,6 @@
   width: 500px;
   background-repeat: no-repeat;
 }
-
-
 
 td {
   padding:5px;
@@ -29,10 +28,9 @@ td {
     height: 175px;
   }
   img{
+
     margin-right: 50px;
-  }
-  .wa{
-   text-size-adjust: 10%;
+
   }
 }
 @media (max-width: 767px){

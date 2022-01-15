@@ -24,6 +24,7 @@ import { MoviesParseComponent } from './routes/movies-parse/movies-parse.compone
 import { DetailsMovieApiComponent } from './routes/details-movie-api/details-movie-api.component';
 import { MoviesDatabaseListComponent } from './routes/movies-database-list/movies-database-list.component';
 import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details/movies-database-details.component';
+import { CommentComponentComponent } from './components/comment-component/comment-component.component';
 
 
 
@@ -43,7 +44,8 @@ import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details
     MoviesDatabaseListComponent,
     MoviesDatabaseDetailsComponent,
     OverlayChoiceComponent,
-    RegisterComponent
+    RegisterComponent,
+    CommentComponentComponent
 
   ],
   imports: [
