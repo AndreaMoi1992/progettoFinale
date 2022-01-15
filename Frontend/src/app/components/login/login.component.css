@@ -144,3 +144,8 @@ body{
 .flex{
   flex-direction:column;
 }
+
+#bottone{
+  margin-left: 20%;
+
+}
