@@ -34,9 +34,24 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 
 			dotnet ef database update
 
+		- Aprire la solution e premere con il tasto destro FilmComments.RestAPIs e impostarlo come progetto di avvio
+
+
+
+	Tip: 
+		- Nel caso in cui i comandi non vengano lanciati con errore MSB4024 seguire i passaggi:
+
+			Andare su File e scegliere Apri -> Cartella...
+
+			Aprire la cartella .\BackendDotnet
+
+			Dall'esplora soluzioni recarsi in .\src\FilmComments.DB\obj e aprire il file FilmComments.DB.csproj.EntityFrameworkCore.targets
+
+			Verificare la presenza di errori e in caso positivo rimuovere le righe di codice interessate
+
 6). LARAVEL:
 
-		- Aprire il progetto Laravel dalla cartella "rating" che dovrà essere inserita nella cartella htdocs di XAMPP
+		- Aprire il progetto Laravel dalla cartella "rating" che dovrà essere inserita nella cartella htdocs di XAMPP (.\Percorso scelto\xampp\htdocs)
 
 		- Una volta aperto Laravel con Visual Studio Code o Intellij rinominare il file ".env.example" in ".env"
 
@@ -44,7 +59,7 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 
 		- Da terminale posizionarsi nella cartella "rating" e lancaire i seguenti comandi:
 
-			composer install
+			composer install or composer update
 
 			npm install
 
