@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieApiInterface } from '../../models/apiMovie.model';
 import { MovieDatabaseServiceService } from '../../services/movie-database-service.service';
 import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
+import { Router } from '@angular/router';
 
 
 const CUSTOMER_KEY = 'customer_id';
@@ -61,7 +62,8 @@ export class MoviesParseComponent implements OnInit {
   idFilm2: number;
 
   constructor(private ratingService: RatingsService, public tokenService: TokenStorageService,
-    private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService, private ratingServiceDatabase: RatingsDatabaseService) {
+    private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService,
+    private ratingServiceDatabase: RatingsDatabaseService, private router: Router) {
     const Choice = sessionStorage.getItem(CHOICE);
     this.choice$ = Choice;
     const UserId = sessionStorage.getItem(CUSTOMER_KEY);
@@ -114,33 +116,33 @@ export class MoviesParseComponent implements OnInit {
 
   }
   onClickFilm1() {
-    document.getElementById(FILM1).setAttribute("disabled","disabled");
-    setTimeout(function(){document.getElementById(FILM1).removeAttribute("disabled")},1000);
+    document.getElementById(FILM1).setAttribute("disabled", "disabled");
+    setTimeout(function () { document.getElementById(FILM1).removeAttribute("disabled") }, 1000);
     var ratingService = this.choices(FILM1);
-    this.addVote(ratingService,this.film1);
+    this.addVote(ratingService, this.film1);
   }
   onClickFilm2() {
 
-    document.getElementById(FILM2).setAttribute("disabled","disabled");
-    setTimeout(function(){document.getElementById(FILM2).removeAttribute("disabled")},1000);
+    document.getElementById(FILM2).setAttribute("disabled", "disabled");
+    setTimeout(function () { document.getElementById(FILM2).removeAttribute("disabled") }, 1000);
     var ratingService = this.choices(FILM2);
-    this.addVote(ratingService,this.film2);
+    this.addVote(ratingService, this.film2);
   }
-  choices(film : String) {
+  choices(film: String) {
     var ratingService;
     if (this.choice$ == API) {
-      if(film == FILM1){
+      if (film == FILM1) {
         this.generateFilm2();
-      }else if(film == FILM2){
+      } else if (film == FILM2) {
         this.generateFilm1();
       }
 
       ratingService = this.ratingService
 
     } else if (this.choice$ == DATABASE) {
-      if(film == FILM1){
+      if (film == FILM1) {
         this.generateFilm2Database()
-      }else if(film == FILM2){
+      } else if (film == FILM2) {
         this.generateFilm1Database()
       }
 
@@ -150,7 +152,7 @@ export class MoviesParseComponent implements OnInit {
 
     return ratingService;
   }
-  addVote(ratingService: any, film : MovieDatabaseInterface) {
+  addVote(ratingService: any, film: MovieDatabaseInterface) {
     // Ricava la lista di ratings dal db
     ratingService.getRatingDatabaseData().subscribe((response: RatingData) => {
       // La risposta viene assegnata a ratingData
@@ -184,6 +186,7 @@ export class MoviesParseComponent implements OnInit {
       this.movies = response;
       this.resultsApi = this.movies.results;
 
+      console.log(this.resultsApi)
       var counter = this.count(this.resultsApi);
 
       for (let i = 0; i < counter; i++) {
@@ -197,8 +200,12 @@ export class MoviesParseComponent implements OnInit {
           (err) => {
           })
       }
-      window.location.reload();
+      this.router.navigate(['/dashboard'])
+        .then(() => {
+          window.location.reload();
+        });
     })
+
   }
   inserimentoDatabase() {
     this.moviesDatabaseService.getMovieDatabaseData().subscribe((response: any) => {
