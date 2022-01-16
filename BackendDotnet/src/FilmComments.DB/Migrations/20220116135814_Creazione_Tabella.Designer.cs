@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmComments.DB.Migrations
 {
     [DbContext(typeof(DbContextManager))]
-    [Migration("20211226112804_Creazione_Tabella")]
+    [Migration("20220116135814_Creazione_Tabella")]
     partial class Creazione_Tabella
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

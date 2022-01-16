@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vhpi9AhGpYPVNSJnzEEGlsjnjE6Fljk1/ooA6EBIHRTFxibt5ftUlpgOIBItlV2RddUH5K1sNQEJD1gT30MCew==",
+  "dgSpecHash": "/4+a4uUp/RL07aYLXdSLr6R2/UdzwNpNFCOziabNuiFquFTslSCl7FFVBwl9sPONkI1SclxFPskFbQEK/R/Fiw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
+  "projectFilePath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\andre\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",

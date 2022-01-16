@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {}
+    "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {
+    "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
         "projectName": "FilmComments.Core",
-        "projectPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
+        "projectPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj",
         "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\obj\\",
+        "outputPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",

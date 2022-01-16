@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4ksqBxxuIu+EcrCuFx5ay+sijv9OQKfhBdF5EEc9bMau2lQj7u4t2AtNVWe18oDLEKW4ZRFfqOTEavsRE5woag==",
+  "dgSpecHash": "RJDK0ScOLL0LOQKxbo8uHyh7RDRnWfvJCGzcv19NqDP6QuVNoKzepD4Hq1vV58Pm2yLkhsQTJkDAU4q/E1YmiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj",
+  "projectFilePath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\andre\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\andre\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

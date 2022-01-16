@@ -1102,11 +1102,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
+      "projectUniqueName": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
       "projectName": "FilmComments.RestAPIs",
-      "projectPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
+      "projectPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\FilmComments.RestAPIs.csproj",
       "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\obj\\",
+      "outputPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.RestAPIs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1123,11 +1123,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {
-              "projectPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj"
+            "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj": {
+              "projectPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.Core\\FilmComments.Core.csproj"
             },
-            "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj": {
-              "projectPath": "C:\\Users\\andre\\visualStudioProject\\Progetto funzionante\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj"
+            "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj": {
+              "projectPath": "C:\\Users\\andre\\visualStudioProject\\provaFinaleProgetto\\progettoFinale\\BackendDotnet\\src\\FilmComments.DB\\FilmComments.DB.csproj"
             }
           }
         }

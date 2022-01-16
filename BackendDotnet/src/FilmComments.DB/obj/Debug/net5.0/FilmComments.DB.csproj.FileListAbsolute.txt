@@ -52,3 +52,21 @@ C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDo
 C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\ref\FilmComments.DB.dll
 C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.pdb
 C:\Users\andre\visualStudioProject\Progetto funzionante\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.genruntimeconfig.cache
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.DB.deps.json
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.DB.runtimeconfig.json
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.DB.runtimeconfig.dev.json
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.DB.dll
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\ref\FilmComments.DB.dll
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.DB.pdb
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.Core.dll
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\bin\Debug\net5.0\FilmComments.Core.pdb
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.csproj.AssemblyReference.cache
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.AssemblyInfoInputs.cache
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.AssemblyInfo.cs
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.csproj.CoreCompileInputs.cache
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.csproj.CopyComplete
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.dll
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\ref\FilmComments.DB.dll
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.pdb
+C:\Users\andre\visualStudioProject\provaFinaleProgetto\progettoFinale\BackendDotnet\src\FilmComments.DB\obj\Debug\net5.0\FilmComments.DB.genruntimeconfig.cache
