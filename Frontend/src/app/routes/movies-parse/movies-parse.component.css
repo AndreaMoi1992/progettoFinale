@@ -8,11 +8,18 @@
 @media (max-width: 1200px){
   .film {
     height: 240px;
+    width: 500px;
+  }
+  .photo-slot{
+    margin-left: -40px!important;
   }
 }
 @media (max-width: 990px){
   .film {
     height: 175px;
+  }
+  .photo-slot{
+    margin-left: -40px!important;
   }
 }
 @media (max-width: 767px){
