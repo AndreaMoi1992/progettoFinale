@@ -2,7 +2,7 @@ package com.thenetfish.jwtauth.controller;
 
 import javax.validation.Valid;
 
-import com.thenetfish.jwtauth.security.services.UserPrinciple;
+import com.thenetfish.jwtauth.model.UserToShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ import com.thenetfish.jwtauth.model.User;
 import com.thenetfish.jwtauth.repository.UserRepository;
 import com.thenetfish.jwtauth.security.jwt.JwtProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,11 +81,22 @@ public class AuthRestAPIs {
         return ResponseEntity.ok().body("User registered successfully!");
     }
     @GetMapping("/username/{username}")
-    public Optional<User> getUser(@PathVariable("username") String username) {
-        return userRepository.findByUsername(username);
+    public UserToShow getUserId(@PathVariable("username") String username) {
+        Optional<User>userFound = userRepository.findByUsername(username);
+        User user = userFound.get();
+        UserToShow userToShow = new UserToShow(user.getId(),user.getName(),user.getUsername(),user.getEmail());
+        return userToShow;
     }
         @GetMapping("/users")
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserToShow> getAll() {
+
+       List<User> userFound = userRepository.findAll();
+       List<UserToShow> usersToShow = new ArrayList<>();
+
+        for(int i=0;i<userFound.size();i++){
+            User user = userFound.get(i);
+            usersToShow.add(new UserToShow(user.getId(),user.getName(),user.getUsername(),user.getEmail()));
+        }
+        return  usersToShow;
     }
 }
