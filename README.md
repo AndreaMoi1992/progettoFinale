@@ -5,12 +5,14 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 2). In phpMyAdmin importare il database "thenetfish" situato nella cartella principale del progetto
 
 3). ANGULAR:
+
 		- Aprire il progetto Angular dalla cartella "Frontend" e da terminale inviare il comando:
 			npm install
 		- Avvia il servizio con:
 			npm start
 
 4). NODE.JS:
+
 		- Aprire il progetto Node.js dalla cartella "Backend" e da terminale inviare il comando:
 			npm install
 		- Spostarsi all'interno della cartella ./config/config.json. Modificare i dati di accesso al database se diversi da quelli già esistenti.
@@ -18,6 +20,7 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 			npm start
 
 5). DOTNET:
+
 		- Aprire la solution presente nella cartella "BackendDotnet".
 
 		- Una volta aperto il progetto se presente eliminare la cartella Migrations nel progetto FilmComments.DB
@@ -39,6 +42,7 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 
 
 	Tip: 
+
 		- Nel caso in cui i comandi non vengano lanciati con errore MSB4024 seguire i passaggi:
 
 			Andare su File e scegliere Apri -> Cartella...
