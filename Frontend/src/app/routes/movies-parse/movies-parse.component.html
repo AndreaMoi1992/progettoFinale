@@ -15,28 +15,49 @@
         <div id="immagini_film">
           <td>
             <div class="col text-center" class="container box-pages p-5">
-              <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
-              <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film1" (click)="onClickFilm1()">
-                  <h4 class="font-weight-bold">{{titoloFilm1}}</h4>
-                </button>
+              <div class="card">
+                <div class="image">
+                  <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
+                </div>
+                <div class="details">
+                  <div class="center">
+                    <h1>{{titoloFilm1}}<br></h1>
+                    <p>{{film1.overview}}</p>
+                    <ul>
+                      <button class="btn btn-outline-dark btn-lg" id="film1" (click)="onClickFilm1()">
+                        <h4 class="font-weight-bold">Vota questo film</h4>
+                      </button>
+                    </ul>
+                    <div id="alert1">
+                      {{messageFilm1}}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div id="alert1">
-              {{messageFilm1}}
-            </div>
+
           </td>
           <td>
-            <div id="box_film" class="container box-pages p-5">
-              <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
-              <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film2" (click)="onClickFilm2()">
-                  <h4 class="font-weight-bold">{{titoloFilm2}}</h4>
-                </button>
+            <div class="col text-center" class="container box-pages p-5">
+              <div class="card">
+                <div class="image">
+                  <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
+                </div>
+                <div class="details">
+                  <div class="center">
+                    <h1>{{titoloFilm2}}<br></h1>
+                    <p>{{film2.overview}}</p>
+                    <ul>
+                      <button class="btn btn-outline-dark btn-lg" id="film2" (click)="onClickFilm2()">
+                        <h4 class="font-weight-bold">Vota questo film</h4>
+                      </button>
+                    </ul>
+                    <div id="alert2">
+                      {{messageFilm2}}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div id="alert2">
-              {{messageFilm2}}
             </div>
           </td>
         </div>
@@ -63,3 +84,5 @@
       </button>
     </div>
   </div>
+</div>
+
