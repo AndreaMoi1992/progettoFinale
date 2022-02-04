@@ -52,8 +52,17 @@
   <div class="card  text-black" style="border-radius: 1rem;">
     <div class="p-5 text-center">
       <div>
-        <div class=" text-center">
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_USER'">
           <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: USER</label>
+        </div>
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_ADMIN'">
+          <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: ADMIN</label>
+        </div>
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_PM'">
+          <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: PM</label>
         </div>
         <div id="bottone" class=" text-center logout">
           <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log

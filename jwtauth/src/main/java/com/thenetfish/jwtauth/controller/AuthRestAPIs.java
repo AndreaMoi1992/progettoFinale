@@ -113,9 +113,14 @@ public class AuthRestAPIs {
     @GetMapping("/username/{username}")
     public UserToShow getUserId(@PathVariable("username") String username) {
         Optional<User>userFound = userRepository.findByUsername(username);
-        User user = userFound.get();
-        UserToShow userToShow = new UserToShow(user.getId(),user.getName(),user.getUsername(),user.getEmail());
-        return userToShow;
+        if(userFound.isPresent()){
+            User user = userFound.get();
+            return new UserToShow(user.getId(),user.getName(),user.getUsername(),user.getEmail(),user.getRoles());
+        }else{
+            return new UserToShow(null,null,null,null,null);
+        }
+
+
     }
         @GetMapping("/users")
     public List<UserToShow> getAll() {
@@ -123,10 +128,9 @@ public class AuthRestAPIs {
        List<User> userFound = userRepository.findAll();
        List<UserToShow> usersToShow = new ArrayList<>();
 
-        for(int i=0;i<userFound.size();i++){
-            User user = userFound.get(i);
-            usersToShow.add(new UserToShow(user.getId(),user.getName(),user.getUsername(),user.getEmail()));
-        }
+       for (User user : userFound) {
+           usersToShow.add(new UserToShow(user.getId(), user.getName(), user.getUsername(), user.getEmail(), user.getRoles()));
+       }
         return  usersToShow;
     }
 }

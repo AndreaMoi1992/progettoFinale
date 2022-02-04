@@ -1,21 +1,15 @@
-
-
-  <app-mustbelogged></app-mustbelogged>
-  <app-overlayChoice *ngIf="choice$ ==null && (tokenService.isLoggedIn$ | async)">
-    <!-- <div id="box_scelta"class="container box-pages p-5"></div> -->
-
-  </app-overlayChoice>
+<app-mustbelogged></app-mustbelogged>
+<app-overlayChoice *ngIf="choice$ ==null && (tokenService.isLoggedIn$ | async)">
+</app-overlayChoice>
 
 
 <div *ngIf="moviesDataLoader && (tokenService.isLoggedIn$ | async)">
-
-
   <div class="container box-pages p-3">
     <div class="text-center">
       <h2 class="font-weight-bold">Vota il film</h2>
     </div>
   </div>
-  <div id="box_principale" class="container box-pages p-5" >
+  <div id="box_principale" class="container box-pages p-5">
     <table class="welcometable" class="text-center photo-slot">
       <tr>
         <div id="immagini_film">
@@ -23,36 +17,49 @@
             <div class="col text-center" class="container box-pages p-5">
               <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
               <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film1"(click)="onClickFilm1()"><h4 class="font-weight-bold">{{titoloFilm1}}</h4></button>
+                <button class="btn btn-outline-dark btn-lg" id="film1" (click)="onClickFilm1()">
+                  <h4 class="font-weight-bold">{{titoloFilm1}}</h4>
+                </button>
               </div>
+            </div>
+            <div id="alert1">
+              {{messageFilm1}}
             </div>
           </td>
           <td>
             <div id="box_film" class="container box-pages p-5">
               <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
               <div class="col text-center">
-                <button class="btn btn-outline-dark btn-lg" id="film2"(click)="onClickFilm2()"><h4 class="font-weight-bold">{{titoloFilm2}}</h4></button>
+                <button class="btn btn-outline-dark btn-lg" id="film2" (click)="onClickFilm2()">
+                  <h4 class="font-weight-bold">{{titoloFilm2}}</h4>
+                </button>
               </div>
+            </div>
+            <div id="alert2">
+              {{messageFilm2}}
             </div>
           </td>
         </div>
       </tr>
     </table>
   </div>
-
   <div id="box_bottone_scelta" class="col text-center" class="container box-pages p-3">
-    <div >
-      <button id="bottone" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceDatabase()"><h4 class="font-weight-bold">Choose database source</h4></button>
-      <button id="bottone" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg" (click)="onClickChoiceApi()"><h4 class="font-weight-bold">Choose Api source</h4></button>
-      <button id="bottone_genera" *ngIf="choice$ == 'api'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsApi()"><h4 class="font-weight-bold">Genera</h4></button>
-      <button id="bottone_genera" *ngIf="choice$ == 'database'"class="btn btn-outline-dark btn-lg " (click)="generateFilmsDatabase()"><h4 class="font-weight-bold">Genera</h4></button>
+    <div>
+      <button id="bottone" *ngIf="choice$ == 'api'" class="btn btn-outline-dark btn-lg"
+        (click)="onClickChoiceDatabase()">
+        <h4 class="font-weight-bold">Film Database</h4>
+      </button>
+      <button id="bottone" *ngIf="choice$ == 'database'" class="btn btn-outline-dark btn-lg"
+        (click)="onClickChoiceApi()">
+        <h4 class="font-weight-bold">Film Api</h4>
+      </button>
+      <button id="bottone_genera" *ngIf="choice$ == 'api'" class="btn btn-outline-dark btn-lg "
+        (click)="generateFilmsApi()">
+        <h4 class="font-weight-bold">Genera</h4>
+      </button>
+      <button id="bottone_genera" *ngIf="choice$ == 'database'" class="btn btn-outline-dark btn-lg "
+        (click)="generateFilmsDatabase()">
+        <h4 class="font-weight-bold">Genera</h4>
+      </button>
+    </div>
   </div>
-</div>
-
-
-
-
-
-
-
-

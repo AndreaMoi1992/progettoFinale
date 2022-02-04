@@ -5,6 +5,7 @@ import { AuthService } from '../../jwt-auth/auth/auth.service';
 import { SignUpInfo } from '../../jwt-auth/auth/signup-info';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { TokenStorageService } from 'src/app/jwt-auth/auth/token-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -20,9 +21,16 @@ export class RegisterComponent implements OnInit {
 
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router : Router) {  }
+  constructor(private authService: AuthService, private router : Router, private tokenStorage: TokenStorageService) {
+  }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.router.navigate(['/login'])
+      .then(() => {
+        this.reloadPage()
+      });
+    }
 
   }
 
@@ -51,5 +59,8 @@ export class RegisterComponent implements OnInit {
       }
     );
 
+  }
+  reloadPage() {
+    window.location.reload();
   }
 }

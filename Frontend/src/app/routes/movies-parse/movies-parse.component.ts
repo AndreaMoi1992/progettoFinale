@@ -21,6 +21,10 @@ const DATABASE = 'database';
 const CHOICE = 'choice';
 const FILM1 = 'film1';
 const FILM2 = 'film2';
+const VOTE_SUCCESS = "Hai votato questo film";
+const VOTE_FAIL = "Hai gia'votato questo film";
+const ALERT_1 = "alert1";
+const ALERT_2 = "alert2";
 
 @Component({
   selector: 'app-movies-parse',
@@ -51,8 +55,9 @@ export class MoviesParseComponent implements OnInit {
   film2Path: string;
 
   choice$: string;
-  private userLoggedId$: string;
-  private userId: number;
+  messageFilm1: string = "";
+  messageFilm2: string = "";
+  voted = false;
 
   titoloFilm1: string;
   titoloFilm2: string;
@@ -66,12 +71,8 @@ export class MoviesParseComponent implements OnInit {
     private ratingServiceDatabase: RatingsDatabaseService, private router: Router) {
     const Choice = sessionStorage.getItem(CHOICE);
     this.choice$ = Choice;
-    const UserId = sessionStorage.getItem(CUSTOMER_KEY);
-    this.userLoggedId$ = UserId;
-    var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
-    this.userId = parseInt(userIdString)//Returns userId in number
-
   }
+
   ngOnInit(): void {
     this.databaseGeneration();
   }
@@ -120,6 +121,8 @@ export class MoviesParseComponent implements OnInit {
     setTimeout(function () { document.getElementById(FILM1).removeAttribute("disabled") }, 1000);
     var ratingService = this.choices(FILM1);
     this.addVote(ratingService, this.film1);
+    this.messageFilm2 = "";
+    document.getElementById(ALERT_2).classList.remove("alert");
   }
   onClickFilm2() {
 
@@ -127,6 +130,8 @@ export class MoviesParseComponent implements OnInit {
     setTimeout(function () { document.getElementById(FILM2).removeAttribute("disabled") }, 1000);
     var ratingService = this.choices(FILM2);
     this.addVote(ratingService, this.film2);
+    this.messageFilm1 = "";
+    document.getElementById(ALERT_1).classList.remove("alert");
   }
   choices(film: String) {
     var ratingService;
@@ -340,7 +345,7 @@ export class MoviesParseComponent implements OnInit {
   }
   pushCustomerVotes(counterCustomers: number, customers: Customers) {
     for (let i = 0; i < counterCustomers; i++) {
-      if (this.userId == customers[i].customer_id) {
+      if (this.tokenService.getUserId() == customers[i].customer_id) {
         this.customersVoting.push(customers[i]);
       }
     }
@@ -363,7 +368,7 @@ export class MoviesParseComponent implements OnInit {
       "id": null,
       "movie_id": film.idmovie,
       //Da aggiustare con springboot
-      "customer_id": this.userId
+      "customer_id": this.tokenService.getUserId()
     }
 
     // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
@@ -379,18 +384,53 @@ export class MoviesParseComponent implements OnInit {
         if (found == false) {
           this.editRating(ratings[i], Customer, ratingService)
           console.log("Hai votato questo film : " + film.title)
+          this.messageCheck(film);
           break
         } if (found) {
-          console.log("Hai già votato " + film.title)
+          console.log("Hai gia' votato " + film.title)
+          this.messageCheck(film,found);
           break
         }
+
       }
       if (alreadyCreated) break;
     }
     if (alreadyCreated == false) {
       this.addRating(RatingToAdd, Customer, ratingService);
       console.log("Hai votato questo film : " + film.title)
+      this.messageCheck(film);
     }
 
+  }
+  messageCheck(film: MovieDatabaseInterface, found?: boolean) {
+    var alertScelto = "";
+
+    if (found == undefined) {
+      if (film == this.film1) {
+        this.messageFilm1 = VOTE_SUCCESS
+        alertScelto = ALERT_1
+      } else if (film == this.film2) {
+        this.messageFilm2 = VOTE_SUCCESS
+        alertScelto = ALERT_2
+      }
+      document.getElementById(alertScelto).classList.add("alert");
+      document.getElementById(alertScelto).classList.remove("alert-danger");
+      document.getElementById(alertScelto).classList.add("alert-success");
+
+
+    }
+    if (found) {
+      if (film == this.film1) {
+        this.messageFilm1 = VOTE_FAIL
+        alertScelto = ALERT_1
+      } else if (film == this.film2) {
+        this.messageFilm2 = VOTE_FAIL
+        alertScelto = ALERT_2
+      }
+      document.getElementById(alertScelto).classList.add("alert");
+      document.getElementById(alertScelto).classList.remove("alert-success");
+      document.getElementById(alertScelto).classList.add("alert-danger");
+    }
+    this.voted = true;
   }
 }

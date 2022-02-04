@@ -39,9 +39,9 @@ export class AuthService {
     return this.http.post<string>(this.signupUrl, info, httpOptions);
   }
   getUserIdByUsername(username: String) {
-    return this.http.get<any>(this.getIdUrl + "/" + username)
+    return this.http.get<any>(this.getIdUrl + "/" + username);
   }
   getAll() {
-    return this.http.get<any>(this.getUserUrl)
+    return this.http.get<any>(this.getUserUrl);
   }
 }
