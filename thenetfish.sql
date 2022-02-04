@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 12, 2022 alle 15:43
+-- Creato il: Feb 04, 2022 alle 15:11
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.0.14
 
@@ -29,9 +29,8 @@ USE `thenetfish`;
 -- Struttura della tabella `filmapiindatabase`
 --
 
-DROP TABLE IF EXISTS `filmapiindatabase`;
-CREATE TABLE `filmapiindatabase` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `filmapiindatabase` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `adult` bit(1) NOT NULL,
   `backdrop_path` varchar(128) NOT NULL,
   `idmovie` int(11) NOT NULL,
@@ -42,28 +41,31 @@ CREATE TABLE `filmapiindatabase` (
   `release_date` varchar(200) NOT NULL,
   `title` varchar(200) NOT NULL,
   `video` bit(1) NOT NULL,
-  `image_path` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `image_path` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Indici per le tabelle scaricate
+-- Struttura della tabella `roles`
 --
 
---
--- Indici per le tabelle `filmapiindatabase`
---
-ALTER TABLE `filmapiindatabase`
-  ADD PRIMARY KEY (`id`);
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_nb4h0p6txrmfc0xbrd1kglp9t` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- Dump dei dati per la tabella `roles`
 --
 
---
--- AUTO_INCREMENT per la tabella `filmapiindatabase`
---
-ALTER TABLE `filmapiindatabase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+INSERT INTO `roles` (`id`, `name`) VALUES
+(3, 'ROLE_ADMIN'),
+(2, 'ROLE_PM'),
+(1, 'ROLE_USER');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
