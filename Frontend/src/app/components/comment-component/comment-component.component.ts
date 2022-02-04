@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/jwt-auth/auth/auth.service';
+import { TokenStorageService } from 'src/app/jwt-auth/auth/token-storage.service';
 import { commentDotnetData } from 'src/app/models/dotnetData.model';
 import { DotnetServiceService } from 'src/app/services/dotnet-service.service';
 
@@ -15,7 +16,7 @@ export class CommentComponentComponent implements OnInit {
 
   idString: string;
 
-  constructor(private route: ActivatedRoute, private dotnetService: DotnetServiceService, public authService: AuthService) {
+  constructor(private route: ActivatedRoute, private dotnetService: DotnetServiceService, public authService: AuthService,public tokenStorage: TokenStorageService) {
 
   }
 
@@ -86,6 +87,9 @@ export class CommentComponentComponent implements OnInit {
 
       })
     })
+  }
+  deleteComment(id:number){
+    this.dotnetService.deleteDotnetData(id).subscribe((resDot: any) => {window.location.reload();})
   }
 
 }
