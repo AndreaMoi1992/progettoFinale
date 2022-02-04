@@ -47,16 +47,6 @@
   margin-bottom: 0rem!important;
 }
 }
-@media (min-width: 540px){
-  .card{
-  margin-left: 25%!important;
-}
-}
-@media (min-width: 375px){
-  .card{
-  margin-left: 17%!important;
-}
-}
 .px-5{
   margin-right: 5px;
 
@@ -153,9 +143,4 @@ body{
 }
 .flex{
   flex-direction:column;
-}
-
-#bottone{
-  margin-left: 20%;
-
 }

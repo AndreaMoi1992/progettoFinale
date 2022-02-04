@@ -26,8 +26,6 @@ public class JwtResponse {
         this.type = tokenType;
     }
 
-
-
     public String getUsername() {
         return username;
     }
