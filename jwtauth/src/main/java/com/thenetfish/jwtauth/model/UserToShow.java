@@ -12,20 +12,25 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 
+import java.util.Set;
+
 public class UserToShow {
 
     private Long id;
     private String name;
     private String username;
     private String email;
+    private Set<Role> role;
+
 
     public UserToShow() {}
 
-    public UserToShow(Long id,String name, String username, String email) {
+    public UserToShow(Long id,String name, String username, String email,Set<Role> role) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
+        this.role = role;
 
     }
 
@@ -59,5 +64,13 @@ public class UserToShow {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
     }
 }

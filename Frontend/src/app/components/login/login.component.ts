@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveUsername(data.username);
         this.authService.getUserIdByUsername(this.tokenStorage.getUsername()).subscribe(response => {
           this.tokenStorage.saveUserId(response.id)
+          console.log(response.role[0].name)
+          this.tokenStorage.saveRole(response.role[0].name)
         }
         )
         this.isLoginFailed = false;

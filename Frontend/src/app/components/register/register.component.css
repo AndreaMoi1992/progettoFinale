@@ -1,14 +1,9 @@
 .row{
   margin-left: 40%;
-
 }
 .form {
-
   font-size: 20px;
-
 }
-
-
 .card {
   position: static;
   width: fit-content;
@@ -26,19 +21,18 @@
 }
 .px-5{
   margin-right: 5px;
-
 }
 
 body{
   background: linear-gradient(to right, #f4b661, #f16160);
 }
-
 .wrapper{
   min-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position:static;
+  margin-top: 40px;
 }
 
 .form{
@@ -117,3 +111,21 @@ body{
 .flex{
   flex-direction:column;
 }
+
+.hide {
+  display: none;
+}
+.pointer {
+  cursor: pointer;
+  display: flex;
+  font-size: 20px;
+  margin-left: 295px;
+  margin-top: -37px;
+  padding-bottom: 15px;
+  position: relative;
+}
+.padding {
+padding: 10%;
+}
+
+

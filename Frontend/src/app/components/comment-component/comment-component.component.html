@@ -1,24 +1,19 @@
-
   <table class="table">
     <thead class="thead-dark">
       <tr>
-
         <th scope="col">Username</th>
         <th scope="col">Comment</th>
-
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let entry of commentRappresentation;let i=index">
-
         <tr class="pointer">
-
           <td>{{commentUsername[i]}}</td>
           <td>{{entry.body}}</td>
-
+          <td><button class="btn btn-outline-dark btn-lg px-5" id="login" *ngIf="tokenStorage.getRole() == 'ROLE_ADMIN' || tokenStorage.getUsername() == commentUsername[i]"(click)="deleteComment(entry.id)">Delete</button></td>
         </tr>
       </ng-container>
-
     </tbody>
   </table>
 

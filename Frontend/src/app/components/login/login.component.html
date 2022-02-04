@@ -3,7 +3,6 @@
     <div class="title">
       Login To The Net Fish
     </div>
-
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="input_wrap">
         <label for="username">Username</label>
@@ -39,24 +38,31 @@
             <button class="btn btn-outline-dark btn-lg px-5" id="login">Login</button>
           </td>
           <td>
-            <button class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
+            <button type="button" class="btn btn-outline-dark btn-lg " [routerLink]="['/register']">SignUp</button>
           </td>
         </tr>
       </table>
-
     </form>
-
   </div>
 </div>
 <div class=" py-5 h-100 justify-content-center align-items-center " *ngIf="isLoggedIn">
   <div class="card  text-black" style="border-radius: 1rem;">
     <div class="p-5 text-center">
       <div>
-        <div class=" text-center">
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_USER'">
           <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: USER</label>
+        </div>
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_ADMIN'">
+          <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: ADMIN</label>
+        </div>
+        <div class="text-center" *ngIf="tokenStorage.getRole() == 'ROLE_PM'">
+          <label class="form-label">Ciao {{tokenStorage.getUsername()}}! Vuoi gia' uscire?</label>
+          <label class="form-label acp">Ruolo: PM</label>
         </div>
         <div id="bottone" class=" text-center logout">
-          <button class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log
+          <button type="button" class="btn btn-outline-dark btn-lg px-5" type="submit" (click)='logout()'>Log
             Out</button>
         </div>
       </div>

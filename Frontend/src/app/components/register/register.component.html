@@ -3,10 +3,10 @@
 </div>
 
 <ng-template #signupForm>
-  <div class="row col-sm-6 wrapper box-pages" style="max-width:350px;">
+  <div class="row col-sm-6 wrapper" style="max-width:350px;">
     <form class ="form"name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="title">
-        Register To The Net Fish
+        Registrati su The Net Fish
       </div>
       <div class="input_wrap">
         <label for="username">Username</label>
@@ -15,16 +15,22 @@
             required />
         </div>
         <div *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
+          <div *ngIf="username.errors.required">Username necessario</div>
+        </div>
+        <div *ngIf="f.submitted && isSignUpFailed && usernameSbagliata">
+          {{errorMessage}}
         </div>
       </div>
       <div class="input_wrap">
-        <label for="name">Your name</label>
+        <label for="name">Nome</label>
         <div class="input_field">
           <input type="text" class="input" name="name" [(ngModel)]="form.name" #name="ngModel" required />
           <div *ngIf="f.submitted && name.invalid">
-            <div *ngIf="name.errors.required">Name is required</div>
+            <div *ngIf="name.errors.required">Nome necessario</div>
           </div>
+        </div>
+        <div *ngIf="f.submitted && isSignUpFailed && nomeSbagliato">
+          {{errorMessage}}
         </div>
       </div>
       <div class="input_wrap">
@@ -33,28 +39,38 @@
           <input type="text" class="input" name="email" [(ngModel)]="form.email" #email="ngModel" required
             email />
           <div *ngIf="f.submitted && email.invalid">
-            <div *ngIf="email.errors.required">Email is required</div>
-            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            <div *ngIf="email.errors.required">Email necessaria</div>
+            <div *ngIf="email.errors.email">La mail deve essere valida</div>
           </div>
+        </div>
+        <div *ngIf="f.submitted && isSignUpFailed && emailSbagliata">
+          {{errorMessage}}
         </div>
       </div>
       <div class="input_wrap">
         <label for="password">Password</label>
-        <div class="input_field">
-          <input type="password" class="input" name="password" [(ngModel)]="form.password" #password="ngModel"
-            required minlength="6" />
+        <div class="input_wrap">
+            <input class="input" id="input_password" name="password" [(ngModel)]="form.password" #password="ngModel"
+            required minlength="6" [type]="showPasswordOnPress ? 'text' : 'password'">
+          <div (mousedown)="showPasswordOnPress = !showPasswordOnPress"
+            (mouseup)="showPasswordOnPress = !showPasswordOnPress" class="pointer">
+            <i alt="show" class="fas fa-eye eye-show" [class.hide]="showPasswordOnPress"></i>
+            <i alt="hide" class="fas fa-eye-slash eye-hide" [class.hide]="!showPasswordOnPress"></i>
+          </div>
         </div>
         <div *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+          <div *ngIf="password.errors.required">Password necessaria</div>
+        </div>
+        <div *ngIf="f.submitted && isSignUpFailed && passwordSbagliata">
+          {{errorMessage}}
         </div>
       </div>
       <div class="text-center">
-        <button class="btn btn-outline-dark btn-lg px-5" id="register">Register</button>
-        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-          Signup failed!<br />{{errorMessage}}
-        </div>
+        <button  class="btn btn-outline-dark btn-lg px-5" id="register">Registrati</button>
       </div>
+      <div class="padding">Sei gia' registrato?</div>
+      <button type="button" class="btn btn-outline-dark btn-lg px-5" [routerLink]="['/login']" id="login">Torna al Login</button>
+
     </form>
   </div>
 </ng-template>

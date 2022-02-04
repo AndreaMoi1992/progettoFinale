@@ -144,3 +144,6 @@ body{
 .flex{
   flex-direction:column;
 }
+.acp {
+  display: block;
+}
