@@ -2,7 +2,10 @@ package com.thenetfish.jwtauth.controller;
 
 import javax.validation.Valid;
 
+import com.thenetfish.jwtauth.model.Role;
+import com.thenetfish.jwtauth.model.RoleName;
 import com.thenetfish.jwtauth.model.UserToShow;
+import com.thenetfish.jwtauth.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +24,7 @@ import com.thenetfish.jwtauth.model.User;
 import com.thenetfish.jwtauth.repository.UserRepository;
 import com.thenetfish.jwtauth.security.jwt.JwtProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,6 +35,9 @@ public class AuthRestAPIs {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -75,6 +79,32 @@ public class AuthRestAPIs {
         // Creating user's account
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
+
+        Set<String> strRoles = signUpRequest.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        strRoles.forEach(role -> {
+        	switch(role) {
+	    		case "admin":
+	    			Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+	                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+	    			roles.add(adminRole);
+
+	    			break;
+	    		case "pm":
+	            	Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
+	                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+	            	roles.add(pmRole);
+
+	    			break;
+	    		default:
+	        		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+	                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+	        		roles.add(userRole);
+        	}
+        });
+
+        user.setRoles(roles);
 
         userRepository.save(user);
 
