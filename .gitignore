@@ -58,3 +58,5 @@ BackendDotnet/src/FilmComments.RestAPIs/obj/Debug/net5.0/FilmComments.RestAPIs.d
 BackendDotnet/src/FilmComments.RestAPIs/obj/Debug/net5.0/FilmComments.RestAPIs.GeneratedMSBuildEditorConfig.editorconfig
 BackendDotnet/src/FilmComments.RestAPIs/obj/Debug/net5.0/FilmComments.RestAPIs.genruntimeconfig.cache
 .gitignore
+Backend/package-lock.json
+Frontend/package-lock.json
