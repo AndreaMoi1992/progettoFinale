@@ -29,7 +29,7 @@ Come web hosting locale consigliamo XAMPP v.3.3 per evitare errori derivanti ad 
 
 			"Server=localhost;Port=3306;Database=thenetfish;Uid=root;Psw=password;"
 
-		- Dal terminale lanciare i seguenti comandi:
+		- Dal terminale recarsi in ./BackendDotnet/src/FilmComments.DB,cancellare se presente la cartella Migrations per poi lanciare i seguenti comandi:
   
 			dotnet ef migrations list
 
