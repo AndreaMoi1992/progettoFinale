@@ -14,8 +14,6 @@ import { MovieDatabaseServiceService } from '../../services/movie-database-servi
 import { TokenStorageService } from '../../jwt-auth/auth/token-storage.service';
 import { Router } from '@angular/router';
 
-
-const CUSTOMER_KEY = 'customer_id';
 const API = 'api';
 const DATABASE = 'database';
 const CHOICE = 'choice';
@@ -59,10 +57,6 @@ export class MoviesParseComponent implements OnInit {
   messageFilm2: string = "";
   voted = false;
 
-  titoloFilm1: string;
-  titoloFilm2: string;
-
-  counter: number = 0;
   idFilm1: number;
   idFilm2: number;
   prevIdFilm1: number = -1;
@@ -108,7 +102,6 @@ export class MoviesParseComponent implements OnInit {
       this.moviesDataLoader = true;
       this.movies = response;
       this.resultsApi = this.movies.results;
-      this.counter = this.count(this.resultsApi);
       this.generateFilm1();
       this.generateFilm2();
     },
@@ -158,7 +151,7 @@ export class MoviesParseComponent implements OnInit {
 
     return ratingService;
   }
-  addVote(ratingService: any, film: MovieDatabaseInterface) {
+  addVote(ratingService: RatingsService, film: MovieDatabaseInterface) {
     // Ricava la lista di ratings dal db
     ratingService.getRatingDatabaseData().subscribe((response: RatingData) => {
       // La risposta viene assegnata a ratingData
@@ -233,7 +226,7 @@ export class MoviesParseComponent implements OnInit {
     }
     return elementFound;
   }
-  editRating(ratings: Ratings, customers: Customers, ratingService: any) {
+  editRating(ratings: Ratings, customers: Customers, ratingService: RatingsService) {
     ratings.rating++
     ratingService.editRatingDatabaseEntry(ratings).subscribe(response => {
 
@@ -245,7 +238,7 @@ export class MoviesParseComponent implements OnInit {
       console.log(err);
     };
   }
-  addRating(rating: Ratings, customers: Customers, ratingService: any) {
+  addRating(rating: Ratings, customers: Customers, ratingService: RatingsService) {
     ratingService.addRatingDatabaseEntry(rating).subscribe(response => {
     }), err => {
       console.log(err);
@@ -263,63 +256,61 @@ export class MoviesParseComponent implements OnInit {
     return count;
   }
   generateFilm1() {
+    var counter = this.count(this.resultsApi);
     while(this.idFilm1==this.idFilm2 || this.idFilm1 == this.prevIdFilm1 || this.idFilm1 == undefined) {
-      this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
+      this.idFilm1 = Math.floor(Math.random() * counter) + 0;
     }
-    for (let i = 0; i < this.counter; i++) {
+    for (let i = 0; i < counter; i++) {
       // Se nell'array dell'api c'è un indice uguale all'id del film generato
       if (this.idFilm1 == i) {
         // film1 è uguale al film in quella posizione
         this.film1 = this.resultsApi[i];
         this.film1.idmovie = this.resultsApi[i].id
         this.film1Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-        this.titoloFilm1 = this.film1.title;
       }
     }
     this.prevIdFilm1 = this.idFilm1;
   }
   generateFilm2() {
+    var counter = this.count(this.resultsApi);
     while(this.idFilm1==this.idFilm2 || this.idFilm2 == this.prevIdFilm2 || this.idFilm2 == undefined) {
-      this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
+      this.idFilm2 = Math.floor(Math.random() * counter) + 0;
     }
-    for (let i = 0; i < this.counter; i++) {
+    for (let i = 0; i < counter; i++) {
       // Se nell'array dell'api c'è un indice uguale all'id del film generato
       if (this.idFilm2 == i) {
         // film2 è uguale al film in quella posizione
         this.film2 = this.resultsApi[i];
         this.film2.idmovie = this.resultsApi[i].id
         this.film2Path = this.filmPath.concat(this.resultsApi[i].backdrop_path);
-        this.titoloFilm2 = this.film2.title;
       }
     }
     this.prevIdFilm2 = this.idFilm2;
   }
   generateFilm1Database() {
-    let grandezza = this.displayMovies.length;
+    var counter = this.count(this.displayMovies);
     while(this.idFilm1==this.idFilm2 || this.idFilm1 == this.prevIdFilm1 || this.idFilm1 == undefined) {
-      this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
+      this.idFilm1 = Math.floor(Math.random() * counter) + 0;
     }
-    for (let i = 0; i < grandezza; i++) {
+    for (let i = 0; i < counter; i++) {
       if (this.idFilm1 == i) {
         this.film1 = this.displayMovies[i];
         this.film1.idmovie = this.displayMovies[i].idmovie
         this.film1Path = this.displayMovies[i].image_path;
-        this.titoloFilm1 = this.film1.title;
       }
     }
     this.prevIdFilm1 = this.idFilm1;
   }
   generateFilm2Database() {
-    let grandezza = this.displayMovies.length;
+    var counter = this.count(this.displayMovies);
     while(this.idFilm1==this.idFilm2 || this.idFilm2 == this.prevIdFilm2 || this.idFilm2 == undefined) {
-      this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
+      this.idFilm2 = Math.floor(Math.random() * counter) + 0;
     }
-    for (let i = 0; i < grandezza; i++) {
+    for (let i = 0; i < counter; i++) {
       if (this.idFilm2 == i) {
         this.film2 = this.displayMovies[i];
         this.film2.idmovie = this.displayMovies[i].idmovie
         this.film2Path = this.displayMovies[i].image_path;
-        this.titoloFilm2 = this.film2.title;
       }
     }
     this.prevIdFilm2 = this.idFilm2;
@@ -331,7 +322,7 @@ export class MoviesParseComponent implements OnInit {
       }
     }
   }
-  voteCheck(ratings: Ratings, customers: Customers, film: MovieDatabaseInterface, ratingService: any) {
+  voteCheck(ratings: Ratings, customers: Customers, film: MovieDatabaseInterface, ratingService: RatingsService) {
     var alreadyCreated = false;
     var counterRatings = this.count(ratings);
     var counterCustomers = this.count(customers);
