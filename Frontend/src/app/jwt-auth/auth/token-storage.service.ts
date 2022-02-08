@@ -56,9 +56,7 @@ export class TokenStorageService {
     window.sessionStorage.setItem(CUSTOMER_KEY, userId);
   }
   public getUserId(): number {
-    var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
-     //Returns userId in number
-    return parseInt(userIdString);
+    return this.userId;
   }
   public saveRole(role : string) {
     window.sessionStorage.setItem(ROLE_KEY, role);
