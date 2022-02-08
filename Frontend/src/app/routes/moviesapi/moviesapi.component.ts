@@ -34,7 +34,7 @@ export class MoviesapiComponent implements OnInit {
   counterApiMovies:number=0;
   counterApiRatings:number=0;
 
-  constructor(private ratingService: RatingsService, private moviesApi: MoviesApiService, private router : Router, public tokenStorage: TokenStorageService) { }
+  constructor(private ratingService: RatingsService, private moviesApi: MoviesApiService, private router : Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -107,6 +107,9 @@ export class MoviesapiComponent implements OnInit {
 
   goToMovieDetails(id){
     this.router.navigateByUrl('/movie/Api/Details/'+ id);
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 
 

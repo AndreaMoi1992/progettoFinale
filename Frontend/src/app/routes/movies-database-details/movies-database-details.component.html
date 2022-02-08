@@ -1,5 +1,5 @@
 <app-mustbelogged></app-mustbelogged>
-<div *ngIf="moviesdetails != null && (tokenStorage.isLoggedIn$ | async)">
+<div *ngIf="moviesdetails != null && isLoggedIn()">
 
   <div id="container_principale" class="container box-pages p-5">
 
@@ -121,4 +121,4 @@
   </div>
 </div>
 
-<app-loading-screen *ngIf="!moviesDataLoader && tokenStorage.isLoggedIn$ | async"></app-loading-screen>
+<app-loading-screen *ngIf="!moviesDataLoader && isLoggedIn()"></app-loading-screen>

@@ -1,9 +1,9 @@
 <app-mustbelogged></app-mustbelogged>
-<app-overlayChoice *ngIf="choice$ ==null && (tokenService.isLoggedIn$ | async)">
+<app-overlayChoice *ngIf="choice$ ==null && isLoggedIn()">
 </app-overlayChoice>
 
 
-<div *ngIf="moviesDataLoader && (tokenService.isLoggedIn$ | async)">
+<div *ngIf="moviesDataLoader && isLoggedIn()">
   <div class="container box-pages p-3">
     <div class="text-center">
       <h2 class="font-weight-bold">Vota il film</h2>
@@ -15,32 +15,34 @@
         <div id="immagini_film">
           <td>
             <div class="col text-center" class="container box-pages p-5">
-              <div class="card">
-                <div class="image">
-                  <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')'}"></div>
-                </div>
-                <div class="details">
-                  <div class="center">
-                    <h1>{{titoloFilm1}}<br></h1>
-                    <p>{{film1.overview}}</p>
-                    <ul>
-                      <button class="btn btn-outline-dark btn-lg" id="film1" (click)="onClickFilm1()">
-                        <h4 class="font-weight-bold">Vota questo film</h4>
-                      </button>
-                    </ul>
-                    <div id="alert1">
-                      {{messageFilm1}}
+                <div class="card position">
+                  <div class="image">
+                    <div class="film" [ngStyle]="{'background-image': 'url(' + film1Path + ')','border-radius': '5px'}">
+                    </div>
+                  </div>
+                  <div class="details margin">
+                    <div class="center">
+                      <h1>{{titoloFilm1}}<br></h1>
+                      <p>{{film1.overview}}</p>
+                      <ul>
+                        <button class="btn btn-outline-dark btn-lg" id="film1" (click)="onClickFilm1()">
+                          <h4 class="font-weight-bold">Vota questo film</h4>
+                        </button>
+                      </ul>
+                      <div id="alert1">
+                        {{messageFilm1}}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
           </td>
           <td>
             <div class="col text-center" class="container box-pages p-5">
-              <div class="card">
+              <div class="card position">
                 <div class="image">
-                  <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')'}"></div>
+                  <div class="film" [ngStyle]="{'background-image': 'url(' + film2Path + ')','border-radius': '5px'}">
+                  </div>
                 </div>
                 <div class="details">
                   <div class="center">

@@ -24,7 +24,7 @@ import { AuthService } from '../../jwt-auth/auth/auth.service';
 export class MoviesDatabaseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private apiService: MoviesApiService,
-    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router, public tokenStorage: TokenStorageService,private authService: AuthService) { }
+    private moviesDatabaseService: MovieDatabaseServiceService, private ratingService: RatingsDatabaseService, private dotnetService: DotnetServiceService, private router : Router, private tokenStorage: TokenStorageService,private authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -220,6 +220,9 @@ export class MoviesDatabaseDetailsComponent implements OnInit {
       }
       )
     }
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 }
 

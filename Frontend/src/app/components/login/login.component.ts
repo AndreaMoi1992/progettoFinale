@@ -15,7 +15,6 @@ const CUSTOMER_KEY = 'customer_id';
 })
 export class LoginComponent implements OnInit {
   form: any = {};
-  isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService, public tokenStorage: TokenStorageService, private router: Router) {
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {
     const UserId = sessionStorage.getItem(CUSTOMER_KEY);
     this.userLoggedId$ = UserId;
     var userIdString = sessionStorage.getItem(CUSTOMER_KEY); ///Get value as string
@@ -35,9 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-    }
   }
 
   onSubmit() {
@@ -48,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveLoggedIn();
         this.tokenStorage.saveUsername(data.username);
         this.authService.getUserIdByUsername(this.tokenStorage.getUsername()).subscribe(response => {
           this.tokenStorage.saveUserId(response.id)
@@ -56,7 +53,6 @@ export class LoginComponent implements OnInit {
         }
         )
         this.isLoginFailed = false;
-        this.isLoggedIn = true;
         this.router.navigate(['/dashboard'])
           .then(() => {
             this.reloadPage()
@@ -70,13 +66,11 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
   reloadPage() {
     window.location.reload();
   }
-  logout() {
-    this.tokenStorage.signOut();
-    this.reloadPage();
+  isLoggedIn(){
+    return this.tokenStorage.getLoggedIn()
   }
 }
 

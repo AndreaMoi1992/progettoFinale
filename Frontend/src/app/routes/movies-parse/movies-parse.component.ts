@@ -66,7 +66,7 @@ export class MoviesParseComponent implements OnInit {
   idFilm1: number;
   idFilm2: number;
 
-  constructor(private ratingService: RatingsService, public tokenService: TokenStorageService,
+  constructor(private ratingService: RatingsService, private tokenStorage: TokenStorageService,
     private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService,
     private ratingServiceDatabase: RatingsDatabaseService, private router: Router) {
     const Choice = sessionStorage.getItem(CHOICE);
@@ -345,7 +345,7 @@ export class MoviesParseComponent implements OnInit {
   }
   pushCustomerVotes(counterCustomers: number, customers: Customers) {
     for (let i = 0; i < counterCustomers; i++) {
-      if (this.tokenService.getUserId() == customers[i].customer_id) {
+      if (this.tokenStorage.getUserId() == customers[i].customer_id) {
         this.customersVoting.push(customers[i]);
       }
     }
@@ -368,7 +368,7 @@ export class MoviesParseComponent implements OnInit {
       "id": null,
       "movie_id": film.idmovie,
       //Da aggiustare con springboot
-      "customer_id": this.tokenService.getUserId()
+      "customer_id": this.tokenStorage.getUserId()
     }
 
     // Conta i ratings e controlla se il film votato è stato già aggiunto. Se è stato aggiunto
@@ -432,5 +432,8 @@ export class MoviesParseComponent implements OnInit {
       document.getElementById(alertScelto).classList.add("alert-danger");
     }
     this.voted = true;
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 }

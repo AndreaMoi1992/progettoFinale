@@ -1,4 +1,4 @@
-<div class="container box-pages p-5 text-center" *ngIf="!(tokenService.isLoggedIn$ | async)">
+<div class="container box-pages p-5 text-center" *ngIf="!(isLoggedIn())">
   <label>Devi effettuare il login prima di accedere a questa funzione</label>
   <button class="btn btn-outline-dark btn-lg px-5" [routerLink]="'/login'">
     <h4> Vai al Login</h4>

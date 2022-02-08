@@ -11,7 +11,7 @@
         <tr class="pointer">
           <td>{{commentUsername[i]}}</td>
           <td>{{entry.body}}</td>
-          <td><button class="btn btn-outline-dark btn-lg px-5" id="login" *ngIf="tokenStorage.getRole() == 'ROLE_ADMIN' || tokenStorage.getUsername() == commentUsername[i]"(click)="deleteComment(entry.id)">Delete</button></td>
+          <td><button class="btn btn-outline-dark btn-lg px-5" id="login" *ngIf="getRole() == 'ROLE_ADMIN' || getUsername() == commentUsername[i]"(click)="deleteComment(entry.id)">Delete</button></td>
         </tr>
       </ng-container>
     </tbody>

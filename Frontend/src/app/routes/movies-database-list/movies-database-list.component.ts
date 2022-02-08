@@ -33,7 +33,7 @@ export class MoviesDatabaseListComponent implements OnInit {
   counterMovies:number=0;
   counterRatingDatabase:number=0;
 
-  constructor(private ratingService: RatingsDatabaseService, private moviesDatabase: MovieDatabaseServiceService, private router : Router, public tokenStorage: TokenStorageService) { }
+  constructor(private ratingService: RatingsDatabaseService, private moviesDatabase: MovieDatabaseServiceService, private router : Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
 
@@ -114,6 +114,9 @@ export class MoviesDatabaseListComponent implements OnInit {
   // Si viene rimandati alla pagina dei dettagli
   goToMovieDatabaseDetails(id){
     this.router.navigateByUrl('/movies/Database/Details/'+ id);
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 
 }
