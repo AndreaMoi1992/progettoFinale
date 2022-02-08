@@ -65,6 +65,8 @@ export class MoviesParseComponent implements OnInit {
   counter: number = 0;
   idFilm1: number;
   idFilm2: number;
+  prevIdFilm1: number = -1;
+  prevIdFilm2: number = -1;
 
   constructor(private ratingService: RatingsService, private tokenStorage: TokenStorageService,
     private moviesApi: MoviesApiService, private moviesDatabaseService: MovieDatabaseServiceService,
@@ -106,8 +108,7 @@ export class MoviesParseComponent implements OnInit {
       this.moviesDataLoader = true;
       this.movies = response;
       this.resultsApi = this.movies.results;
-      this.counter = this.count(this.resultsApi)
-
+      this.counter = this.count(this.resultsApi);
       this.generateFilm1();
       this.generateFilm2();
     },
@@ -262,12 +263,8 @@ export class MoviesParseComponent implements OnInit {
     return count;
   }
   generateFilm1() {
-    this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
-
-    if (this.idFilm2 == this.idFilm1 && this.idFilm2 != this.counter) {
-      this.idFilm1++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
-      this.idFilm1--;
+    while(this.idFilm1==this.idFilm2 || this.idFilm1 == this.prevIdFilm1 || this.idFilm1 == undefined) {
+      this.idFilm1 = Math.floor(Math.random() * this.counter) + 0;
     }
     for (let i = 0; i < this.counter; i++) {
       // Se nell'array dell'api c'è un indice uguale all'id del film generato
@@ -279,19 +276,11 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm1 = this.film1.title;
       }
     }
+    this.prevIdFilm1 = this.idFilm1;
   }
   generateFilm2() {
-    // Al click del pulsante del primo film genera un id per il secondo film
-    this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
-
-    // Se l'id del primo film è uguale all'id del secondo e l'id del primo film è diverso dall'ultimo indice dell'array dei film dell'api
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != this.counter) {
-      //Aggiungi 1 all'id del secondo film
-      this.idFilm2++;
-      // Invece se l'id del primo film è uguale all'id del secondo e l'id del primo film è uguale all'ultimo indice dell'array dei film dell'api
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == this.counter) {
-      //Togli 1 all'id del secondo film
-      this.idFilm2--;
+    while(this.idFilm1==this.idFilm2 || this.idFilm2 == this.prevIdFilm2 || this.idFilm2 == undefined) {
+      this.idFilm2 = Math.floor(Math.random() * this.counter) + 0;
     }
     for (let i = 0; i < this.counter; i++) {
       // Se nell'array dell'api c'è un indice uguale all'id del film generato
@@ -303,16 +292,13 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm2 = this.film2.title;
       }
     }
+    this.prevIdFilm2 = this.idFilm2;
   }
   generateFilm1Database() {
     let grandezza = this.displayMovies.length;
-    this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
-      this.idFilm1++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
-      this.idFilm1--;
+    while(this.idFilm1==this.idFilm2 || this.idFilm1 == this.prevIdFilm1 || this.idFilm1 == undefined) {
+      this.idFilm1 = Math.floor(Math.random() * grandezza) + 0;
     }
-
     for (let i = 0; i < grandezza; i++) {
       if (this.idFilm1 == i) {
         this.film1 = this.displayMovies[i];
@@ -321,19 +307,13 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm1 = this.film1.title;
       }
     }
-
-
+    this.prevIdFilm1 = this.idFilm1;
   }
   generateFilm2Database() {
     let grandezza = this.displayMovies.length;
-    this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
-
-    if (this.idFilm1 == this.idFilm2 && this.idFilm1 != grandezza) {
-      this.idFilm2++;
-    } else if (this.idFilm1 == this.idFilm2 && this.idFilm1 == grandezza) {
-      this.idFilm2--;
+    while(this.idFilm1==this.idFilm2 || this.idFilm2 == this.prevIdFilm2 || this.idFilm2 == undefined) {
+      this.idFilm2 = Math.floor(Math.random() * grandezza) + 0;
     }
-
     for (let i = 0; i < grandezza; i++) {
       if (this.idFilm2 == i) {
         this.film2 = this.displayMovies[i];
@@ -342,6 +322,7 @@ export class MoviesParseComponent implements OnInit {
         this.titoloFilm2 = this.film2.title;
       }
     }
+    this.prevIdFilm2 = this.idFilm2;
   }
   pushCustomerVotes(counterCustomers: number, customers: Customers) {
     for (let i = 0; i < counterCustomers; i++) {
@@ -388,10 +369,9 @@ export class MoviesParseComponent implements OnInit {
           break
         } if (found) {
           console.log("Hai gia' votato " + film.title)
-          this.messageCheck(film,found);
+          this.messageCheck(film, found);
           break
         }
-
       }
       if (alreadyCreated) break;
     }
@@ -416,8 +396,6 @@ export class MoviesParseComponent implements OnInit {
       document.getElementById(alertScelto).classList.add("alert");
       document.getElementById(alertScelto).classList.remove("alert-danger");
       document.getElementById(alertScelto).classList.add("alert-success");
-
-
     }
     if (found) {
       if (film == this.film1) {
