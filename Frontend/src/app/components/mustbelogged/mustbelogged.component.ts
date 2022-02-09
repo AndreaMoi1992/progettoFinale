@@ -9,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MustbeloggedComponent implements OnInit {
 
-  constructor( public tokenService : TokenStorageService ) { }
+  constructor( private tokenStorage : TokenStorageService ) { }
 
   ngOnInit() {
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 
 }

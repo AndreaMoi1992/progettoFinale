@@ -16,8 +16,7 @@ export class CommentComponentComponent implements OnInit {
 
   idString: string;
 
-  constructor(private route: ActivatedRoute, private dotnetService: DotnetServiceService, public authService: AuthService,public tokenStorage: TokenStorageService) {
-
+  constructor(private route: ActivatedRoute, private dotnetService: DotnetServiceService, private authService: AuthService,private tokenStorage: TokenStorageService) {
   }
 
   commentList: Array<commentDotnetData>;
@@ -87,6 +86,13 @@ export class CommentComponentComponent implements OnInit {
 
       })
     })
+  }
+  getUsername() {
+    return this.tokenStorage.getUsername()
+  }
+  getRole() {
+    return this.tokenStorage.getRole()
+
   }
   deleteComment(id:number){
     this.dotnetService.deleteDotnetData(id).subscribe((resDot: any) => {window.location.reload();})

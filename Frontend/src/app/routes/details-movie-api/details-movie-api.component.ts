@@ -23,7 +23,7 @@ export class DetailsMovieApiComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private apiService: MoviesApiService,
     private ratingService: RatingsService, private dotnetService: DotnetServiceService, private router: Router,
-     public tokenStorage: TokenStorageService, public authService: AuthService) { }
+    private tokenStorage: TokenStorageService, private authService: AuthService) { }
 
   dataApiEntry: MovieApiInterface;
   dataMovieEntry: MovieDatabaseInterface;
@@ -232,6 +232,9 @@ export class DetailsMovieApiComponent implements OnInit {
     }
 
 
+  }
+  isLoggedIn() {
+    return this.tokenStorage.getLoggedIn();
   }
 }
 

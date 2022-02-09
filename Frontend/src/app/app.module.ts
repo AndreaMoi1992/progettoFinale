@@ -25,6 +25,7 @@ import { DetailsMovieApiComponent } from './routes/details-movie-api/details-mov
 import { MoviesDatabaseListComponent } from './routes/movies-database-list/movies-database-list.component';
 import { MoviesDatabaseDetailsComponent } from './routes/movies-database-details/movies-database-details.component';
 import { CommentComponentComponent } from './components/comment-component/comment-component.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -45,7 +46,8 @@ import { CommentComponentComponent } from './components/comment-component/commen
     MoviesDatabaseDetailsComponent,
     OverlayChoiceComponent,
     RegisterComponent,
-    CommentComponentComponent
+    CommentComponentComponent,
+    LogoutComponent
 
   ],
   imports: [
